@@ -1,0 +1,5 @@
+NOTENSPIEGEL
+Systemmodellierung   5,0  nicht bestanden
+Digitaltechnik       1,0  mit Bestnote bestanden
+Programmiertechnik1  2,3  bestanden
+Mathematik1          3,7  bestanden

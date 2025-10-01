@@ -1,0 +1,22 @@
+<body>
+<h1>Notenspiegel für
+Benno
+Beispiel
+</h1>
+<hr>
+<table>
+<tbody><tr><th>Fach:</th><th>Art:</th><th>Note:</th></tr>
+<tr><td style="color:red">Softwaremodellierung</td><td>S</td><td>nicht bestanden</td></tr>
+<tr><td>Softwaremodellierung</td><td>L</td><td>gut (2,0)</td></tr>
+<tr><td>Programmiertechnik 1</td><td>S</td><td>bestanden</td></tr>
+<tr><td>Programmiertechnik 1</td><td>L</td><td>befriedigend (2,7)</td></tr>
+<tr><td>Digitaltechnik</td><td>S</td><td>bestanden</td></tr>
+<tr><td>Digitaltechnik</td><td>L</td><td>sehr gut (1,3)</td></tr>
+<tr><td>Mathematik 1</td><td>S</td><td>bestanden</td></tr>
+<tr><td style="color:red">Mathematik 1</td><td>L</td><td>nicht ausreichend (5,0)</td></tr>
+</tbody></table>
+<hr>
+L = Leistungsnachweis, S = Schein
+
+
+</body>
