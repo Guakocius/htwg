@@ -1,0 +1,5 @@
+3.1.3
+
+ALUSrc: 1, wenn Konstanze, 0, wenn Register.
+ALU operation: Unterscheidet, welche ALU-Operation durchgeführt wird. Bei lw ALUOp := 2 = 0010(b).
+PCSrc: 
