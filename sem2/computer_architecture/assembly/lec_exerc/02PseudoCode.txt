@@ -1,0 +1,22 @@
+C = minimum(A, B)
+A in $a0
+B in $s1
+C in $s2
+
+Pseudo-Code:
+minimum(A, B):
+    if A < B; begin
+        C = A
+    else
+        C = B
+    end
+
+Assembler:
+blt $a0, $s1, A_is_less
+j B_is_less
+
+A_is_less:
+    add $s2, $a0, $zero
+
+B_is_less:
+    add $s2, $s1, $zero

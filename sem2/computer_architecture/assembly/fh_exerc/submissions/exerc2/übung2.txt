@@ -1,0 +1,10 @@
+2.4
+
+a) Im Allgemeinen wird in $ra die Return Address, also die Adresse, welche zurückgegeben werden soll, gespeichert, wenn das Programm abgeschlossen ist.
+Zeile 26 springt zu rekmul und speichert die Adresse des Programms von Zeile 26 in der Return Address.
+Zeile 50 setzt die Return Address auf rekmul und wird dann im Stack Pointer gespeichert.
+
+Bei return wird die Adresse so häufig um 4 erhöht, wie sie bei rekmul um 4 veringert wurde (so häufig wie die zweite eingegebene Zahl), springt jeweils
+zu der Zeile vor j return und als letztes zu der letzten eingespeicherten Return Address bei jal rekmul unter main (Z. 26).
+
+b) * () => {Zeile 28;}, Mem(0x004000a0->0x00400040)

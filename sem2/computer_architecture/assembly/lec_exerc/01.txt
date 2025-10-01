@@ -1,0 +1,29 @@
+ori $s0, $zero, 4 // s0 = 4; 000...0100 => 0000...0100 OR 0000...0000 => 4
+lw $t1, 4($zero) // t1 = 8
+lw $t2, -4($t1) // t2 = 8
+sub $t3, $s0, $t1 // t3 = -4
+sra $t2, $t2, 3 // t2 = 1; t2 = t2/8
+sllv $t3, $t3, $t2 // t3 = -8; t3 = t3*2^t2
+and $t4, $t1, $t3 // t4 = 8; 0...1000 AND 1...1000 => 0...1000
+or $t5, $t4, $t3 // t5 = -8
+sw $t5, 4($t5) // MEM[-4- -1]: ERR
+sb $t5, 9($zero) // MEM[11-8]=[0 0 -8 6]=[0 0 248 6]
+-------
+
+Registerinhalte:
+$s1 = 0xFFFF FFFF
+$s2 = 0x0000 0001
+
+Wird gesprungen oder nicht?
+Ja;  t0 = 1
+1. slt $t0, $s1, $s2
+bne $t0, $zero, lab
+
+lab:
+---
+Ja; t0 = 0
+2. sltu $t0, $s1, $s2
+beq $t0, $zero, lab
+
+lab:
+---
