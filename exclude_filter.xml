@@ -1,0 +1,18 @@
+<!--
+  Filter fuer spotbugs 4.8.0:
+  - Internationalisierung fuer Programmiertechnik 1 nicht relevant
+  - DontReusePublicIdentifiers ist nicht sinnvoll
+  H.Drachenfels, 19.3.2024
+-->
+
+<FindBugsFilter>
+  <Match>
+    <Bug pattern="DM_DEFAULT_ENCODING" />
+  </Match>
+  <Match>
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+  </Match>
+  <Match>
+    <Bug pattern="PI_DO_NOT_REUSE_PUBLIC_IDENTIFIERS_CLASS_NAMES" />
+  </Match>
+</FindBugsFilter>
