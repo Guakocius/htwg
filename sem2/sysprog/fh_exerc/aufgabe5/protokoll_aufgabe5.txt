@@ -1,0 +1,2 @@
+Implizit erzeugte Memberfunktionen bei benotung:
+Destruktor: Korrekt

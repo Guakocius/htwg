@@ -1,0 +1,79 @@
+- Verhält sich das C-Programm bei allen Eingaben wie das Java-Programm?
+
+Sortiert genauso wie das Java-Programm.
+Allerdings, wenn man ein String eingibt, wie "Hallo", dann wird n-mal dieselbe Zahl geprintet.
+Und wenn man eine sehr große Zahl wie "1000000000000000000000000000" eingibt, läuft das Programm weiter und stürzt nicht ab.
+Am Ende des Programms wird für diese Zahl "-1" geprintet.
+
+Selbst mit extrem großen Zahlen oder Char Arrays gibt valgrind keinen Fehler aus. Auch nicht mit der flag -s: "ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)"
+
+diff -w java.out.txt c.out.txt
+make cppcheck
+cppcheck --enable=warning,style --std=c11 bubblesort.c
+Checking bubblesort.c ...
+bubblesort.c:0:0: information: Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches. [normalCheckLevelMaxBranches]
+
+^
+Verhält sich das C-Programm bei allen Eingaben wie das Java-Programm?
+
+
+Mit großen Zahlen:
+Java:
+
+Bitte 4 ganze Zahlen eingeben: 1416439221
+Sortierte Zahlenfolge:
+2
+5
+6
+1416439221
+
+C:
+
+Bitte 4 ganze Zahlen eingeben: Sortierte Zahlenfolge:
+2
+5
+6
+1410065408
+
+Mit Strings:
+Java:
+Bitte 4 ganze Zahlen eingeben: -766166446
+944181575
+1385869194
+1286452030
+Sortierte Zahlenfolge:
+-766166446
+944181575
+1286452030
+1385869194
+
+C:
+Bitte 4 ganze Zahlen eingeben: 822017818
+822017818
+822017818
+822017818
+Sortierte Zahlenfolge:
+822017818
+822017818
+822017818
+822017818
+
+Was gibt die obige Befehlsfolge im Terminal aus, wenn Ihr bubblesort richtig sortiert hat?
+
+Der erste Befehl gibt nichts im Terminal aus, da der Output in out.txt gestreamt wird.
+Der zweite Befehl gibt nichts aus, wenn alles richtig sortiert ist, da durch die Pipe nur die Differenz der einzelnen
+Outputzeilen printet
+
+java Bubblesort 100000 < /dev/null > /dev/null  13,15s user 0,04s system 100% cpu 13,123 total
+
+
+"Optimiert" mit -O2:
+./bubblesort 100000 < /dev/null > /dev/null  20,69s user 0,00s system 99% cpu 20,810 total
+
+Optimiert mit -O1:
+./bubblesort 100000 < /dev/null > /dev/null  11,96s user 0,00s system 99% cpu 12,058 total
+
+Unoptimiert:
+./bubblesort 100000 < /dev/null > /dev/null  17,82s user 0,00s system 99% cpu 17,920 total
+
+
