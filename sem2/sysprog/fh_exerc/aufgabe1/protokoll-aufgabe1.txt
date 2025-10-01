@@ -1,0 +1,65 @@
+Address:        Space requirement:   Alignment:      Type:                     Name:      Value:    
+0x55e7fa096020  4                    4               int                       a          10        
+0x55e7fa096024  2                    2               short int                 b          20        
+0x55e7fa096028  8                    8               long int                  c          30        
+0x55e7fa096030  8                    8               long long int             d          40        
+0x55e7fa096038  4                    4               unsigned int              e          50        
+0x55e7fa09603c  2                    2               unsigned short int        f          60        
+0x55e7fa096040  8                    8               unsigned long int         g          70        
+0x55e7fa096048  8                    8               unsigned long long int    h          80        
+0x55e7fa096050  4                    4               float                     i          90.000000 
+0x55e7fa096058  8                    8               double                    j          100.000000
+0x55e7fa096060  16                   16              long double               k          110.000000
+0x55e7fa096070  1                    1               char                      l          A         
+0x55e7fa096071  1                    1               signed char               m          -1        
+0x55e7fa096072  1                    1               unsigned char             n          255       
+0x55e7fa096073  1                    1               _Bool                     o          1         
+0x55e7fa096074  1                    1               bool                      p          1         
+0x55e7fa096078  8                    8               char*                     s          Hallo     
+LP64 detected
+
+0x61e42a829020  4                    4               int                       a          10        
+0x61e42a829024  2                    2               short int                 b          20        
+0x61e42a829028  8                    8               long int                  c          30        
+0x61e42a829030  8                    8               long long int             d          40        
+0x61e42a829038  4                    4               unsigned int              e          50        
+0x61e42a82903c  2                    2               unsigned short int        f          60        
+0x61e42a829040  8                    8               unsigned long int         g          70        
+0x61e42a829048  8                    8               unsigned long long int    h          80        
+0x61e42a829050  4                    4               float                     i          90.000000 
+0x61e42a829058  8                    8               double                    j          100.000000
+0x61e42a829060  16                   16              long double               k          110.000000
+0x61e42a829070  1                    1               char                      l          A         
+0x61e42a829071  1                    1               signed char               m          -1        
+0x61e42a829072  1                    1               unsigned char             n          255       
+0x61e42a829073  1                    1               _Bool                     o          1         
+0x61e42a829074  1                    1               bool                      p          1         
+0x61e42a829078  8                    8               char*                     s          Hallo     
+Address:        Space requirement:   Alignment:      Type:                     Name:      Value:    
+LP64 detected
+
+LP64 detected
+Address:        Space requirement:   Alignment:      Type:                     Name:      Value:    
+0x60c5dcf62078  8                    8               char*                     s          Hallo     
+0x60c5dcf62074  1                    1               bool                      p          1         
+0x60c5dcf62073  1                    1               _Bool                     o          1         
+0x60c5dcf62072  1                    1               unsigned char             n          255       
+0x60c5dcf62071  1                    1               signed char               m          -1        
+0x60c5dcf62070  1                    1               char                      l          A         
+0x60c5dcf62060  16                   16              long double               k          110.000000
+0x60c5dcf62058  8                    8               double                    j          100.000000
+0x60c5dcf62050  4                    4               float                     i          90.000000 
+0x60c5dcf62048  8                    8               unsigned long long int    h          80        
+0x60c5dcf62040  8                    8               unsigned long int         g          70        
+0x60c5dcf6203c  2                    2               unsigned short int        f          60        
+0x60c5dcf62038  4                    4               unsigned int              e          50        
+0x60c5dcf62030  8                    8               long long int             d          40        
+0x60c5dcf62028  8                    8               long int                  c          30        
+0x60c5dcf62024  2                    2               short int                 b          20        
+0x60c5dcf62020  4                    4               int                       a          10        
+
+Sind die Variablen in der Reihenfolge ihrer Definition im Hauptspeicher abgelegt? 1: Ja; 2: Ja; 3: Nein, invertiert
+Liegen die Variablen direkt hintereinander oder gibt es Lücken? Falls es Lücken gibt, wo liegen sie? Können Sie sich erklären, warum es eventuell Lücken gibt?
+1,2,3: Ja; Vor allem zum Wechsel von char zu long double; Die Zahl der Adresse muss durch das Alignment teilbar sein.
+Wie viel Speicher belegen die Variablen insgesamt, also inklusive eventueller Lücken?
+diff(address(MAX), address(MIN)) + letzte Zahl der Endadresse => 96;
