@@ -1,0 +1,124 @@
+\documentclass[a4paper,12pt]{article}
+
+% --- Pakete ---
+\usepackage[ngerman]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{eurosym}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% --- Python Code Stil ---
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	backgroundcolor=\color{gray!10},
+	frame=single,
+	numbers=left,
+	numberstyle=\tiny,
+	breaklines=true,
+	showstringspaces=false
+}
+
+\title{Übungsblatt 1}
+\author{}
+\date{}
+
+\begin{document}
+	\maketitle
+	
+	\section*{Aufgabe 1.1}
+	\subsection*{Diskret/Stetig (Quantitativ), Ordinal/Nominal (Qualitativ)}
+	
+	\begin{enumerate}
+		\item Anzahl der Insassen in einem PKW bei der Verkehrszählung\\
+		\textbf{Diskret} (abzählbar, nur ganze Zahlen)
+		
+		\item Höchstgeschwindigkeit eines PKWs\\
+		\textbf{Stetig} (überabzählbar, kann auch Gleitkommazahlen beinhalten)
+		
+		\item Schultypen\\
+		\textbf{Nominal} (keine Zahl)
+		
+		\item Temperaturangaben in °C\\
+		\textbf{Stetig} (Kommazahlen)
+		
+		\item Fassungsvermögen einer Festplatte in MB\\
+		\textbf{Diskret} (halbe Byte sind nicht möglich; heutige Hardware kann keine unendlichen Nachkommastellen darstellen)
+		
+		\item Zugriffszeiten auf die Daten einer Festplatte in Sekunden\\
+		\textbf{Diskret} (keine halben Sekunden)
+		
+		\item Energieeffizienz von Elektrogeräten\\
+		\textbf{Ordinal} (nach Rangordnung sortierbar)
+		
+		\item Trinkmenge eines Menschen pro Tag in Litern\\
+		\textbf{Stetig} (in einem Intervall $(0, \text{max. mögliche Menge})$)
+		
+		\item Anzahl Likes eines Instagram-Posts\\
+		\textbf{Diskret} (nur ganze Likes)
+		
+		\item Nationalität eines Menschen\\
+		\textbf{Nominal} (nicht ordnenbar)
+		
+		\item Anfangsbuchstabe des Vornamens eines Menschen\\
+		\textbf{Kommt darauf an:}\\
+		Wenn als 1-Byte-Zahl (UTF-8/ASCII) dargestellt → \textbf{Ordinal}.\\
+		Wenn als Buchstabe betrachtet → \textbf{Nominal}.
+		
+		\item Wohnort eines Menschen\\
+		\textbf{Nominal} (String)
+	\end{enumerate}
+	
+	\section*{Aufgabe 1.2}
+	\subsection*{Aufgabe 1.2.1}
+	
+	\begin{enumerate}
+		\item \textbf{Statistische Einheiten:} Anzahl an Aufrufen
+		\item \textbf{Grundgesamtheit:} Demographie und Nationalität der Zuschauer
+		\item \textbf{Stichprobe:} Kinder im Alter von 6–10 Jahren
+		\item \textbf{Merkmale:}
+		\begin{enumerate}
+			\item CPM eines Videos
+			\item Uhrzeiten, bei denen das Video geschaut wird
+			\item Videolänge
+		\end{enumerate}
+		\item \textbf{Beispielhafte Merkmalsausprägungen:}
+		\begin{enumerate}
+			\item 3{,}45 €
+			\item 18:00 Uhr
+			\item 12 Minuten
+		\end{enumerate}
+		\item \textbf{Eigenschaften der Merkmale:}
+		\begin{enumerate}
+			\item Quantitativ, stetig
+			\item Quantitativ, diskret
+			\item Quantitativ, diskret
+		\end{enumerate}
+	\end{enumerate}
+	
+	\subsection*{Aufgabe 1.2.2}
+	
+	Die durchschnittliche Watchtime von Zuschauern basierend auf den im Video getätigten Aktionen, 
+	da sie viel darüber aussagt, wie interessant der Content ist und ob man ihn anpassen sollte.
+	
+	\section*{Aufgabe 1.3}
+	
+	\subsection*{a)}
+	
+	\begin{lstlisting}
+		import numpy as np
+		
+		cash = {5, 10, 20, 50, 100, 200, 500}
+		print("Median:", np.median(list(cash)))  # 50
+	\end{lstlisting}
+	
+	\subsection*{b)}
+	
+	\begin{lstlisting}
+		cash.add(1000)
+		print("Median mit hinzugefuegtem 1000 Euro-Schein:", np.median(cash)) # 75
+	\end{lstlisting}
+	
+\end{document}
