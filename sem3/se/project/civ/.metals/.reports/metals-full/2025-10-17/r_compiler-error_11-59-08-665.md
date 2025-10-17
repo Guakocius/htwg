@@ -1,13 +1,13 @@
-error id: 1E214C4732F5BA9FEE591810908CA72A
 file://<WORKSPACE>/src/main/scala/Main.scala
 ### java.lang.IndexOutOfBoundsException: -1
 
 occurred in the presentation compiler.
 
+presentation compiler configuration:
 
 
 action parameters:
-offset: 752
+offset: 738
 uri: file://<WORKSPACE>/src/main/scala/Main.scala
 text:
 ```scala
@@ -30,7 +30,7 @@ import scalafx.scene.paint.PaintIncludes.string2sfxColor
 
 object Civ extends JFXApp3 {
   val worldMap: Vector[Vector[Tile]] =
-    Vector.tabulate(40, 40)((y, x) => Tile(x, y, if ((x + y) % 3 == 0) Mountain else if ((x + y) % 10 == 0 && (x + y) % 3 != 0) Ocean else Grassland)@@)
+    Vector.tabulate(40, 40)((y, x) => Tile(x, y, if ((x + y) % 6 == 0) Mountain else if ((x + y) % 10 == 0 && (x + y) % 6 != 0) Ocean e@@lse Grassland))
   val worldGrid = new GridPane
   for {
         row <- worldMap
@@ -60,15 +60,6 @@ object Civ extends JFXApp3 {
 ```
 
 
-presentation compiler configuration:
-Scala version: 3.7.3-bin-nonbootstrapped
-Classpath:
-<HOME>/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.7.3/scala3-library_3-3.7.3.jar [exists ], <HOME>/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.16/scala-library-2.13.16.jar [exists ]
-Options:
-
-
-
-
 
 #### Error stacktrace:
 
@@ -80,7 +71,7 @@ scala.collection.LinearSeqOps.apply(LinearSeq.scala:129)
 	dotty.tools.dotc.util.Signatures$.computeSignatureHelp(Signatures.scala:101)
 	dotty.tools.dotc.util.Signatures$.signatureHelp(Signatures.scala:88)
 	dotty.tools.pc.SignatureHelpProvider$.signatureHelp(SignatureHelpProvider.scala:46)
-	dotty.tools.pc.ScalaPresentationCompiler.signatureHelp$$anonfun$1(ScalaPresentationCompiler.scala:498)
+	dotty.tools.pc.ScalaPresentationCompiler.signatureHelp$$anonfun$1(ScalaPresentationCompiler.scala:435)
 ```
 #### Short summary: 
 
