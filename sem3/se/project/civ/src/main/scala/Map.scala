@@ -36,7 +36,4 @@ case object Ocean extends Terrain {
   val color = Color.BLUE
   val symbol = " _ "
 }
-case class Player(name: String)
-case class PlayerUnit(name: String, owner: Player, var x: Int, var y: Int)
-case class PlayerCity(owner: Player, x: Int, y: Int)
 
