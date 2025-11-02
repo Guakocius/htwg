@@ -21,7 +21,8 @@ def main():
     print("Standardabweichung:", std)
 
     # Teilaufgabe 1.6.2
-    # Siehe .tex file
+    # a) Siehe .tex file
+    # b)
 
     # Aufgabe 1.7
     # Teilaufgabe 1.7.1
@@ -38,11 +39,28 @@ def main():
     # Aufgabe 1.10
     # Teilaufgabe 1.10.2
     arr = np.array([4.2, 3.9, 4.3, 4.1, 4.1, 3.7, 4.3])
+    span = arr.max() - arr.min()
     mean = np.mean(arr)
     quantile_1 = np.quantile(arr, 0.25)
     quantile_2 = np.quantile(arr, 0.5)
     quantile_3 = np.quantile(arr, 0.75)
-    ninety_quantile = np.quantile(arr, 0.9)
+    ten_quantile = np.quantile(arr, 0.1)
+    std = np.std(arr, ddof=1)
+
+    print(f"Arithmetisches Mittel: {mean}\n25%: {quantile_1}\t50%: {quantile_2}\t75%: {quantile_3}\n10%: {ten_quantile}\nSpannweite: {span}\nEmpirische Standardabweichung: {std}")
+
+    # Aufgabe 1.12
+    # a)
+    duration_training = [9, 13, 15, 18, 20]
+    salary = [18, 37, 61, 125, 59]
+    coef = np.corrcoef(duration_training, salary)
+    print(f"Empirischer Korrelationskoeffizient: {coef}")
+    # b)
+    plt.scatter(duration_training, salary)
+    plt.title("Lineare Regression")
+    plt.xlabel("Ausbildungsdauer")
+    plt.ylabel("Jahresgehalt")
+    plt.show()
 
 
 

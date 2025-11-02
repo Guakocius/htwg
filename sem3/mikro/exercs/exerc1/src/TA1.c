@@ -1,5 +1,5 @@
 #include <msp430.h>
-#include "..\base.h"
+#include "../base/base.h"
 #include "TA1.h"
 #include "event.h"
 

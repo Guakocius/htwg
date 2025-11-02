@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.10.15)  21 OCT 2025 11:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.10.15)  28 OCT 2025 10:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -134,6 +134,12 @@ File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
 Package: listings 2024/09/23 1.10c (Carsten Heinz)
 
+(/usr/share/texmf-dist/tex/generic/german/ngerman.sty v2.5e 1998-07-08
+Package: ngerman 1998/07/08 v2.5e Support for writing german texts (br)
+\grmnU@D=\dimen155
+ngerman -- \language number for naustrian undefined, default 35 used.
+ngerman -- \language number for French undefined, default 255 used.
+)
 (/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 
@@ -167,66 +173,73 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./aufgaben.aux)
 \openout1 = `aufgaben.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
 \c@lstlisting=\count291
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count292
-\scratchdimen=\dimen155
+\scratchdimen=\dimen156
 \scratchbox=\box57
 \nofMPsegments=\count293
 \nofMParguments=\count294
 \everyMPshowfont=\toks24
 \MPscratchCnt=\count295
-\MPscratchDim=\dimen156
+\MPscratchDim=\dimen157
 \MPnumerator=\count296
 \makeMPintoPDFobject=\count297
 \everyMPtoPDFconversion=\toks25
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 24.
 
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (12.8092pt too wide) in paragraph at lines 29--30
-[]\OT1/cmr/m/n/12 Die \OT1/cmr/bx/n/12 gemesse-nen H^^?ochstgeschwindigkeiten \
-OT1/cmr/m/n/12 der Stich-probe sind durch-
+Overfull \hbox (12.8092pt too wide) in paragraph at lines 30--31
+[]\OT1/cmr/m/n/12 Die \OT1/cmr/bx/n/12 ge-mes-se-nen H[]ochst-ge-schwin-dig-kei
+-ten \OT1/cmr/m/n/12 der Stich-pro-be sind durch-
  []
 
 
-Overfull \hbox (4.96889pt too wide) in paragraph at lines 38--38
- \OT1/cmr/bx/n/12 Der Ko-r-re-la-tion-sko-ef-fizent -0.966 ist zu der Punk-t-wo
-lke \OT1/cmr/bx/it/12 (B) \OT1/cmr/bx/n/12 geh^^?orig.[] 
+Overfull \hbox (4.96889pt too wide) in paragraph at lines 40--40
+ \OT1/cmr/bx/n/12 Der Kor-re-la-ti-ons-ko-ef-fi-zent -0.966 ist zu der Punkt-wo
+l-ke \OT1/cmr/bx/it/12 (B) \OT1/cmr/bx/n/12 geh[]orig.[] 
  []
 
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 44.
 
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 46.
+
 
 [2]
+Overfull \hbox (1.95071pt too wide) in paragraph at lines 78--78
+ \OT1/cmr/bx/n/12 Qua-li-ta-tiv, Quan-ti-ta-tiv, Dis-kret, Ste-tig: An-zahl der
+ R[]ader des Fahr-
+ []
+
+
 
 [3] (./aufgaben.aux)
  ***********
@@ -235,25 +248,26 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4493 strings out of 474513
- 60898 string characters out of 5748497
- 670495 words of memory out of 5000000
- 27537 multiletter control sequences out of 15000+600000
+ 4683 strings out of 474513
+ 63291 string characters out of 5748497
+ 675066 words of memory out of 5000000
+ 27723 multiletter control sequences out of 15000+600000
  568764 words of font info for 75 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
- 56i,6n,65p,280b,1336s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 56i,6n,65p,545b,1333s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmtt10.pfb>
-Output written on aufgaben.pdf (3 pages, 104096 bytes).
+cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmtt10.pfb>
+Output written on aufgaben.pdf (3 pages, 115450 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 64 PDF objects out of 1000 (max. 8388607)
+ 38 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

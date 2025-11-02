@@ -2,20 +2,22 @@
 \usepackage{ngerman}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\author{Alexander Engelhardt}
+\title{Vergleich des asymptotischen Wachstums verschiedener Funktionen}
+\author{Alexander Engelhardt, Timothy Drexler}
 \date{\today}
 
 \begin{document}
+	\maketitle
 	\paragraph{Konvergenzenkalkulationen für $\lim_{n\to\infty}\{f(n) \mid n \in \mathbb{N} \setminus{\{0\}}\}$:}
 	\begin{enumerate}
 		\item 
 		\[
-			O(n^{2.5}) \rightarrow \lim_{n\to\infty}n^{2.5} = \infty
+			\mathcal{O}(n^{2.5}) \rightarrow \lim_{n\to\infty}n^{2.5} = \infty
 		\]\\
 		$f'(n) = 2.5n^{1.5}$
 		\item 
 		\[
-			O(n^2\log n) \; \longrightarrow\; \lim_{n\to\infty}
+			\mathcal{O}(n^2\log n) \; \longrightarrow\; \lim_{n\to\infty}
 			\overbrace{%
 				n^2 \,
 				\overbrace{\log n}^{\text{\small$\infty$}}
@@ -25,48 +27,60 @@
 		$f'(n) = 2n\log n + \dfrac{1}{n}n^2$
 		\item 
 		\[
-			O(\ln{(\ln{n})}) \; \longrightarrow \lim_{n\to\infty}\ln{(\ln{n})} \leftarrow O(\ln n) = O(\log n) \leftrightarrow \ln \infty = \infty 
+			\mathcal{O}(\ln{(\ln{n})}) \; \longrightarrow \lim_{n\to\infty}\ln{(\ln{n})} \leftarrow \mathcal{O}(\ln n) = \mathcal{O}(\log n) \leftrightarrow \ln \infty = \infty 
 		\]\\
 		$f'(n) = \dfrac{1}{\ln n}\cdot\dfrac{1}{n}$
-		\item $O(\log{n}) \rightarrow \lim_{n\to\infty}\log{n} = \infty$, s.o.\\
+		\item $\mathcal{O}(\log{n}) \rightarrow \lim_{n\to\infty}\log{n} = \infty$, s.o.\\
 			  $f'(n) = f'(\ln n) = \dfrac{1}{n}$
-		\item $O((\log{n})^3 \rightarrow \lim_{n\to\infty}(\log{n})^3 = \infty$, ebd.\\
-			  $f'(n) = (\dfrac{1}{n})^3$
-		\item $O(7) \rightarrow \lim_{n\to\infty}7 = 7 \Rightarrow$ konstante Komplexit"at ohne Wachstum\\
+		\item $\mathcal{O}((\log{n})^3 \rightarrow \lim_{n\to\infty}(\log{n})^3 = \infty$, ebd.\\
+			  $f'(n) = \dfrac{3(\log n)^2}{n}$
+		\item $\mathcal{O}(7) \rightarrow \lim_{n\to\infty}7 = 7 \Rightarrow$ konstante Komplexit"at ohne Wachstum\\
 		$f'(n) = 0$
-		\item $O(\sqrt{n}) \rightarrow \lim_{n\to\infty}\sqrt{n} = \infty$\\
-			  $\sqrt{n} \leftrightarrow n^{\dfrac{1}{2}} \Rightarrow f'(n) = \dfrac{1}{2\sqrt{n}}$
+		\item $\mathcal{O}(\sqrt{n}) \rightarrow \lim_{n\to\infty}\sqrt{n} = \infty$\\
+			  $\sqrt{n} \leftrightarrow n^{\dfrac{1}{2}} \Rightarrow f'(n) = \dfrac{1}{2n^{1/2}}$
 		\item 
 		\[
-			O(n^2 + (\log{n})^3) \; \longrightarrow \lim_{n\to\infty}
+			\mathcal{O}(n^2 + (\log{n})^3) \; \longrightarrow \lim_{n\to\infty}
 			\overbrace{%
 				n^2 \,
 				+ \,
 				\overbrace{(\log{n})^3)}^{\text{\small$\infty$}}
 			}^{\text{\small$\infty$}} \; \leftrightarrow \infty
 		\]\\
-		$f'(n) = 2n + (\dfrac{1}{n})^3$
+		$f'(n) = 2n + \dfrac{3(\log n)^2}{n}$
 		\item 
 		\[
-			O(n!) \rightarrow \lim_{n\to\infty}n! = \prod_{n=1}^{k}n \leftrightarrow n \cdot (n-1) \cdot (n-2) \cdot ... \cdot 2 \cdot 1 \Rightarrow n! = n(n-1)! = \infty
+			\mathcal{O}(n!) \rightarrow \lim_{n\to\infty}n! = \prod_{n=1}^{k}n \leftrightarrow n \cdot (n-1) \cdot (n-2) \cdot ... \cdot 2 \cdot 1 \Rightarrow n! = n(n-1)! = \infty
 		\]\\
 		\text{$n!$ ist an sich nicht (sinnvoll) ableitbar, aber man kann folgende Annahme treffen:}
 			\textbf{$n!$ wächst asymptotisch deutlich schneller als alle anderen hier genannten Funktionen, außer $n^n$ (s.u.)}
-		\item $O(n^n) \rightarrow \lim_{n\to\infty}n^n = \infty$\\
+		\item $\mathcal{O}(n^n) \rightarrow \lim_{n\to\infty}n^n = \infty$\\
 			  $f'(n) = n^n(\ln n + 1) \Leftrightarrow n^n \cdot \ln n + 1 \cdot n^n$\\
 			  $\Rightarrow \forall f(n) = c + (a\log_b n)^k :  a,b,c,k > 0 \land c \ne n^n \Rightarrow f(n) \in o(n!)$
-		\item $O(2^n) \rightarrow \lim_{n\to\infty}2^n = \infty$\\
+		\item $\mathcal{O}(2^n) \rightarrow \lim_{n\to\infty}2^n = \infty$\\
 			  $f'(n) = \ln{(2)} \cdot 2^n$
-		\item $O(\sqrt[5]{n}) \rightarrow \lim_{n\to\infty}\sqrt[5]{n} = \infty$\\
-			  $f'(n) = \dfrac{1}{5\sqrt[5]{n}} \Rightarrow \sqrt[5]{n} \in o(\sqrt{n})$
-		\item $O(176n^2) \rightarrow \lim_{n\to\infty}176n^2 = \infty$\\
+		\item $\mathcal{O}(\sqrt[5]{n}) \rightarrow \lim_{n\to\infty}\sqrt[5]{n} = \infty$\\
+			  $f'(n) = \dfrac{1}{5n^{4/5}} \Rightarrow \sqrt[5]{n} \in o(\sqrt{n})$
+		\item $\mathcal{O}(176n^2) \rightarrow \lim_{n\to\infty}176n^2 = \infty$\\
 			  $f'(n) = (176 \cdot 2)n = 352n$
 	\end{enumerate}
 	\paragraph{Komplexitätsklassen asymptotisch geordnet von langsam nach schnell wachsend (anhand der Steigung $f'(n)$):\\}
-	\textbf{n.b: $\exists c \in \mathbb{N} > 0 \Rightarrow O(1), 1 \subset o(\log n) \subset o(n) \subset o(n \log n) \subset o(n^2) \\\subset o(n^3) \subset ...  \subset o(n^k) \subseteq o(2^n) \subseteq o(n!) \subseteq o(n^n)$}
+	\textbf{n.b: $\exists c \in \mathbb{N} > 0 \Rightarrow \mathcal{O}(1), 1 \subset o(\log n) \subset o(n) \subset o(n \log n) \subset o(n^2) \\\subset o(n^3) \subset ...  \subset o(n^k) \subseteq o(2^n) \subseteq o(n!) \subseteq o(n^n)$ : Polynome wachsen immer schneller als Logarithmen}
 	\begin{enumerate}
-		\item $O(7) \Rightarrow f'(7) = 0$
-		\item $O(\ln{(\ln n)}) \Rightarrow \ln{(\ln n)} \subseteq o(\ln n)$
-		\item $O(\log n)$
+		\item $\mathcal{O}(7) \Rightarrow f'(7) = 0$
+		\item $\mathcal{O}(\ln{(\ln n)}) \Rightarrow \ln{(\ln n)} \subseteq o(\ln n)$
+		\item $\mathcal{O}(\log n) \Rightarrow \dfrac{\log{(n)}^3}{\log n} = \log{(n)}^2 \rightarrow \infty$
+		\item $\mathcal{O}(\log{(n)}^3) \rightarrow$ s.o.
+		\item $\mathcal{O}(\sqrt[5]{n})$
+		\item $\mathcal{O}(\sqrt{n})$
+		\item $\mathcal{O}(n^2 + \log{(n)}^3)$
+		\item $\mathcal{O}(n^2\log{(n)})$
+		\item $\mathcal{O}(176n^2)$
+		\item $\mathcal{O}(n^{2.5})$
+		\item $\mathcal{O}(2^n)$
+		\item $\mathcal{O}(n!)$
+		\item $\mathcal{O}(n^n)$
 	\end{enumerate}
+	
+	\textbf{Addendum:} $n! \approx \sqrt{2\pi n}\cdot \dfrac{n^4}{e^n} \;\Box$
 \end{document}

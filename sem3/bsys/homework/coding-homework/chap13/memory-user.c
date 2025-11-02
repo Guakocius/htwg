@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
   getchar();
   
   while (1) {
-    for (int i = 0; i < b; i += (4 * KiB)) { // 4 KiB
+    for (int i = 0; i < b; i += (4 * KiB)) { // 4 KiB, pagesize
       arr[i] += 1; // touch $i
       printf("Arr[i]: %d\ti: %d\n", arr[i], i);
     }

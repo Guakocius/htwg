@@ -1,17 +1,17 @@
 #include <msp430.h>
-#include "..\base.h"
+#include "../base/base.h"
 #include "TA0.h"
 
 /*
- * Man soll sich eine geeignete Datenstruktur überlegen,
- * die eine laufzeiteffiziente Ausführung der ISR ermöglicht.
+ * Man soll sich eine geeignete Datenstruktur ï¿½berlegen,
+ * die eine laufzeiteffiziente Ausfï¿½hrung der ISR ermï¿½glicht.
  */
 
 GLOBAL Void set_blink_muster(UInt arg) {
 /*
  * Die Funktion muss so erweitert werden,
  * dass ein Blinkmuster selektiert wird.
- * Diese Lösung hängt stark von der gewählten
+ * Diese Lï¿½sung hï¿½ngt stark von der gewï¿½hlten
  * Datenstruktur ab.
  */
 }
