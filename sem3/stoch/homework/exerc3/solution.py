@@ -32,12 +32,12 @@ def main():
     plt.savefig("brands_dev_non_stacked.jpg")
 
     
-    df.groupby(["brand", "form_factor"]).size().unstack().plot(kind="bar", stacked=True, figsize=(10,6))
+    df.groupby(["form_factor", "brand"]).size().unstack().plot(kind="bar", stacked=True, figsize=(10,6))
     plt.title("Form Factor Compilation of Brands")
     plt.xlabel("Brands")
     plt.ylabel(y)
     #plt.show()
-    plt.savefig("form_factor.jpg")
+    plt.savefig("form_factor_cum_brands.jpg")
     
 
 if __name__ == "__main__":
