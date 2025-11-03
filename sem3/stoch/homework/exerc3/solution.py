@@ -18,8 +18,8 @@ def main():
     plt.title("Popularity of Operating Systems")
     plt.xlabel("Operating System")
     plt.ylabel(y)
-    #plt.show()
-    plt.savefig("os_pop.jpg")
+    plt.show()
+    #plt.savefig("os_pop.jpg")
 
     # Brands on Desktop / Laptop
     #df.groupby(["device_type", "brand"]).size().unstack().plot(kind="bar", stacked=True, figsize=(10,6))
@@ -27,17 +27,17 @@ def main():
     plt.title("Brand Distribution Across Device Types")
     plt.xlabel("Device Type")
     plt.ylabel(y)
-    #plt.show()
+    plt.show()
     #plt.savefig("brands_dev_stacked.jpg")
-    plt.savefig("brands_dev_non_stacked.jpg")
+    #plt.savefig("brands_dev_non_stacked.jpg")
 
     
     df.groupby(["form_factor", "brand"]).size().unstack().plot(kind="bar", stacked=True, figsize=(10,6))
     plt.title("Form Factor Compilation of Brands")
     plt.xlabel("Brands")
     plt.ylabel(y)
-    #plt.show()
-    plt.savefig("form_factor_cum_brands.jpg")
+    plt.show()
+    #plt.savefig("form_factor_cum_brands.jpg")
     
 
 if __name__ == "__main__":
