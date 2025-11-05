@@ -1,9 +1,38 @@
 \documentclass[12pt,a4paper]{article}
-\title{Laufzeiten}
+\usepackage{amsmath,amssymb}
+\usepackage{ngerman}
+
+\title{Laufzeit}
 \author{Alexander Engelhardt, Timothy Drexler}
 \date{\today}
 
 \begin{document}
-	\maketitle
-	
+    \maketitle
+    \section*{Aufgabe 3}
+    \paragraph{Es gibt keinen Anlass, zu denken, die Ausführung eines Algorithmus
+     auf einem Grafikprozessor beeinflusse die Komplexität jenes Algorithmus, selbst
+     wenn er durch die Komputation mittels Grafikprozessors laufzeittechnisch minimal
+     effizienter sei. Denn die
+        ``Komplexität eines Problems ist die Laufzeit des besten Algorithmus zur Lösung dieses Problems'',
+        und diese ist unabhängig vom Prozessor.}
+    
+    \section*{Aufgabe 4}
+        \begin{enumerate}
+            \item[a)] Der \textbf{Schleifenkopf} geht linear gegen n, somit ist dessen Kompl. O(n), und 
+            A gegen O(1), da O(n) gr"o"ser ist, ist die Gesamtkomplexität O(n).
+            \item[b)] Selbiges s.o., nur dass hier eine zweifach verschachtelte Schleife ist. Und da die
+            Definition der Komplexität von k Schleifen $\mathcal{O}(n^k)$, ist hier $\mathcal{O}(n^2)$
+            \item[c)] Äußere Schleife: $\mathcal{O}(n)$, innere Schleife: $\mathcal{O}(\log n)$,
+            also insgesamt $n \cdot \log n \Rightarrow \mathcal{O}(n\log n)$.
+            \item[d)] Iteriert gleich viele Schritte wie unter c), somit ist die Komplexität $\mathcal{O}(n\log n)$.
+            \item[e)] Äußere Schleife: $\mathcal{O}(n)$, innere Schleife: $i \cdot i = n \cdot n \rightarrow \mathcal{O}(n^2)
+            \Rightarrow n \cdot n^2 \\ \Rightarrow \mathcal{O}(n^3)$
+            \item[f)] \begin{enumerate}
+                \item Zeile 2: $\mathcal{O}(1)$.
+                \item Zeile 3: ebd.
+                \item Zeile 5: Teile und Herrsche mit rekursivem Funktionsaufruf: $\log n \cdot \log n = (\log n)^2 \Rightarrow \mathcal{O}(\log n)$.
+                \item Zeile 6: Dadurch ebenfalls $\mathcal{O}(\log n)$.
+            \end{enumerate}
+            \textbf{Somit ist die maximale Komplexität der Funktion} $\mathit{O}(\log n)$.
+        \end{enumerate}
 \end{document}
