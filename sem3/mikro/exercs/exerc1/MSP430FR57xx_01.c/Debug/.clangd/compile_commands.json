@@ -1,7 +1,0 @@
-[
-   {
-      "directory" : "/home/ciphercorsair/Programming/FH/htwg/sem3/mikro/exercs/exerc1/MSP430FR57xx_01.c/Debug",
-      "command"   : "clang++ -I\"/home/ciphercorsair/ti/ccs2031/ccs/ccs_base/msp430/include\" -I\"/home/ciphercorsair/Programming/FH/htwg/sem3/mikro/exercs/exerc1/MSP430FR57xx_01.c\" -I\"/home/ciphercorsair/ti/ccs2031/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include\" -D__MSP430FR5729__ -D_MPU_ENABLE -xc",
-      "file"      : "/home/ciphercorsair/Programming/FH/htwg/sem3/mikro/exercs/exerc1/MSP430FR57xx_01.c/MSP430FR57xx_01.c"
-   }
-]
