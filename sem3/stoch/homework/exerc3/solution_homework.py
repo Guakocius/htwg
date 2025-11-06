@@ -1,12 +1,13 @@
 import numpy as np
-import statistics as stat
+import statistics
 from scipy import stats
+
 
 def main():
     # Aufgabe 1.11
     # Teilaufgabe 1.11.1
     java_repos = np.array([9, 11, 9, 21, 16, 13, 0])
-    modal = stat.mode(java_repos)
+    modal = statistics.mode(java_repos)
     mean = np.mean(java_repos)
     median = np.median(java_repos)
     ninety_quantile = np.quantile(java_repos, 0.9)
@@ -27,9 +28,6 @@ def main():
         "\nInterquartilabstand: ", iqr,
         "\nSpannweite: ", range
     )
-
-
-
 
 
 if __name__ == "__main__":

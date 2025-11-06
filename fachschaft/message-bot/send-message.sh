@@ -33,8 +33,9 @@ exit
   esac
 done
 
+FILE=read "./test.txt"
 for i in ${rec[@]}; do
-  mail -s "$sbj" "$i" <<< "$msg" 
+  mail -s "$sbj" "$i" <<< "$FILE" 
   echo "Email to ${BOLD}$i${RESET} sent ${GREEN}successfully!${RESET}"
 done
 
