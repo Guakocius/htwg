@@ -29,6 +29,22 @@ def main():
         "\nSpannweite: ", range
     )
 
+    # 1.11.2
+    # a)
+    # I
+    # Der Median und der Mittelwert sind nahezu identisch; das liegt und der Spanne
+    # von 0 bis 21
+    # II
+
+    # b)
+    # Java hat einen höheren Mittel und Median als Python und Ruby
+    # Java IQR liegt zwischen Pythons und Rubys
+    # c)
+    # d)
+    # rjp ~ 0.072
+    # rjr ~ -0.815
+    # rpr ~ 0.504
+
 
 if __name__ == "__main__":
     main()
