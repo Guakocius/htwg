@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1763511660.07746 "c:/Programming/FH/htwg/sem3/stoch/homework/exerc4/homework.tex" "homework.pdf" "homework" 1763511660.36258 0
+["pdflatex"] 1763585722.70827 "c:/Programming/FH/htwg/sem3/stoch/homework/exerc4/homework.tex" "homework.pdf" "homework" 1763585723.00513 0
   "C:/Users/engel/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1762194281 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/engel/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1762190951 13286966 8c0cb4c5c0f57e5fd4f6f34f79920a1a ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -28,6 +28,8 @@
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1247596666 32362 bc3f3eec7ab7d65fe700963d4017d32c ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "C:/Users/engel/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1247596667 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
+  "C:/Users/engel/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1247596673 34694 870c211f62cb72718a00e353f14f254d ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/amsfonts.sty" 1358197772 5949 3f3fd50a8cc94c3d4cbf4fc66cd3df1c ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/amssymb.sty" 1358197772 13829 94730e64147574077f8ecfea9bb69af4 ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsa.fd" 1358197772 961 6518c6525a34feb5e8250ffa91731cff ""
@@ -40,9 +42,9 @@
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls" 1749467999 20144 b966087dda3b194755eb460d32e2ef75 ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/tex/latex/base/size12.clo" 1749467999 8449 8dc66c6c313c8eb2d774af83bca435dd ""
   "C:/Users/engel/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1751005717 30351 a2b09edc6c93a742566b222c33d0278e ""
-  "c:/Programming/FH/htwg/sem3/stoch/homework/exerc4/homework.tex" 1763511659 1233 0d6b4db008e4be90375650b5653b986b ""
-  "homework.aux" 1763511660 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
-  "homework.tex" 1763511659 1233 0d6b4db008e4be90375650b5653b986b ""
+  "c:/Programming/FH/htwg/sem3/stoch/homework/exerc4/homework.tex" 1763585722 3897 57b7f9d205a90855908e172eebef5e2a ""
+  "homework.aux" 1763585722 32 2d1df76398b3c48c6419a45a7331db2d "pdflatex"
+  "homework.tex" 1763585722 3897 57b7f9d205a90855908e172eebef5e2a ""
   (generated)
   "homework.aux"
   "homework.log"
