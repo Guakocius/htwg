@@ -12,12 +12,20 @@
 	2 aus 10: $\binom{n}{k} = \binom{10}{2} = 45$ mögliche Ergebnisse.
 	\subsection*{Teilaufgabe 2.6.1}
 	Nur eine vorbereitet:\\
-	$\dfrac{1}{45} \approxeq 2.222...\%$
+	$\dfrac{1}{45} \approx 2.222...\%$
 	\subsection*{Teilaufgabe 2.6.2}
-	$\dfrac{5}{\binom{10}{2}} \approxeq 11.11\%$
+	$\dfrac{5}{\binom{10}{2}} \approx 11.11\%$
 	
 	\section*{Aufgabe 2.8}
 	\subsection*{Teilaufgabe 2.8.1}
-	\subsubsection*{a)}
+	\subsubsection*{a)} $N_1 = \dfrac{26!}{(26-3)!} = \dfrac{26!}{23!} = 15.600$ unterschiedliche Möglichkeiten.
+	\subsubsection*{b)} $N_2 = n^k = 26^4 = 456.976$ verschiedene Nutzernamen.
+	\subsubsection*{c)} $N_3 = P(k=5) \lor P(k=6) = \dfrac{26!}{(26-5)!} + \dfrac{26!}{(26-6)!} = 173.659.200$
+
+	\subsection*{Teilaufgabe 2.8.2}
+	\subsubsection*{a)} $\dfrac{1}{P(N_1)} = \dfrac{1}{15600}$
+	\subsubsection*{b)} 0, "xxx" besteht nicht aus verschiedenen Buchstaben.
+	\subsubsection*{c)} $\dfrac{P(N_2\cap\neg{x})}{P(\neg{x})} = 1 - P(N_2|x) = 1 - \dfrac{25^4}{26^4} \approx 1 - 0.85 = 15\%$
+	\subsubsection*{d)} $\dfrac{1}{\dfrac{26!}{21!} + \dfrac{26!}{20!}} = \dfrac{1}{173.659.200}$
 	
 \end{document}
