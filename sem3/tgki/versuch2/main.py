@@ -3,8 +3,6 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from skimage.color import rgb2gray
-
-#def main():
     
 cap = cv2.VideoCapture(0)
 print(cap)
@@ -38,7 +36,3 @@ print("Länge img", l) # 640
 
 cap.release()
 cv2.destroyAllWindows()
-
-
-#if __name__ == "__main__":
-    #main()
