@@ -12,4 +12,24 @@ int main(void) {
     }
     Arr a = { n, arr };
     Arr aux = { n, .arr=calloc(n, sizeof(int)) };
+    Arr b = { n, arr };
+    Arr c = { n, arr };
+    Arr d = { n, arr };
+
+    //int cnts = s_sort(&a);
+    //int cnti = i_sort(&b);
+    int cntq = q_sort(&c, 0, n - 1);
+    int cntm = m_sort(&aux, &d, 0, n - 1);
+    
+   // printf("cnt selection sort: %d\n", cnts);
+   // printf("cnt insertion sort: %d\n", cnti);
+    printf("cnt quick sort: %d\n", cntq);
+    printf("cnt merge sort: %d\n", cntm);
+    
+
+    
+
+    
+
+    
 }
