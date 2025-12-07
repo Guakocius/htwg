@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{forest}
+\usepackage{graphicx}
+\usepackage{tikz-qtree}
+\usepackage{amsmath,amssymb}
+
+\title{Übungsblatt 3}
+\date{\today}
+\author{Alexander Engelhardt}
+\begin{document}
+    \maketitle
+
+    \section*{Teilaufgabe 3.7.2}
+    \begin{forest} for tree={
+    s sep=10mm,
+    l sep=12mm,
+    edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-12pt)-| (\forestove{name}.child anchor)\forestoption{edge label};}
+}
+    [Besucher
+        [PH, edge label={node[near end,left]{$0.5$}}
+            [PH\_E, edge label={node[near end,left]{$0.7$}} ]
+            [PH\_J, edge label={node[near end,right]{$0.2$}} ] 
+        ]
+        [$\bar{PH}$, edge label={node[near end,left]{$0.5$}}
+            [$\bar{PH\_E}$, edge label={node[near end,left]{$0.3$}} ]
+            [$\bar{PH\_J}$, edge label={node[near end,right]{$0.8$}}] 
+        ]
+    ]
+    \end{forest}
+
+    \subsection*{a)}
+    $0.5 = 0.7 - 0.7P(J) + 0.2P(J) \leftrightarrow 0.5 = 0.7 - 0.5P(J) \leftrightarrow -0.2 = -0.5P(J) 
+        \leftrightarrow 0.4 = P(J) \Rightarrow 40\%$ der Besucher sind Jugendliche.
+
+    \subsection*{b)}
+    $P(J | PH) = \dfrac{0.4 \cdot 0.2}{0.5} = 0.16$
+    \subsection*{c)}
+    $P(E | PH) = \dfrac{0.6 \cdot 0.7}{0.5} = 0.84$
+
+    \section*{Aufgabe 3.9}
+    \subsection*{a)}
+    \begin{forest} for tree={
+    s sep=10mm,
+    l sep=12mm,
+    edge path={\noexpand\path[\forestoption{edge}] (\forestOve{\forestove{@parent}}{name}.parent anchor) -- +(0,-12pt)-| (\forestove{name}.child anchor)\forestoption{edge label};}
+}
+    [Auto
+        [GB, edge label={node[near end,left]{$0.2$}}
+            [GB\_S, edge label={node[near end,left]{$0.3$}} ]
+            [$\bar{GB\_S}$, edge label={node[near end,right]{$0.7$}} ] 
+        ]
+        [F, edge label={node[near end,left]{$0.3$}}
+            [F\_S, edge label={node[near end,left]{$0.5$}} ]
+            [$\bar{F\_S}$, edge label={node[near end,right]{$0.5$}}] 
+        ]
+        [D, edge label={node[near end,right]{$0.5$}} 
+            [D\_S, edge label={node[near end,left]{$0.2$}} ]
+            [$\bar{D\_S}$, edge label={node[near end,right]{$0.8$}} ]
+        ]
+    ]
+    \end{forest}
+
+    \subsection*{b)}
+    $P(S) = P((GB | GB\_S) \cup (F | F\_S) \cup (D | D\_S)) \\
+    \rightarrow P(S) = 0.2 \cdot 0.3 + 0.3 \cdot 0.5 + 0.5 \cdot 0.2 = 0.31 = 31\%$
+    \subsection*{c)}
+    $P(D|D\_S) = \dfrac{P(D \cap D\_S)}{P(S)} = \dfrac{0.5 \cdot 0.2}{0.31} \approx 0.332$
+    \subsection*{d)}
+    $P(GB|\bar{GB\_S}) = \dfrac{P(GB \cap \bar{GB\_S})}{\bar{P(S)}} = \dfrac{0.2 \cdot 0.7}{1 - 0.31}
+    = \dfrac{0.14}{0.69} \approx 0.203$
+\end{document}
