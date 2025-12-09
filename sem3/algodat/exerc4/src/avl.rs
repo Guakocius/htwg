@@ -16,15 +16,22 @@ pub struct AvlTree {
 
 pub trait AvlFn {
     fn insert(&mut self, key: i32, value: i32, node: &mut NodePtr) -> bool;
-    fn pre_order(&mut self, node: &mut NodePtr) -> !;
-    fn in_order(&mut self, node: &mut NodePtr) -> !;
-    fn post_order(&mut self, node: &mut NodePtr) -> !;
-    fn search(&mut self, key: i32, value: i32, node: &mut NodePtr) -> bool;
+    fn pre_order(&self);
+    fn in_order(&self);
+    fn post_order(&self);
+    fn search(&self, key: i32, value: i32, node: &NodePtr) -> bool;
+    fn remove(&mut self, key: i32, node: &mut NodePtr) -> bool;
+    fn search_min(&self, node: &NodePtr) -> NodePtr;
+    fn traverse<F1, F2, F3>(&self, node: &NodePtr, pre: &F1, mid: &F2, post: &F3)
+        where
+            F1: Fn(i32),
+            F2: Fn(i32),
+            F3: Fn(i32);
 }
 
 impl Node {
     pub fn new(k: i32, v: i32) -> Self {
-        Node { key: k, value: v, left: None, right: None};
+        Node { key: k, value: v, left: None, right: None }
     }
 }
 
@@ -38,26 +45,97 @@ impl AvlFn for AvlTree {
     fn insert(&mut self, key: i32, value: i32, node: &mut NodePtr) -> bool {
         match node {
             None => {
-                *node = Some(Box::new(Node::));
-                node
+                *node = Some(Box::new(Node::new(key, value)));
+                return true;
+            }
+            Some(p) => {
+                if key < p.key {
+                    return self.insert(key, value, &mut p.left);
+                } else if key > p.key {
+                    return self.insert(key, value, &mut p.right);
+                } else {
+                    return false;
+                }
             }
         }
     }
-    fn pre_order(&mut self, node: &mut NodePtr) -> ! {
+
+    fn traverse<F1, F2, F3>(&self, node: &NodePtr, pre: &F1, mid: &F2, post: &F3)
+    where
+        F1: Fn(i32),
+        F2: Fn(i32),
+        F3: Fn(i32),
+        {
+            if let Some(n) = node {
+                pre(n.value);
+                self.traverse(&n.left, pre, mid, post);
+                mid(n.value);
+                self.traverse(&n.right, pre, mid, post);
+                post(n.value);
+            }
+        }
+
+    fn pre_order(&self) {
+        self.traverse(&self.root, &|v| println!("visiting {}", v), &|_| (), &|_| ());
+
+    } 
+
+    fn in_order(&self) {
+        self.traverse(&self.root, &|_| (), &|v| println!("visiting {}", v), &|_| ());
 
     }
-    fn in_order(&mut self, node: &mut NodePtr) -> ! {
+    fn post_order(&self) {
+        self.traverse(&self.root, &|_| (), &|_| (), &|v| println!("visiting {}", v));
 
     }
-    fn post_order(&mut self, node: &mut NodePtr) -> ! {
-
+    fn search(&self, key: i32, value: i32, node: &NodePtr) -> bool {
+        match node {
+            None => {
+                return false;
+            }
+            Some(p) => {
+                if key < p.key {
+                    return self.search(key, value, &p.left);
+                } else if key > p.key {
+                    return self.search(key, value, &p.right);
+                } else {
+                    return true;
+                }
+            }
+        }
+        //return if node.is_none() { false } else if 
+        //key < node.key { self::search(key, value, node.left) } else if key > node.key { search(key, value, node.right) } else { value = node.value; return true; }
     }
-    fn search(&mut self, key: i32, value: i32, node: &mut NodePtr) -> bool {
-        return if node.is_none() { false } else if 
-        key < node.key { self::search(key, value, node.left) } else if key > node.key { search(key, value, node.right) } else { value = node.value; return true; }
 
-    }
-    fn remove(key: i32, node: NodePtr) -> bool {
-
+    fn search_min(&self, p: &NodePtr) -> NodePtr {
+        if p.left.is_none() {
+            return p;
+        } else {
+            return search_min(&p.left);
+        }     }
+    fn remove(&mut self, key: i32, node: &mut NodePtr) -> bool {
+        match node {
+            None => {
+                return false
+            }
+            Some(ref mut p) => { 
+                if key < p.key {
+                    return self.remove(key, &mut p.left);
+                } else if key > p.key {
+                    return self.remove(key, &mut p.right);
+                } else if p.left.is_none() || p.right.is_none() {
+                    if p.left.is_some() {
+                        p = &mut p.left; 
+                    } else {
+                        p = &mut p.right;
+                    }
+                    return true; 
+                }
+                else {
+                    let min: searchMin(&p.right);
+                    return false;
+                }
+            }
+        }    
     }
 }
