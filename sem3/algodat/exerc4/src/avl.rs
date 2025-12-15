@@ -14,14 +14,14 @@ pub struct AvlTree {
     root: NodePtr,
 }
 
-pub trait AvlFn {
+trait AvlFn {
     fn insert(&mut self, key: i32, value: i32, node: &mut NodePtr) -> bool;
     fn pre_order(&self);
     fn in_order(&self);
     fn post_order(&self);
     fn search(&self, key: i32, value: i32, node: &NodePtr) -> bool;
     fn remove(&mut self, key: i32, node: &mut NodePtr) -> bool;
-    fn search_min(&self, node: &NodePtr) -> NodePtr;
+    fn search_min<'a>(&mut self, node: &'a mut NodePtr) -> &'a mut NodePtr;
     fn traverse<F1, F2, F3>(&self, node: &NodePtr, pre: &F1, mid: &F2, post: &F3)
         where
             F1: Fn(i32),
@@ -78,7 +78,7 @@ impl AvlFn for AvlTree {
     fn pre_order(&self) {
         self.traverse(&self.root, &|v| println!("visiting {}", v), &|_| (), &|_| ());
 
-    } 
+    }
 
     fn in_order(&self) {
         self.traverse(&self.root, &|_| (), &|v| println!("visiting {}", v), &|_| ());
@@ -103,39 +103,62 @@ impl AvlFn for AvlTree {
                 }
             }
         }
-        //return if node.is_none() { false } else if 
-        //key < node.key { self::search(key, value, node.left) } else if key > node.key { search(key, value, node.right) } else { value = node.value; return true; }
     }
 
-    fn search_min(&self, p: &NodePtr) -> NodePtr {
-        if p.left.is_none() {
-            return p;
-        } else {
-            return search_min(&p.left);
-        }     }
+    fn search_min<'a>(&mut self, p: &'a mut NodePtr) -> &'a mut NodePtr {
+        let has_left = p.as_ref().map_or(false, |n| n.left.is_some());
+
+        if has_left {
+            if let Some(n) = p {
+                 return self.search_min(&mut n.left);
+            }
+        }
+        p
+    }
+
     fn remove(&mut self, key: i32, node: &mut NodePtr) -> bool {
-        match node {
-            None => {
-                return false
-            }
-            Some(ref mut p) => { 
-                if key < p.key {
-                    return self.remove(key, &mut p.left);
-                } else if key > p.key {
-                    return self.remove(key, &mut p.right);
-                } else if p.left.is_none() || p.right.is_none() {
-                    if p.left.is_some() {
-                        p = &mut p.left; 
+        if node.is_none() {
+            return false;
+        }
+
+        let should_remove = if let Some(p) = node {
+            p.key == key
+        } else {
+            false
+        };
+
+        if should_remove {
+            if let Some(p) = node {
+                if p.left.is_none() || p.right.is_none() {
+                    let replacement = if p.left.is_some() {
+                        p.left.take()
                     } else {
-                        p = &mut p.right;
+                        p.right.take()
+                    };
+                    *node = replacement;
+                    return true;
+                } else {
+                    // Node has two children
+                    let min = self.search_min(&mut p.right);
+                    if let Some(min_node) = min.take() {
+                        p.key = min_node.key;
+                        p.value = min_node.value;
+                        *min = min_node.right;
                     }
-                    return true; 
-                }
-                else {
-                    let min: searchMin(&p.right);
-                    return false;
+                    return true;
                 }
             }
-        }    
+        }
+
+        // Recurse left or right
+        if let Some(p) = node {
+            if key < p.key {
+                return self.remove(key, &mut p.left);
+            } else {
+                return self.remove(key, &mut p.right);
+            }
+        }
+
+        false
     }
 }
