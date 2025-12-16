@@ -142,15 +142,18 @@ impl AvlTree {
     }
 
     pub fn pre_order(&self) {
-        self.traverse(&self.root, &|v| println!("visiting {}", v), &|_| (), &|_| ());
+        self.traverse(&self.root, &|v| print!("{} ", v), &|_| (), &|_| ());
+        println!();
     }
 
     pub fn in_order(&self) {
-        self.traverse(&self.root, &|_| (), &|v| println!("visiting {}", v), &|_| ());
+        self.traverse(&self.root, &|_| (), &|v| print!("{} ", v), &|_| ());
+        println!();
     }
 
     pub fn post_order(&self) {
-        self.traverse(&self.root, &|_| (), &|_| (), &|v| println!("visiting {}", v));
+        self.traverse(&self.root, &|_| (), &|_| (), &|v| print!("{} ", v));
+        println!();
     }
 
     fn traverse<F1, F2, F3>(&self, node: &NodePtr, pre: &F1, mid: &F2, post: &F3)
@@ -181,7 +184,7 @@ impl AvlTree {
         p
     }
 
-    // AVL-spezifische Hilfsfunktionen
+    // AVL-specific help function
     fn height(node: &NodePtr) -> i32 {
         node.as_ref().map_or(0, |n| n.height)
     }
