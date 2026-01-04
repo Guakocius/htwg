@@ -1,0 +1,13 @@
+# IDE and build artifacts
+sem3/se/project/civ/.metals
+sem3/se/project/civ/.bloop
+sem3/se/project/civ/target
+sem3/se/project/civ/project
+sem3/se/project/minesweeper/
+
+# Core dumps and debug files
+vgcore.*
+core
+core.*
+*.core
+sem3/mikro/exercs/exerc1/MSP430FR57xx_01.c/

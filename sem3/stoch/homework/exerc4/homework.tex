@@ -1,0 +1,90 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{Hausaufgabe 4}
+\author{Alexander Engelhardt}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\section*{Aufgabe 2.6 Prüfungsvorbereitung}
+	10 Fragen, 2 zufällig:
+	2 aus 10: $\binom{n}{k} = \binom{10}{2} = 45$ mögliche Ergebnisse.
+	\subsection*{Teilaufgabe 2.6.1}
+	Nur eine vorbereitet:\\
+	$\dfrac{1}{45} \approx 2.222...\%$
+	\subsection*{Teilaufgabe 2.6.2}
+	$\dfrac{5}{\binom{10}{2}} \approx 11.11\%$
+	
+	\section*{Aufgabe 2.8}
+	\subsection*{Teilaufgabe 2.8.1}
+	\subsubsection*{a)} $N_1 = \dfrac{26!}{(26-3)!} = \dfrac{26!}{23!} = 15.600$ unterschiedliche Möglichkeiten.
+	\subsubsection*{b)} $N_2 = n^k = 26^4 = 456.976$ verschiedene Nutzernamen.
+	\subsubsection*{c)} $N_3 = P(k=5) \lor P(k=6) = \dfrac{26!}{(26-5)!} + \dfrac{26!}{(26-6)!} = 173.659.200$
+
+	\subsection*{Teilaufgabe 2.8.2}
+	\subsubsection*{a)} $\dfrac{1}{P(N_1)} = \dfrac{1}{15600}$
+	\subsubsection*{b)} 0, "xxx" besteht nicht aus verschiedenen Buchstaben.
+	\subsubsection*{c)} $\dfrac{P(N_2\cap\neg{x})}{P(\neg{x})} = 1 - P(N_2|x) = 1 - \dfrac{25^4}{26^4} \approx 1 - 0.85 = 15\%$
+	\subsubsection*{d)} $\dfrac{1}{\dfrac{26!}{21!}} + \dfrac{1}{\dfrac{26!}{20!}} \approx  1.3272 \cdot 10^{-5} \%$
+
+	\section*{Aufgabe 2.9}
+	\subsection*{a)} $N_N = 16^{15}$
+	\subsection*{b)} $N_C = 16^7$
+	\subsection*{c)} $P(Z) = \dfrac{1}{16^7 \cdot 10^7} \approx 3.7253^{-14}\%$
+	\subsection*{d)} $P(K_1 \land K_2) = \dfrac{1}{16^{15} \cdot 16^{15}} \approx 7.5232^{-35}\%$
+	\subsection*{e)} Gemessen an den obigen Werten "leidet" lediglich ein sehr geringer Perzentil der Kundenbasis
+	an diesem Problem. Den Verschlüsselungsalgorithmus zu ändern wäre zu zeit- und kostenintensiv, auch wenn es Sinn
+	ergeben würde, (zumindest aus sicherheitstechnischer Perspektive) den Hash-Algorithmus vom SHA1 zu entfernen, da
+	er schon gebrochen wurde und ein Schlupfloch darstellen könnte. Zumindest aber wäre zu empfehlen, einen komparierenden
+	boolschen Check, welche die Hashes auf Gleichheit überprüft, einzubauen, damit nicht versehentlich zwei gleichwertige
+	Strings zu vergeben, oder die Anzahl an Hash-Ziffern im Namen und ID zu erhöhen.
+
+	\section*{Aufgabe 2.10}
+	\subsection*{a)} $N = (26 \cdot 2 + 10 + 2)^{11} = 64^{11} = 73.786.976.294.838.206.464$
+	\subsection*{b)} $P_1 = \dfrac{1}{73786976294838206464} \approx 1.3553^{-18}\%$
+	\subsection*{c)} $P_H = \dfrac{1}{64^4}$
+	\subsection*{d)} $P_B = \dfrac{52^{11}}{64^{11}}$
+	\subsection*{e)} $(8 \cdot 10^9) \cdot 1000 = 8.000.000.000.000 
+	\Rightarrow 8.000.000.000.000 \cdot 30 = 240.000.000.000.000
+	\Rightarrow 240.000.000.000.000 \cdot 12 = 2.880.000.000.000.000 
+	\Rightarrow 2.880.000.000.000.000 \cdot 20 = 57.600.000.000.000.000
+	\Rightarrow \dfrac{73.786.976.294.838.206.464}{57.600.000.000.000.000} \approx 1281,0239 \\\approxeq$ Option 1
+
+	\section*{Aufgabe 2.11} Siehe Script.
+
+	\newpage
+	\section*{Übungsblatt 3}
+	\subsection*{Aufgabe 3.1}
+	\subsubsection*{Teilaufgabe 3.1.1}
+	$P_2 = 0.02 + 0.13 + 0.03 + 0.10 = 28\%$
+	\subsubsection*{Teilaufgabe 3.1.2}
+	\begin{enumerate}
+		\item $P(S|A) = \dfrac{P(A \cap S)}{P(A)} = \dfrac{0.52}{0.75} \approx 0.6933$
+		\item $P(A|S) = \dfrac{0.52}{0.67} \approx 0.7761$
+		\item $P(\bar{A}|S) = \dfrac{0.15}{0.67} \approx 0.2239$
+	\end{enumerate}
+	\subsection*{Aufgabe 3.4}
+	\subsubsection*{a)}
+	\begin{center}
+		\begin{tabular}{c|| c|| c|| c|| c}
+			\hline
+			Gr & G & B & R & $\sum$ \\
+			\hline
+			V & 5.0\% & 10.0\% & 25.0\% & 40.0\% \\
+			\hline
+			$\bar{V}$ & 12.0\% & 30.0\% & 18.0\% & 60.0\% \\
+			\hline
+			$\sum$ & 17.0\% & 40.0\% & 43.0\% & 100.0\%\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\subsubsection*{b)} $P(V) = 40.0\%$
+	\subsubsection*{c)}
+	\begin{enumerate}
+		\item $P(V|G) = \dfrac{0.05}{0.17} \approx 0.2941$
+		\item $P(V|B) = \dfrac{0.10}{0.40} = 0.25$
+		\item $P(V|R) = \dfrac{0.25}{0.43} \approx 0.5814$
+	\end{enumerate}
+	
+\end{document}
