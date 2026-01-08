@@ -65,20 +65,6 @@ heapifyDown a n i = do
 
 
 buildHeap :: (Integral i, Ix i, Ord e, MArray a e m) => a i e -> m ()
-{-buildHeap a = do
-    n <- getN a
-    let heapifyRoots i
-            | isLeaf n i =
-                return ()
-            | isEdge n i = do
-                heapifyRoots (left n i)
-                heapifyDown a n i
-            | otherwise = do
-                heapifyRoots (left n i)
-                heapifyRoots (right n i)
-                heapifyDown a n i
-    heapifyRoots 0
--}
 buildHeap a = do
     n <- getN a
     mapM_ (heapifyDown a n) [div n 2 - 1, div n 2 - 2 .. 0]
