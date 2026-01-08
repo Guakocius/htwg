@@ -1,6 +1,8 @@
 import Control.Monad
 import Data.Array.MArray
 import Data.Array.IO
+import System.Random
+import Numeric.Natural
 
 left :: (Integral i, Ix i) => i -> i -> i
 left n i = 2 * i + 1 -- Starts at idx 1 => Internally transformed to be zero-based
@@ -82,10 +84,18 @@ heapSort a = do
     buildHeap a
     extract a
 
+rollRandom :: RandomGen g => Int -> g -> [Word]
+rollRandom g = fst . uniformListR  g (1, maxBound)
+pureGen = mkStdGen 137
+
 main :: IO ()
 main = do
-    let arr = [5, 3, 8, 4, 2, 7, 1, 6] :: [Int]
-    mArr <- newListArray (0, length arr - 1) arr :: IO (IOArray Int Int)
+    --let arr = [5, 3, 8, 4, 2, 7, 1, 6] :: [Int]
+    let arr :: [Word]
+        arr = rollRandom 1000 pureGen
+    let arrToNatural :: [Natural] 
+        arrToNatural = map fromIntegral arr
+    mArr <- newListArray (0, length arr - 1) arrToNatural :: IO (IOArray Int Natural)
     heapSort mArr
     sortedArr <- getElems mArr
     print sortedArr
