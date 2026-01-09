@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 # NOTE: Needed Packages: msmtp mailx ca-certificates
@@ -6,12 +6,12 @@ set -euo pipefail
 CONFIG_DIR="$HOME/.config/mail"
 MSMTP_CONFIG="$HOME/.msmtprc"
 
-echo "=== HTWG SOGo Mail Init ==="
+echo "Mail Init"
 echo
 
 read -rp "HTWG email address: " EMAIL
 read -rp "HTWG user name: " USER
-#read -rsp "HTWG email password: " PASSWORD
+read -rsp "HTWG password: " PASSWORD
 echo
 
 mkdir -p "$CONFIG_DIR"
@@ -31,7 +31,7 @@ host smtp.htwg-konstanz.de
 port 587
 from $EMAIL
 user $USER
-passwordeval "pass show sogo/mail"
+password $PASSWORD
 
 account default : sogo
 EOF
@@ -48,10 +48,7 @@ set from="$EMAIL"
 EOF
 
 echo
-echo "✔ Mail configuration installed"
-echo "✔ Config file: ~/.msmtprc"
-echo "✔ Mail backend: msmtp"
-echo
-echo "Test with:"
-echo '  echo "Hello" | mail -s "Test Mail" you@example.com'
+echo "Mail configuration installed"
+echo "Config file: ~/.msmtprc"
+echo "Mail backend: msmtp\n"
 
