@@ -3,6 +3,7 @@ import Data.Array.MArray
 import Data.Array.IO
 import System.Random
 import Numeric.Natural
+import Data.IORef
 
 left :: (Integral i, Ix i) => i -> i -> i
 left n i = 2 * i + 1 -- Starts at idx 1 => Internally transformed to be zero-based
@@ -37,52 +38,61 @@ swap a i1 i2 = do
 
 data Dirn = L | R | N
 
-heapifyDown :: (Integral i, Ix i, Ord e, MArray a e m) => a i e -> i -> i -> m ()
+heapifyDown :: (Integral i, Ix i, Ord e, MArray a e IO) => IORef Int -> a i e -> i -> i -> IO ()
 
-heapifyDown a n i = do
+heapifyDown cnt a n i = do
     c <- atIndex a i
     let
-        --max = i
         li = left n i
         re = right n i
     x <- if isLeaf n i then return N
         else if isEdge n i then do
             l <- atIndex a li
-            if c >= l then return N 
-            else return L
+            if c >= l then do 
+                modifyIORef' cnt (+ 1)
+                return N 
+            else do
+                modifyIORef' cnt (+ 1)
+                return L
         else do
             l <- atIndex a li
             r <- atIndex a re
-            if c >= l && c >= r then return N
-            else if l >= r then return L
-            else return R
+            if c >= l && c >= r then do
+                modifyIORef' cnt (+ 1)
+                return N
+            else if l >= r then do 
+                modifyIORef' cnt (+ 1)
+                return L
+            else do
+                modifyIORef' cnt (+ 1)
+                return R
     case x of 
         L -> do
             swap a i li
-            heapifyDown a n li
+            heapifyDown cnt a n li
         R -> do
             swap a i re
-            heapifyDown a n re
+            heapifyDown cnt a n re
         N -> return ()
 
 
-buildHeap :: (Integral i, Ix i, Ord e, MArray a e m) => a i e -> m ()
-buildHeap a = do
+buildHeap :: (Integral i, Ix i, Ord e, MArray a e IO) => IORef Int -> a i e -> IO ()
+buildHeap r a = do
     n <- getN a
-    mapM_ (heapifyDown a n) [div n 2 - 1, div n 2 - 2 .. 0]
+    mapM_ (heapifyDown r a n) [div n 2 - 1, div n 2 - 2 .. 0]
 
-extract :: (Integral i, Ix i, Ord e, MArray a e m) => a i e -> m ()
-extract a = do
+extract :: (Integral i, Ix i, Ord e, MArray a e IO) => IORef Int -> a i e -> IO ()
+extract r a = do
     n <- getN a
     let extractRoot k = do
             swap a k 0
-            heapifyDown a k 0
+            heapifyDown r a k 0
     mapM_ extractRoot [n - 1, n - 2 .. 1]
 
-heapSort :: (Integral i, Ix i, Ord e, MArray a e m) => a i e -> m ()
-heapSort a = do
-    buildHeap a
-    extract a
+heapSort :: (Integral i, Ix i, Ord e, MArray a e IO) => IORef Int -> a i e -> IO ()
+heapSort r a = do
+    buildHeap r a
+    extract r a
 
 rollRandom :: RandomGen g => Int -> g -> [Word]
 rollRandom g = fst . uniformListR  g (1, maxBound)
@@ -95,7 +105,13 @@ main = do
         arr = rollRandom 1000 pureGen
     let arrToNatural :: [Natural] 
         arrToNatural = map fromIntegral arr
+
+    cnt <- newIORef 0
     mArr <- newListArray (0, length arr - 1) arrToNatural :: IO (IOArray Int Natural)
-    heapSort mArr
+    heapSort cnt mArr
     sortedArr <- getElems mArr
+    putStrLn "Sortiertes Array randomisierter natürlicher Zahlen:\n"
     print sortedArr
+    putStrLn "Anzahl an Elementvergleichen:\n"
+    cntVal <- readIORef cnt
+    print cntVal
