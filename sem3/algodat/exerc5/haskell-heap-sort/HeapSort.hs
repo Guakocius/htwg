@@ -112,6 +112,6 @@ main = do
     sortedArr <- getElems mArr
     putStrLn "Sortiertes Array randomisierter natürlicher Zahlen:\n"
     print sortedArr
-    putStrLn "Anzahl an Elementvergleichen:\n"
+    putStrLn "\nAnzahl an Elementvergleichen:"
     cntVal <- readIORef cnt
     print cntVal

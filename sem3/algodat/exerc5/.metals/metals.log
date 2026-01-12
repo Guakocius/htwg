@@ -1,0 +1,147 @@
+2026.01.11 18:55:32 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.01.11 18:55:32 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:32 WARN  no build target for: C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala
+2026.01.11 18:55:32 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:32 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:33 INFO  Running List(C:\Users\engel\AppData\Local\Coursier\data\bin\scala-cli.BAT, setup-ide, C:\Programming\FH\htwg\sem3\algodat\exerc5)
+2026.01.11 18:55:33 INFO  Attempting to connect to the build server...
+2026.01.11 18:55:33 INFO  Running BSP server List(C:\Users\engel\AppData\Local\Coursier\data\bin\.scala-cli.aux.exe, bsp, --json-options, C:\Programming\FH\htwg\sem3\algodat\exerc5\.scala-build\ide-options-v2.json, --json-launcher-options, C:\Programming\FH\htwg\sem3\algodat\exerc5\.scala-build\ide-launcher-options.json, --envs-file, C:\Programming\FH\htwg\sem3\algodat\exerc5\.scala-build\ide-envs.json, C:\Programming\FH\htwg\sem3\algodat\exerc5)
+2026.01.11 18:55:33 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Programming\FH\htwg\sem3\algodat\exerc5\.metals\bsp.trace.json or C:\Users\engel\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  BSP server: Checking https://github.com/coursier/jvm-index/raw/master/index.json
+2026.01.11 18:55:34 INFO  BSP server: Checked https://github.com/coursier/jvm-index/raw/master/index.json
+2026.01.11 18:55:34 INFO  BSP server: Downloading https://github.com/coursier/jvm-index/raw/master/index.json
+Jan. 11, 2026 6:55:34 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 15
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+Jan. 11, 2026 6:55:34 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 16
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:34 INFO  BSP server: Downloaded https://github.com/coursier/jvm-index/raw/master/index.json
+2026.01.11 18:55:35 WARN  no build target for: C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala
+2026.01.11 18:55:35 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:35 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:35 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:36 INFO  BSP server: Starting compilation server
+2026.01.11 18:55:37 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:37 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:37 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:37 WARN  no build target for: C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala
+2026.01.11 18:55:37 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:38 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:37 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:38 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:38 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:39 WARN  no build target for: C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala
+2026.01.11 18:55:39 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:39 INFO  no build target found for C:\Programming\FH\htwg\sem3\algodat\exerc5\scala-heap-sort\HeapSort.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2026.01.11 18:55:40 INFO  time: Connected to build server in 7.08s
+2026.01.11 18:55:39 INFO  Connected to Build server: scala-cli v1.5.4
+2026.01.11 18:55:40 INFO  time: Imported build in 0.14s
+2026.01.11 18:55:41 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:41 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.01.11 18:55:42 INFO  time: compiled exerc5_b21ccaa9c5 in 1.52s
+2026.01.11 18:55:42 INFO  time: indexed workspace in 1.96s
+2026.01.11 18:55:42 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:42 INFO  time: compiled exerc5_b21ccaa9c5 in 0.1s
+2026.01.11 18:55:42 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:42 INFO  time: compiled exerc5_b21ccaa9c5 in 95ms
+2026.01.11 18:55:43 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:43 INFO  time: compiled exerc5_b21ccaa9c5 in 0.1s
+2026.01.11 18:55:46 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:46 INFO  time: compiled exerc5_b21ccaa9c5 in 56ms
+2026.01.11 18:55:47 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:47 INFO  time: compiled exerc5_b21ccaa9c5 in 56ms
+2026.01.11 18:55:56 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:56 INFO  time: compiled exerc5_b21ccaa9c5 in 56ms
+2026.01.11 18:55:59 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:55:59 INFO  time: compiled exerc5_b21ccaa9c5 in 56ms
+2026.01.11 18:56:01 INFO  file:///C:/Programming/FH/htwg/sem3/algodat/exerc5/scala-heap-sort/HeapSort.scala:4:7: stale bloop error: Expected start of definition
+@main main() = 
+      ^^^^
+2026.01.11 18:56:01 WARN  Could not find semantic tokens for: file:///C:/Programming/FH/htwg/sem3/algodat/exerc5/scala-heap-sort/HeapSort.scala
+2026.01.11 18:56:01 WARN  Could not find semantic tokens for: file:///C:/Programming/FH/htwg/sem3/algodat/exerc5/scala-heap-sort/HeapSort.scala
+2026.01.11 18:56:02 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:02 INFO  time: compiled exerc5_b21ccaa9c5 in 0.24s
+2026.01.11 18:56:03 WARN  Could not find semantic tokens for: file:///C:/Programming/FH/htwg/sem3/algodat/exerc5/scala-heap-sort/HeapSort.scala
+2026.01.11 18:56:14 WARN  Could not find semantic tokens for: file:///C:/Programming/FH/htwg/sem3/algodat/exerc5/scala-heap-sort/HeapSort.scala
+2026.01.11 18:56:19 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:19 INFO  time: compiled exerc5_b21ccaa9c5 in 93ms
+2026.01.11 18:56:21 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:21 INFO  time: compiled exerc5_b21ccaa9c5 in 51ms
+2026.01.11 18:56:24 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:24 INFO  time: compiled exerc5_b21ccaa9c5 in 56ms
+2026.01.11 18:56:26 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:26 INFO  time: compiled exerc5_b21ccaa9c5 in 59ms
+2026.01.11 18:56:30 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:30 INFO  time: compiled exerc5_b21ccaa9c5 in 64ms
+2026.01.11 18:56:33 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:33 INFO  time: compiled exerc5_b21ccaa9c5 in 53ms
+2026.01.11 18:56:34 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:34 INFO  time: compiled exerc5_b21ccaa9c5 in 64ms
+2026.01.11 18:56:35 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:35 INFO  time: compiled exerc5_b21ccaa9c5 in 49ms
+2026.01.11 18:56:40 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:40 INFO  time: compiled exerc5_b21ccaa9c5 in 53ms
+2026.01.11 18:56:46 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:46 INFO  time: compiled exerc5_b21ccaa9c5 in 50ms
+2026.01.11 18:56:53 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:53 INFO  time: compiled exerc5_b21ccaa9c5 in 53ms
+2026.01.11 18:56:59 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:56:59 INFO  time: compiled exerc5_b21ccaa9c5 in 80ms
+2026.01.11 18:57:00 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:57:00 INFO  time: compiled exerc5_b21ccaa9c5 in 58ms
+2026.01.11 18:57:02 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:57:02 INFO  time: compiled exerc5_b21ccaa9c5 in 53ms
+2026.01.11 18:57:05 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:57:05 INFO  time: compiled exerc5_b21ccaa9c5 in 50ms
+2026.01.11 18:57:08 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:57:08 INFO  time: compiled exerc5_b21ccaa9c5 in 47ms
+2026.01.11 18:57:11 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:57:11 INFO  time: compiled exerc5_b21ccaa9c5 in 55ms
+2026.01.11 18:57:14 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:57:14 INFO  time: compiled exerc5_b21ccaa9c5 in 51ms
+2026.01.11 18:58:55 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:58:55 INFO  time: compiled exerc5_b21ccaa9c5 in 56ms
+2026.01.11 18:58:57 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:58:57 INFO  time: compiled exerc5_b21ccaa9c5 in 60ms
+2026.01.11 18:58:59 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:58:59 INFO  time: compiled exerc5_b21ccaa9c5 in 51ms
+2026.01.11 18:59:03 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:03 INFO  time: compiled exerc5_b21ccaa9c5 in 49ms
+2026.01.11 18:59:06 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:06 INFO  time: compiled exerc5_b21ccaa9c5 in 0.59s
+2026.01.11 18:59:11 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:11 INFO  time: compiled exerc5_b21ccaa9c5 in 0.11s
+Jan. 11, 2026 6:59:16 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 963
+Jan. 11, 2026 6:59:17 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNUNG: Unmatched cancel notification for request id 987
+2026.01.11 18:59:18 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:18 INFO  time: compiled exerc5_b21ccaa9c5 in 0.25s
+2026.01.11 18:59:23 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:23 INFO  time: compiled exerc5_b21ccaa9c5 in 0.2s
+2026.01.11 18:59:32 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:32 INFO  time: compiled exerc5_b21ccaa9c5 in 0.18s
+2026.01.11 18:59:49 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:49 INFO  time: compiled exerc5_b21ccaa9c5 in 48ms
+2026.01.11 18:59:52 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 18:59:52 INFO  time: compiled exerc5_b21ccaa9c5 in 0.18s
+2026.01.11 19:00:32 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 19:00:32 INFO  time: compiled exerc5_b21ccaa9c5 in 0.2s
+2026.01.11 19:00:45 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 19:00:45 INFO  time: compiled exerc5_b21ccaa9c5 in 45ms
+2026.01.11 19:00:48 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 19:00:48 INFO  time: compiled exerc5_b21ccaa9c5 in 0.17s
+2026.01.11 19:01:08 INFO  compiling exerc5_b21ccaa9c5 (1 scala source)
+2026.01.11 19:01:08 INFO  time: compiled exerc5_b21ccaa9c5 in 0.17s
+2026.01.12 00:16:50 INFO  Shutting down server
+2026.01.12 00:16:50 INFO  shutting down Metals
+2026.01.12 00:16:50 INFO  Shut down connection with build server.
+2026.01.12 00:16:50 INFO  Exiting server
