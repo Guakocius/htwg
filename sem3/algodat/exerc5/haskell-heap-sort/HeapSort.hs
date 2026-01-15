@@ -48,9 +48,9 @@ heapifyDown cnt a n i = do
     x <- if isLeaf n i then return N
         else if isEdge n i then do
             l <- atIndex a li
-            if c >= l then do 
+            if c >= l then do
                 modifyIORef' cnt (+ 1)
-                return N 
+                return N
             else do
                 modifyIORef' cnt (+ 1)
                 return L
@@ -60,13 +60,13 @@ heapifyDown cnt a n i = do
             if c >= l && c >= r then do
                 modifyIORef' cnt (+ 1)
                 return N
-            else if l >= r then do 
+            else if l >= r then do
                 modifyIORef' cnt (+ 1)
                 return L
             else do
                 modifyIORef' cnt (+ 1)
                 return R
-    case x of 
+    case x of
         L -> do
             swap a i li
             heapifyDown cnt a n li
@@ -102,9 +102,12 @@ main :: IO ()
 main = do
     --let arr = [5, 3, 8, 4, 2, 7, 1, 6] :: [Int]
     let arr :: [Word]
-        arr = rollRandom 1000 pureGen
-    let arrToNatural :: [Natural] 
+        --arr = rollRandom 1000 pureGen
+        arr = range(0, 1000)
+    let arrToNatural :: [Natural]
         arrToNatural = map fromIntegral arr
+
+    print arr
 
     cnt <- newIORef 0
     mArr <- newListArray (0, length arr - 1) arrToNatural :: IO (IOArray Int Natural)
