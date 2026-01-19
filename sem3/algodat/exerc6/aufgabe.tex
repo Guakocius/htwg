@@ -1,0 +1,257 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[ngerman]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\title{Übungsblatt 6 - Algorithmen und Datenstrukturen}
+\author{Alexander Engelhardt, Timothy Drexler}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Aufgabe 9 (AVL-Bäume)}
+
+\subsection*{Ausgangssituation}
+\begin{center}
+\begin{tikzpicture}[
+  level distance=1.5cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+  every node/.style={circle,draw,minimum size=0.8cm}
+]
+\node {10}
+  child {node {5}
+    child {node {3}}
+    child {node {7}
+      child {node {6}}
+      child[missing]
+    }
+  }
+  child {node {12}
+    child {node {11}}
+    child {node {15}}
+  };
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Schritt 1: Einfügen von 9}
+
+9 wird als rechtes Kind von 7 eingefügt. Dies verursacht ein Ungleichgewicht bei Knoten 5 (Balance-Faktor = -2).
+Es wird eine Links-Rechts-Rotation an Knoten 5 durchgeführt.
+
+\begin{center}
+\begin{tikzpicture}[
+  level distance=1.5cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+  every node/.style={circle,draw,minimum size=0.8cm}
+]
+\node {10}
+  child {node {7}
+    child {node {5}
+      child {node {3}}
+      child {node {6}}
+    }
+    child {node {9}}
+  }
+  child {node {12}
+    child {node {11}}
+    child {node {15}}
+  };
+\end{tikzpicture}
+\end{center}
+
+\textbf{Operation:} Links-Rechts-Rotation an Knoten 5 (zuerst Linksrotation an 7, dann Rechtsrotation an 5).
+
+\subsection*{Schritt 2: Einfügen von 8}
+
+8 wird als linkes Kind von 9 eingefügt. Der Baum bleibt balanciert.
+
+\begin{center}
+\begin{tikzpicture}[
+  level distance=1.5cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+  every node/.style={circle,draw,minimum size=0.8cm}
+]
+\node {10}
+  child {node {7}
+    child {node {5}
+      child {node {3}}
+      child {node {6}}
+    }
+    child {node {9}
+      child {node {8}}
+      child[missing]
+    }
+  }
+  child {node {12}
+    child {node {11}}
+    child {node {15}}
+  };
+\end{tikzpicture}
+\end{center}
+
+\textbf{Operation:} Keine Rotation erforderlich, Baum bleibt balanciert.
+
+\subsection*{Schritt 3: Einfügen von 13}
+
+13 wird als linkes Kind von 15 eingefügt. Der Baum bleibt balanciert.
+
+\begin{center}
+\begin{tikzpicture}[
+  level distance=1.5cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+  every node/.style={circle,draw,minimum size=0.8cm}
+]
+\node {10}
+  child {node {7}
+    child {node {5}
+      child {node {3}}
+      child {node {6}}
+    }
+    child {node {9}
+      child {node {8}}
+      child[missing]
+    }
+  }
+  child {node {12}
+    child {node {11}}
+    child {node {15}
+      child {node {13}}
+      child[missing]
+    }
+  };
+\end{tikzpicture}
+\end{center}
+
+\textbf{Operation:} Keine Rotation erforderlich, Baum bleibt balanciert.
+
+\subsection*{Schritt 4: Löschen von 10}
+
+Knoten 10 (Wurzel) wird entfernt. Der symmetrische Nachfolger ist 11. 
+11 ersetzt 10, und der Baum wird rebalanciert.
+
+\begin{center}
+\begin{tikzpicture}[
+  level distance=1.5cm,
+  level 1/.style={sibling distance=4cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+  every node/.style={circle,draw,minimum size=0.8cm}
+]
+\node {11}
+  child {node {7}
+    child {node {5}
+      child {node {3}}
+      child {node {6}}
+    }
+    child {node {9}
+      child {node {8}}
+      child[missing]
+    }
+  }
+  child {node {12}
+    child[missing]
+    child {node {15}
+      child {node {13}}
+      child[missing]
+    }
+  };
+\end{tikzpicture}
+\end{center}
+
+\textbf{Operation:} Löschen von 10, Ersetzen durch symmetrischen Nachfolger 11. Keine Rotation erforderlich.
+
+\subsection*{Endergebnis}
+
+Der finale AVL-Baum nach allen Operationen enthält die Schlüssel: 3, 5, 6, 7, 8, 9, 11, 12, 13, 15.
+
+\newpage
+
+\section*{Aufgabe 10 (Topologische Sortierung)}
+
+Für den gegebenen gerichteten Graphen wird die topologische Sortierung durchgeführt. 
+Initial werden Knoten mit gleichem Eingangsgrad nach ihrer Nummer sortiert.
+
+\subsection*{Kantenstruktur des Graphen}
+
+\textbf{Eingangsgrade:}
+\begin{itemize}
+    \item Knoten 0: Eingangsgrad = 0
+    \item Knoten 1: Eingangsgrad = 1 (von 0)
+    \item Knoten 2: Eingangsgrad = 1 (von 0)
+    \item Knoten 3: Eingangsgrad = 1 (von 1)
+    \item Knoten 4: Eingangsgrad = 1 (von 3)
+    \item Knoten 5: Eingangsgrad = 2 (von 3, 4)
+    \item Knoten 6: Eingangsgrad = 1 (von 4)
+    \item Knoten 7: Eingangsgrad = 2 (von 5, 6)
+    \item Knoten 8: Eingangsgrad = 2 (von 12, 7)
+    \item Knoten 9: Eingangsgrad = 1 (von 6)
+    \item Knoten 10: Eingangsgrad = 2 (von 7, 8)
+    \item Knoten 11: Eingangsgrad = 2 (von 9, 10)
+    \item Knoten 12: Eingangsgrad = 1 (von 2)
+\end{itemize}
+
+\subsection*{Durchführung der topologischen Sortierung}
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Iteration} & \textbf{Kandidatenschlange} & \textbf{ER-Folge} & \textbf{Zufolge-Folge} \\
+\hline
+Initial & [0] & [] & [] \\
+\hline
+1 & [1, 2] & [0] & [1, 2] \\
+\hline
+2 & [2, 3] & [0, 1] & [2, 3] \\
+\hline
+3 & [3, 12] & [0, 1, 2] & [3, 12] \\
+\hline
+4 & [4, 12] & [0, 1, 2, 3] & [4, 5, 12] \\
+\hline
+5 & [5, 6, 12] & [0, 1, 2, 3, 4] & [5, 6, 12] \\
+\hline
+6 & [6, 7, 12] & [0, 1, 2, 3, 4, 5] & [6, 7, 9, 12] \\
+\hline
+7 & [7, 9, 12] & [0, 1, 2, 3, 4, 5, 6] & [7, 9, 12] \\
+\hline
+8 & [9, 12] & [0, 1, 2, 3, 4, 5, 6, 7] & [8, 9, 10, 12] \\
+\hline
+9 & [12] & [0, 1, 2, 3, 4, 5, 6, 7, 9] & [10, 12] \\
+\hline
+10 & [8] & [0, 1, 2, 3, 4, 5, 6, 7, 9, 12] & [8] \\
+\hline
+11 & [10] & [0, 1, 2, 3, 4, 5, 6, 7, 9, 12, 8] & [10] \\
+\hline
+12 & [11] & [0, 1, 2, 3, 4, 5, 6, 7, 9, 12, 8, 10] & [11] \\
+\hline
+13 & [] & [0, 1, 2, 3, 4, 5, 6, 7, 9, 12, 8, 10, 11] & [] \\
+\hline
+\end{tabular}
+
+\vspace{1cm}
+
+\subsection*{Erklärung der Spalten}
+
+\begin{itemize}
+    \item \textbf{Kandidatenschlange:} Knoten mit Eingangsgrad 0, sortiert nach Nummer
+    \item \textbf{ER-Folge:} Bereits entfernte Knoten (Ergebnisfolge)
+    \item \textbf{Zufolge-Folge:} Knoten, die nach Entfernen des aktuellen Knotens Eingangsgrad 0 erreichen
+\end{itemize}
+
+\subsection*{Finale topologische Sortierung}
+
+Die topologische Sortierung des Graphen lautet:
+\begin{center}
+\textbf{0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 9 → 12 → 8 → 10 → 11}
+\end{center}
+
+\end{document}
