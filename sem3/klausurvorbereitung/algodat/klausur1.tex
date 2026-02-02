@@ -1,7 +1,91 @@
 \documentclass[a4paper,12pt]{article}
+\usepackage{amssymb}
 
 \title{AlDa-Klausur 1}
 
 \begin{document}
 \maketitle
+\section*{Aufgabe 1: O-Kalkül}
+\subsection*{Aufgabe 1.a: O-Notation}
+\subsubsection*{(1)}
+$$O(\frac{log n}{log log n}) \subset O((log n)^2) \subset O(\sqrt{n^{1.5}} + 1000 \cdot n^{1.2}) \subset O(2^{\sqrt{n}})$$
+\subsubsection*{(2)}
+\subsection*{Aufgabe 1.b: Laufzeitabschätzung}
+\subsubsection*{(1)}
+int $$k = 0 \rightarrow O(1)$$
+outer loop: for i in 1..n, double i $$\rightarrow \frac{n}{2} \rightarrow O(log n)$$
+inner loop: for j in n..i, sub j 1 $$\rightarrow i := n, j := i \rightarrow O(n)$$
+Gesamt: outer loop * inner loop: $$O(n log n)$$
+
+\subsubsection*{(2)}
+outer loop: for i in 0..n, add i 2 => n/2 Steps => n => O(n)
+inner loop: for j in n..1, sub j 1 => n => O(n)
+Gesamt: $$O(n^2)$$
+\subsubsection*{(3)}
+Queue FIFO: n
+for v in a => O(n)
+while not queue <- empty()? => worst Case O(n)
+while-nested for loop: for w : v <- succ => if := O(1), for := O(n)
+Gesamt: $$O(n) + O(n^2) \rightarrow O(n^2)$$
+\section*{Aufgabe 2: Teile und Herrsche}
+\subsection*{Aufgabe 2.a: Laufzeit von Teile und Herrsche}
+\subsubsection*{(1)}
+int d ... => O(1)
+if d == (0 or 1)? => O(1)
+int m ... => O(1)
+for i in left..m, add i 1 => O(m) => O(n/2)
+return ... => Watershed-Konstante mit Master-Theorem => Watershed := 1 => $$n^1$$ => O(n)
+Gesamt: O(3) => O(1) => O(1) + O(n/2) + O(log n) => O(n log n)
+\subsubsection*{(2)}
+if ... => O(1)
+m $$\rightarrow O(1)$$
+h(...);
+h(...);
+=> Watershed und Master-Theorem $$\rightarrow \Theta(n)$$
+\subsection*{Aufgabe 2.b: Binärdarstellung}
+\subsubsection*{(1)}
+$$binary(x\in \mathbb{N}) := $$\\
+n $<$ 2 ? ret n\\
+else ret binary(div n 2) ++ print mod n 2
+\subsubsection*{(2)}
+Master-Theorem: O(log n)
+\subsection*{Aufgabe 2.c: Anzahl von Vertauschungen}
+\subsubsection*{(1)}
+$dac\_mergesort(a :: [n \in \mathbb{Z}], l, m, r \in \mathbb{Z}) :=$\\
+\indent $i, j, k \in \mathbb{Z}, aux :: [x \in \mathbb{Z}]$\\ 
+\indent for i in m+1..l, sub i 1 $\rightarrow$ aux (i-1) := a (i-1)\\
+\indent for j in m..r, add j 1 $\rightarrow$ aux (r+m-j) := a (j+1)\\
+\indent n $\leftarrow$ 0\\
+\indent\indent for k in l..r, add k 1\\
+\indent\indent\indent if aux (j) $<$ aux (i) $\rightarrow$ a (k) := aux (j); sub j 1; \\
+\indent\indent\indent\indent if i $\le$ m $\rightarrow$ n $\leftarrow$ add (n (m-i+1))\\
+\indent\indent\indent else $\rightarrow$ a (k) := aux (i); add i 1\\
+\indent ret n
+\\
+\\$dac\_count(a :: [n \in \mathbb{Z}], l, r \in \mathbb{Z}) :=$\\
+\indent if r $\le$ l $\rightarrow$ ret Nil\\
+\indent else\\
+\indent\indent m $\leftarrow$ div (add (l r) 2)\\
+\indent\indent dac\_count(a, l, m)\\
+\indent\indent dac\_count(a, m+1, r)\\
+\indent\indent dac\_mergesort(a, l, m, r)
+
+\subsubsection*{(2)}
+mergesort first loop: Copy-Aufruf: O(n)\\
+mergesort second loop: Copy-Aufruf: O(n)\\
+$\rightarrow$ O(n)\\
+third loop: O(n)\\
+mergesort :: O(n)\\
+count :: Master-Theorem :: O(log n)\\
+Gesamt: $O(n log n)$
+
+\section*{Aufgabe 3: Hashen}
+\subsection*{Aufgabe 3.a: Multiplikative Methode}
+
+\section*{Aufgabe 4: Sortieren}
+\subsection*{Aufgabe 4.a: Mergesort}
+\paragraph{50, 51, 2, 9, -2, 17}
+
+
+
 \end{document}
