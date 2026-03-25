@@ -1,1 +1,50 @@
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+   0.006955495s  INFO prepare_target{force=false package_id=exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4) target="exerc4"}: cargo::core::compiler::fingerprint: fingerprint error for exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4)/Check { test: false }/TargetInner { name: "exerc4", doc: true, ..: with_path("/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4/src/main.rs", Edition2024) }
+   0.007640455s  INFO prepare_target{force=false package_id=exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4) target="exerc4"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4/target/debug/.fingerprint/exerc4-e7bc7e603841721f/bin-exerc4`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_main
+  16: <unknown>
+   0.008847131s  INFO prepare_target{force=false package_id=exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4) target="exerc4"}: cargo::core::compiler::fingerprint: fingerprint error for exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4)/Check { test: true }/TargetInner { name: "exerc4", doc: true, ..: with_path("/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4/src/main.rs", Edition2024) }
+   0.008862212s  INFO prepare_target{force=false package_id=exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4) target="exerc4"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4/target/debug/.fingerprint/exerc4-e4c940d646d9cdd1/test-bin-exerc4`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: __libc_start_main
+  16: <unknown>
+    Checking exerc4 v0.1.0 (/home/ciphercorsair/Programming/FH/htwg/sem3/algodat/exerc4)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.24s
