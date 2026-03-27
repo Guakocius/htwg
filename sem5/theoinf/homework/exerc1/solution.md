@@ -23,11 +23,11 @@ Die Menge aller Doppelten von m und Dreifachen von k.
 
 #### e)
 
-Die Menge aller reellen Binärzahlen.
+Die Menge aller Palindrome aus 0en und 1en.
 
 #### f)
 
-Die Menge aller ganzen Zahlen.
+Die Leere Menge.
 
 ### Teilaufgabe 1.1.2
 
