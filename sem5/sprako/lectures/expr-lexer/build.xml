@@ -1,0 +1,55 @@
+<?xml version="1.0"?> 
+<project default="lexer-jar">
+
+    <property name="antlr" value="antlr-4.13.1-complete.jar" />
+    <property name="grammar" value="Expr" />
+    <property name="parser-package" value="expr.grammar" />
+    <property name="parser-dir" value="expr/grammar/" />
+    <property name="ast-dir" value="expr/ast/" />
+    <property name="semantics-dir" value="expr/semantics/" />
+
+    <target name="clean">
+        <ant dir="." target="lexer-clean"/>
+    </target>
+
+    <target name="lexer-jar" depends="lexer-compile">
+        <jar destfile="${grammar}.jar">
+            <fileset dir="." includes="expr/ExprTokenizer.class"/>
+            <fileset dir="." includes="${parser-dir}*.class"/>
+            <zipfileset includes="**/*.class" src="${antlr}"/>
+        </jar>
+    </target>
+
+    <target name="lexer-compile" depends="lexer-generate">
+        <javac debug="on" srcdir="." destdir="." sourcepath=""
+               listfiles="true" includeantruntime="false">
+            <classpath>
+               <pathelement location="${antlr}"/>
+            </classpath>
+            <include name="${parser-dir}${grammar}*.java"/>
+            <include name="expr/ExprTokenizer.java"/>
+        </javac>
+    </target>
+  
+    <target name="lexer-generate">
+        <echo>java -jar ${antlr} -package ${parser-package} ${parser-dir}${grammar}Lexer.g4</echo>
+        <java jar="${antlr}" dir="${parser-dir}" fork="true" failonerror="true">
+            <arg value="-package" />
+            <arg value="${parser-package}" />
+            <arg value="${grammar}Lexer.g4" />
+        </java>
+    </target>
+
+    <target name="lexer-clean">
+        <delete>
+            <fileset dir="." includes="${grammar}.jar"/>
+            <fileset dir="expr" includes="ExprTokenizer.class"/>
+            <fileset dir="${parser-dir}" includes="*.class"/>
+            <fileset dir="${parser-dir}" includes="${grammar}*.interp"/>
+            <fileset dir="${parser-dir}" includes="${grammar}*.tokens"/>
+            <fileset dir="${parser-dir}" includes="${grammar}Lexer.java"/>
+        </delete>
+    </target>
+
+</project>
+
