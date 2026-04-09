@@ -1,35 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="de">
 
-  <title>Hausaufgabe 2</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hausaufgabe 2</title>
+
+    <style>
+        th,
+        td {
+            padding: 6px 16px;
+            text-align: left;
+        }
+
+        .tree ul {
+            padding-top: 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tree li {
+            list-style-type: none;
+            text-align: center;
+            position: relative;
+            padding: 20px 10px 0 10px;
+        }
+
+        .tree li::before,
+        .tree li::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 20px;
+            border-top: 1px solid black;
+        }
+
+        .tree li::before {
+            right: 50%;
+            border-right: 1px solid black;
+        }
+
+        .tree li::after {
+            left: 50%;
+            border-left: 1px solid black;
+        }
+
+        .tree li:only-child::before,
+        .tree li:only-child::after {
+            display: none;
+        }
+
+        .tree li:only-child {
+            padding-top: 0;
+        }
+
+        .tree li:first-child::before,
+        .tree li:last-child::after {
+            border: 0;
+        }
+
+        .tree li:last-child::before {
+            border-right: 1px solid black;
+        }
+
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        .tree ul ul::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 20px;
+            border-left: 1px solid black;
+        }
+
+        .tree span {
+            border: 1px solid black;
+            padding: 6px 12px;
+            display: inline-block;
+            border-radius: 6px;
+            background: white;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Hausaufgabe 2</h1>
     <h2>Übungsblatt 1</h2>
     <h3>Aufgabe 1.8</h3>
     <h4>Teilaufgabe 1.8.1</h4>
     <p>
-      i. !B => !A<br>
-      ii. (B && C) ^ !(B || C)<br>
-      iii. !(A || B) => C<br>
+        i. !B => !A<br>
+        ii. (B && C) ^ !(B || C)<br>
+        iii. !(A || B) => C<br>
     </p>
     <h4>Teilaufgabe 1.8.2</h4>
     <h5>a)</h5>
     <table>
-      <tr>
-        <th>A</th><th>B</th><th>C</th><th>!B => !A</th><th>(B && C) ^ !(B || C)</th><th>!(A || B) => C</th><th>Alle Bedingungen wahr?</th>
-      </tr>
-      <tr><td>F</td><td>F</td><td>F</td><td>W</td><td>W</td><td>F</td><td>F</td></tr>
-      <tr><td>F</td><td>F</td><td>W</td><td>W</td><td>F</td><td>W</td><td>F</td></tr>
-      <tr><td>F</td><td>W</td><td>F</td><td>W</td><td>F</td><td>W</td><td>F</td></tr>
-      <tr><td>F</td><td>W</td><td>W</td><td>W</td><td>W</td><td>W</td><td>W</td></tr>
-      <tr><td>W</td><td>F</td><td>F</td><td>F</td><td>W</td><td>W</td><td>F</td></tr>
-      <tr><td>W</td><td>F</td><td>W</td><td>F</td><td>F</td><td>W</td><td>F</td></tr>
-      <tr><td>W</td><td>W</td><td>F</td><td>W</td><td>F</td><td>W</td><td>F</td></tr>
-      <tr><td>W</td><td>W</td><td>W</td><td>W</td><td>W</td><td>W</td><td>W</td></tr>
+        <caption>Wahrheitstabelle zu Aufgabe 1.8.2</caption>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>!B => !A</th>
+            <th>(B && C) ^ !(B || C)</th>
+            <th>!(A || B) => C</th>
+            <th>Alle Bedingungen wahr?</th>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>F</td>
+            <td>F</td>
+            <td>W</td>
+            <td>W</td>
+            <td>F</td>
+            <td>F</td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>F</td>
+            <td>W</td>
+            <td>W</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+        </tr>
+        <tr>
+            <td>W</td>
+            <td>F</td>
+            <td>F</td>
+            <td>F</td>
+            <td>W</td>
+            <td>W</td>
+            <td>F</td>
+        </tr>
+        <tr>
+            <td>W</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+        </tr>
+        <tr>
+            <td>W</td>
+            <td>W</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+            <td>W</td>
+            <td>F</td>
+        </tr>
+        <tr>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+            <td>W</td>
+        </tr>
     </table>
 
     <h5>b)</h5>
@@ -37,39 +191,107 @@
     <h3>Aufgabe 1.12</h3>
     <h4>Teilaufgabe 1.12.1</h4>
     <h5>a)</h5>
-    <p>Alice kann entweder in Java programmieren oder sie liebt   das Programmieren in Scala.
+    <p>Alice kann entweder in Java programmieren oder sie liebt das Programmieren in Scala.
     </p>
     <h5>b)</h5>
     <p>
-      Sowohl Alice als auch Bob als auch Charlie lieben es, in Python zu programmieren.
+        Sowohl Alice als auch Bob als auch Charlie lieben es, in Python zu programmieren.
     </p>
     <h5>c)</h5>
     <p>
-      Bei allen AIN-Studierenden gibt es mindestens eine Programmiersprache, die gekonnt wird.
+        Bei allen AIN-Studierenden gibt es mindestens eine Programmiersprache, die gekonnt wird.
     </p>
     <h5>d)</h5>
     <p>
-      Es gibt mindestens eine Programmiersprache, die von allen AIN-Studierenden gekonnt wird.
+        Es gibt mindestens eine Programmiersprache, die von allen AIN-Studierenden gekonnt wird.
     </p>
     <h5>e)</h5>
     <p>
-      Es gibt mindestens eine Programmiersprache, die von mindestens einem AIN-Studierenden geliebt wird.
+        Es gibt mindestens eine Programmiersprache, die von mindestens einem AIN-Studierenden geliebt wird.
     </p>
     <h5>f)</h5>
     <p>
-      Alle Programmiersprachen werden von allen AIN-Studierenden geliebt.
+        Alle Programmiersprachen werden von allen AIN-Studierenden geliebt.
     </p>
 
     <h4>Teilaufgabe 1.12.2</h4>
+    <p>a) ∀m∈M : (K(m, "Java") ^ K(m, "Scala")) || (K(m, "Java") && K(m, "Scala"))</p>
+    <p>b) ∄m∈M : L(m "C#")</p>
+    <p>c) K("Bob", "Scala") => !K("Bob", "Java")</p>
+    <p>d) ∃p∈P ∀m∈M : K(m, p) && L(m, p)</p>
+    <p>e) ∀m∈M ∃p∈P : !(K(m, p) || L(m, p)</p>
+
+    <h2>Übungsblatt 2</h2>
+    <h3>Aufgabe 2.3</h3>
+    <h4>a)</h4>
+    <p>ωx = 0011. S => 0A; A => 1B ==> <b><u>Kann nicht abgeleitet werden.</u></b></p>
+    <p>ωy = 10101. S => 1B; B => 10A; => 101B => 1010A => 10101B => <b><u>10101</u></b></p>
+
+    <div class="tree">
+        <ul>
+            <li>
+                <span>S</span>
+                <ul>
+                    <li><span>1</span></li>
+                    <li>
+                        <span>B</span>
+                        <ul>
+                            <li><span>0</span></li>
+                            <li>
+                                <span>A</span>
+                                <ul>
+                                    <li><span>1</span></li>
+                                    <li>
+                                        <span>B</span>
+                                        <ul>
+                                            <li><span>0</span></li>
+                                            <li>
+                                                <span>A</span>
+                                                <ul>
+                                                    <li><span>1</span></li>
+                                                    <li>
+                                                        <span>B</span>
+                                                        <ul>
+                                                            <li><span>ε</span></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <p>c) G3 = ({S,A,B},{0,1},P,S)</p>
+
+    <h3>Aufgabe 2.5</h3>
+    <p>a) ωy = xyzzyyxxxzzz. Azzyyxxxzzz => ABBxxxzzz => ABBCCCzz => ABBCCCBB</p>
+    <p>b) ωx = xyxxxzzz. ACCCzz => ABCCCBB</p>
+    <p>c) Gx = ({S,A,B,C},{x,y,z},P,S)</p>
+
+    <h3>Aufgabe 2.8</h3>
+    <p>a) w1 = bb => S</p>
+    <p>b) w2 = bbb => SY</p>
+    <p>c) w3 = bbbb => </p>
+
+    <h3>Aufgabe 2.9</h3>
+    <p>Gz = (N,Σ,P,S) = ({S,U,T},{-,0,1,...,9},P,S) und P = {
+        S -> 0 | 1T | 2T | 3T | 4T | 5T | 6T | 7T | 8T | 9T | -U
+        U -> 1T | 2T | 3T | 4T | 5T | 6T | 7T | 8T | 9T
+        T -> 0T | 1T | 2T | 3T | 4T | 5T | 6T | 7T | 8T | 9T | ε
+        }
+    </p>
+    <p>b) Typ 3 (Regulär)</p>
+    <p>c) 0|-?[1-9][0-9]</p>
 
 
-
-    <style>
-      th, td {
-        padding: 6px 16px;
-        text-align: left;
-      }
-    </style>
 
 </body>
+
 </html>
