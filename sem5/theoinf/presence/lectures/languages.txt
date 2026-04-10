@@ -1,0 +1,15 @@
+1.
+
+r1 = x; L(r1) = {x}
+r2 = xyz; L(r2) = {xyz}
+r3 = x|y|z; L(r3) = {x,y,z}
+r4 = (x|y|z)(x|z); L(r4) = {xx,xz,yx,yz,zx,zz}
+r5 = x*; L(r5) = {ESPILON,x...}
+r6 = (xyz)*; L(r6) = {EPSILON,xyz...}
+r7 = (x|y|z); L(r7) = {EPSILON,x,y,z,x...,y...,z...}
+
+2.
+r8 = x(x|y|z)
+r9 = x[xyz]*
+r10 = [xyz]{2}z[xyz]*
+
