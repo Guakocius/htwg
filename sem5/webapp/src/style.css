@@ -1,0 +1,92 @@
+* {
+  font-family: Roboto sans-serif;
+}
+
+#top-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#top-navbar a {
+  margin-right: 10px;
+}
+
+body {
+  background-color: darkgrey;
+  color: white;
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+h1 {
+  text-decoration: underline;
+  color: #D8A184;
+}
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#register-form {}
+
+input {
+  color: #fff;
+  padding: 5px;
+}
+
+#username {
+  background: linear-gradient(270deg, #4EBAC4, #F53607);
+}
+
+#passwd {
+  background: linear-gradient(to right, #4EBAC4, #F53607);
+}
+
+.username-div,
+.passwd-div {
+  margin-top: 20px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.75)
+}
+
+.special-text {
+  color: silver;
+}
+
+#flappy {
+  background-color: transparent;
+  min-height: 50px;
+  max-width: 512px;
+  max-height: 512px;
+}
+
+@media (max-width: 786px) {
+  #top-navbar {
+    display: grid;
+    grid-template-columns: auto auto;
+
+  }
+  #flappy {
+    background-color: transparent;
+    max-width: 30%;
+    max-height: 30%;
+  }
+}
+
+header {
+  min-height: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  min-height: 50px;
+}

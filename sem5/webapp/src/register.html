@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Register</title>
 </head>
+
 <body>
-    <form>
-      <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username" placeholder="username"><br>
-      <label for="passwd">Password</label><br>
-      <input type="password" id="passwd" name="passwd" placeholder="password"><br>
+  <div class="form-div" id="register-div">
+    <h1 class="form-header">Register</h1>
+    <form id="register-form">
+      <div class="username-div">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" class="username" name="username" placeholder="Username"><br>
+      </div>
+      <div class="passwd-div">
+        <label for="passwd">Password</label><br>
+        <input type="password" id="passwd" class="passwd" name="passwd" placeholder="Password"><br>
+      </div>
     </form>
-  
+  </div>
 </body>
+
 </html>
