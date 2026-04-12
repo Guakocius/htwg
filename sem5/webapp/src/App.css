@@ -8,8 +8,22 @@
   justify-content: center;
 }
 
+a {
+  color: #000080;
+}
+
 #top-navbar a {
+  margin-top: 1%;
   margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 30%;
+  background-color: orange;
+}
+
+#top-navbar a:hover {
+  border: 2px solid green;
+  border-radius: 30%;
+  background-color: yellow;
 }
 
 body {
