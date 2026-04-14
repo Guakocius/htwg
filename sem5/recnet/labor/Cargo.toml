@@ -1,9 +1,0 @@
-[package]
-name = "labor"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-gnuplot = "0.0.46"
-surge-ping = "0.8.4"
-tokio = { version = "1.21.2", features = ["full"] }
