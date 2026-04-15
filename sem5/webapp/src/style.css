@@ -119,6 +119,20 @@ input::placeholder {
   max-height: 100px;
 }
 
+#pipe-container {
+  border: 2px solid black;
+  display: block;
+}
+
+#game-points {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+  margin-top: 5%;
+  font-size: 50px;
+  font-weight: 800;
+}
+
 /* ---------------------------------- */
 /* ---------------------------- */
 
