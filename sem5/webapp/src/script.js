@@ -11,4 +11,13 @@ FILES.forEach(file => {
   a.textContent = file;
   nav.appendChild(a);
 });
+
+let darkModeButton = document.createElement("button");
+darkModeButton.id = "darkmode";
+darkModeButton.textContent = "Light Mode";
+nav.appendChild(darkModeButton);
+
 document.body.prepend(nav);
+
+
+
