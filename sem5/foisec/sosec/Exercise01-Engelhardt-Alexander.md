@@ -15,4 +15,4 @@ entered
 ```bash
 curl -H "X-Forwarded-For: 192.168.1.1" -v http://challenge01.root-me.org/web-serveur/ch68/
 ```
-which did work.
+which worked.
