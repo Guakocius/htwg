@@ -1,6 +1,6 @@
 # Flappy Bird
 
-**Team:** Alexander Engelhardt (313291)<br>
+**Team:** Guakocius<br>
 **Repository:** [https://github.com/Guakocius/htwg/tree/main/sem5/webapp](https://github.com/Guakocius/htwg/tree/main/sem5/webapp)
 
 ## Projektidee
