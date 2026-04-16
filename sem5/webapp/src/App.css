@@ -32,6 +32,10 @@
 
 /* --------------------------- */
 
+#top-navbar a {
+  margin-right: 10px;
+}
+
 body {
   /*color: #000080;*/
   color: #fff;
@@ -106,6 +110,11 @@ input::placeholder {
 /* game.html */
 
 /* Flappy Bird img tags */
+.special-text {
+  color: #00ff59;
+  text-decoration: underline;
+}
+
 #flappy {
   background-color: transparent;
   min-height: 50px;
@@ -175,108 +184,105 @@ td {
   width: 170px;
   position: relative;
   z-index: 0;
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-  #docs {
-    border-right: 1px solid var(--border);
-
-    @media (max-width: 1024px) {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
-  }
-
-  #next-steps ul {
-    list-style: none;
+  header {
+    min-height: 50px;
+    margin: 0;
     padding: 0;
+  }
+
+  footer {
+    min-height: 50px;
+  }
+  .flappy {
+    position: relative;
+  }
+
+  #center {
     display: flex;
-    gap: 8px;
-    margin: 32px 0 0;
+    flex-direction: column;
+    gap: 25px;
+    place-content: center;
+    place-items: center;
+    flex-grow: 1;
 
-    .logo {
-      height: 18px;
+    @media (max-width: 1024px) {
+      padding: 32px 20px 24px;
+      gap: 18px;
     }
-
-    a {
-      color: var(--text-h);
-      font-size: 16px;
-      border-radius: 6px;
-      background: var(--social-bg);
-      display: flex;
-      padding: 6px 12px;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: box-shadow 0.3s;
-
-      &:hover {
-        box-shadow: var(--shadow);
-      }
-      .button-icon {
-        height: 18px;
-        width: 18px;
-      }
+    .icon {
+      margin-bottom: 16px;
+      width: 22px;
+      height: 22px;
     }
 
     @media (max-width: 1024px) {
-      margin-top: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    #docs {
+      border-right: 1px solid var(--border);
 
-      li {
-        flex: 1 1 calc(50% - 8px);
+      @media (max-width: 1024px) {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    #next-steps ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 8px;
+      margin: 32px 0 0;
+
+      .logo {
+        height: 18px;
       }
 
       a {
-        width: 100%;
+        color: var(--text-h);
+        font-size: 16px;
+        border-radius: 6px;
+        background: var(--social-bg);
+        display: flex;
+        padding: 6px 12px;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: box-shadow 0.3s;
+
+        &:hover {
+          box-shadow: var(--shadow);
+        }
+        .button-icon {
+          height: 18px;
+          width: 18px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        margin-top: 20px;
+        flex-wrap: wrap;
         justify-content: center;
-        box-sizing: border-box;
+
+        li {
+          flex: 1 1 calc(50% - 8px);
+        }
+
+        a {
+          width: 100%;
+          justify-content: center;
+          box-sizing: border-box;
+        }
       }
     }
-  }
 
-  #spacer {
-    height: 88px;
-    border-top: 1px solid var(--border);
-    @media (max-width: 1024px) {
-      height: 48px;
+    #spacer {
+      height: 88px;
+      border-top: 1px solid var(--border);
+      @media (max-width: 1024px) {
+        height: 48px;
+      }
     }
   }
 }
