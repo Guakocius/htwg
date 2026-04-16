@@ -2,29 +2,35 @@
   font-family: Roboto sans-serif;
 }
 
+/* navbar in all html files */
+
 #top-navbar {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
-a {
-  color: #000080;
-}
-
-#top-navbar a {
+#top-navbar a,
+#top-navbar button {
   margin-top: 1%;
-  margin-right: 10px;
   border: 2px solid black;
   border-radius: 30%;
   background-color: orange;
+  color: #000080;
+  padding: 2px 8px;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-#top-navbar a:hover {
+#top-navbar a:hover,
+#top-navbar button:hover {
   border: 2px solid green;
-  border-radius: 30%;
   background-color: yellow;
 }
+
+/* --------------------------- */
 
 body {
   background-color: darkgrey;
@@ -41,6 +47,23 @@ h1 {
   align-items: center;
   justify-content: center;
 }
+
+.special-text {
+  color: #00ff59;
+  text-decoration: underline;
+}
+
+header {
+  min-height: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  min-height: 50px;
+}
+
+/* register.html, login.html */
 
 .form-div {
   display: flex;
@@ -78,11 +101,11 @@ input::placeholder {
   color: rgba(255, 255, 255, 0.75)
 }
 
-.special-text {
-  color: #00ff59;
-  text-decoration: underline;
-}
+/* ----------------------------------------------------------- */
 
+/* game.html */
+
+/* Flappy Bird img tags */
 #flappy {
   background-color: transparent;
   min-height: 50px;
@@ -95,6 +118,23 @@ input::placeholder {
   max-width: 100px;
   max-height: 100px;
 }
+
+#pipe-container {
+  border: 2px solid black;
+  display: block;
+}
+
+#game-points {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+  margin-top: 5%;
+  font-size: 50px;
+  font-weight: 800;
+}
+
+/* ---------------------------------- */
+/* ---------------------------- */
 
 @media (max-width: 786px) {
   #top-navbar {
@@ -116,12 +156,15 @@ input::placeholder {
   }
 }
 
-header {
-  min-height: 50px;
-  margin: 0;
-  padding: 0;
+/* leaderboard.html */
+
+table {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
 }
 
-footer {
-  min-height: 50px;
+th,
+td {
+  border: 2px solid black;
 }
