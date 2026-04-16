@@ -42,7 +42,7 @@ body {
 }
 
 h1 {
-  color: #D2393E;
+  color: #d2393e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,12 +84,12 @@ input {
 
 #username,
 #username-login {
-  background: linear-gradient(270deg, #4EBAC4, #F53607);
+  background: linear-gradient(270deg, #4ebac4, #f53607);
 }
 
 #passwd,
 #passwd-login {
-  background: linear-gradient(to right, #4EBAC4, #F53607);
+  background: linear-gradient(to right, #4ebac4, #f53607);
 }
 
 .username-div,
@@ -98,7 +98,7 @@ input {
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.75)
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* ----------------------------------------------------------- */
@@ -140,7 +140,6 @@ input::placeholder {
   #top-navbar {
     display: grid;
     grid-template-columns: auto auto;
-
   }
 
   #flappy {
@@ -153,6 +152,13 @@ input::placeholder {
     background-color: transparent;
     max-width: 50px;
     max-height: 50px;
+  }
+}
+
+@media (max-width: 1000px) {
+  #pipe-container .pipe {
+    width: 25%;
+    height: 25%;
   }
 }
 
