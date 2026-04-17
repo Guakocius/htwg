@@ -1,6 +1,6 @@
 # Flappy Bird
 
-**Team:** Guakocius<br>
+**Team:** Guakocius
 **Repository:** [https://github.com/Guakocius/htwg/tree/main/sem5/webapp](https://github.com/Guakocius/htwg/tree/main/sem5/webapp)
 
 Dieses Projekt wird in den kommenden Wochen _Flappy Bird_, ein "Casual Mobile Game",
