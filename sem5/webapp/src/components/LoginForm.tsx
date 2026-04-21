@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 type FormProps = {
   form: string;
-}
+};
 
 export default function LoginForm({ form }: FormProps) {
   const [values, setValues] = useState({
@@ -14,10 +14,7 @@ export default function LoginForm({ form }: FormProps) {
   const handleInputChange = (event: React.InputEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    const form = event.target;
-    const formData = new FormData(form);
-
-    const { name, value } = formData;
+    const { name, value } = event.target as HTMLInputElement;
     setValues((values) => ({
       ...values,
       [name]: value,
