@@ -1,16 +1,23 @@
 import "../style/LoginForm.css";
 import React, { useState } from "react";
 
-export default function LoginForm({ form }) {
+type FormProps = {
+  form: string;
+}
+
+export default function LoginForm({ form }: FormProps) {
   const [values, setValues] = useState({
     userName: "",
     password: "",
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.InputEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    const { name, value } = event.target;
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const { name, value } = formData;
     setValues((values) => ({
       ...values,
       [name]: value,
@@ -20,12 +27,13 @@ export default function LoginForm({ form }) {
   const [submitted, setSubmitted] = useState(false);
   const [valid, setValid] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (values.userName && values.password) {
       setValid(true);
     }
     setSubmitted(true);
+    return e;
   };
 
   let h3;
