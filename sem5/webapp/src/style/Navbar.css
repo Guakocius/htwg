@@ -1,0 +1,25 @@
+#top-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#top-navbar a,
+#top-navbar button {
+  margin-top: 1%;
+  border: 2px solid black;
+  border-radius: 30%;
+  background-color: orange;
+  color: #000080;
+  padding: 2px 8px;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#top-navbar a:hover,
+#top-navbar button:hover {
+  border: 2px solid green;
+  background-color: yellow;
+}

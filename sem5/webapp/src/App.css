@@ -1,34 +1,10 @@
 * {
-  font-family: Roboto sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 /* navbar in all html files */
 
-#top-navbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
 
-#top-navbar a,
-#top-navbar button {
-  margin-top: 1%;
-  border: 2px solid black;
-  border-radius: 30%;
-  background-color: orange;
-  color: #000080;
-  padding: 2px 8px;
-  font: inherit;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-#top-navbar a:hover,
-#top-navbar button:hover {
-  border: 2px solid green;
-  background-color: yellow;
-}
 
 /* --------------------------- */
 
@@ -38,10 +14,16 @@
 
 body {
   color: #fff;
+  background-color: #000080;
   min-height: 100vh;
   margin: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
+
+.light-mode {
+  color: #000;
+  background-color: #fff;
 }
 
 h1 {
@@ -68,41 +50,7 @@ footer {
 
 /* register.html, login.html */
 
-.form-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
-#register-form,
-#login-form {
-  border: 1px solid orange;
-}
-
-input {
-  color: #fff;
-  padding: 5px;
-}
-
-#username,
-#username-login {
-  background: linear-gradient(270deg, #4ebac4, #f53607);
-}
-
-#passwd,
-#passwd-login {
-  background: linear-gradient(to right, #4ebac4, #f53607);
-}
-
-.username-div,
-.passwd-div {
-  margin-top: 20px;
-}
-
-input::placeholder {
-  color: rgba(255, 255, 255, 0.75);
-}
 
 /* ----------------------------------------------------------- */
 

@@ -1,0 +1,35 @@
+.form-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#register-form,
+#login-form {
+  border: 1px solid orange;
+}
+
+input {
+  color: #fff;
+  padding: 5px;
+}
+
+#username,
+#username-login {
+  background: linear-gradient(270deg, #4ebac4, #f53607);
+}
+
+#passwd,
+#passwd-login {
+  background: linear-gradient(to right, #4ebac4, #f53607);
+}
+
+.username-div,
+.passwd-div {
+  margin-top: 20px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
