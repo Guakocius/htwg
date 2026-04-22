@@ -18,8 +18,19 @@
   text-decoration: none;
 }
 
+#top-navbar a {
+  margin-right: 10px;
+}
+
 #top-navbar a:hover,
 #top-navbar button:hover {
   border: 2px solid green;
   background-color: yellow;
+}
+
+@media (max-width: 786px) {
+  #top-navbar {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
 }

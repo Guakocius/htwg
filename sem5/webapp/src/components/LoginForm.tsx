@@ -11,7 +11,7 @@ export default function LoginForm({ form }: FormProps) {
     password: "",
   });
 
-  const handleInputChange = (event: React.InputEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     const { name, value } = event.target as HTMLInputElement;
@@ -33,15 +33,14 @@ export default function LoginForm({ form }: FormProps) {
     return e;
   };
 
-  let h3;
-
-  if (form === "Register") {
-    h3 = <h3>Registered successfully</h3>;
-  } else if (form === "Login") {
-    h3 = <h3>Login successful</h3>;
-  } else {
-    h3 = <h3>{""}</h3>;
-  }
+  const h3 =
+    form === "Register" ? (
+      <h3>Registered successfully</h3>
+    ) : form === "Login" ? (
+      <h3>Login successful</h3>
+    ) : (
+      <h3>{""}</h3>
+    );
 
   return (
     <>
