@@ -10,13 +10,16 @@
 
 ## 3.1
 
+Ensures code integrity by whitelisting i.e. let only trusted applications be run.
+
 ## 3.2
 
-binary on whitelist -> executable
+Yes.
+binary on whitelist -> executable, else not.
 
 ## 3.3
 
-No. Locked
+No. Is a matter of permissions from ACLs.
 
 ## 3.4
 
