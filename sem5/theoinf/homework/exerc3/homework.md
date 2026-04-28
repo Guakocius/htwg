@@ -137,7 +137,7 @@ cat StarWars_EpisodeIV_script.txt | grep -E "(\.\.\.)" -c
 #### b)
 
 ```bash
-cat StarWars_EpisodeIV_script.txt | grep -Eo "[Ss][Tt][Aa][Rr][Ss]?(\.|\s|$)" -c
+    cat StarWars_EpisodeIV_script.txt | grep -Eo "[Ss][Tt][Aa][Rr][Ss]?(\.|\s|$)" -c
 ```
 
 **237**
@@ -145,7 +145,9 @@ cat StarWars_EpisodeIV_script.txt | grep -Eo "[Ss][Tt][Aa][Rr][Ss]?(\.|\s|$)" -c
 #### c)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "(Luke|Leia|Vader)*" -c
+
 ```
 
 **7518**
@@ -153,7 +155,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "(Luke|Leia|Vader)*" -c
 #### d)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "[Ee][Nn][Dd]*" -c
+
 ```
 
 **924**
@@ -165,7 +169,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "[Ee][Nn][Dd]*" -c
 _Wie viel Zeilen besitzt der Text?_
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | wc -l
+
 ```
 
 7518
@@ -173,7 +179,9 @@ cat StarWars_EpisodeIV_script.txt | wc -l
 _Wie viele Zeilen sind leere Zeilen?_
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "^$" -c
+
 ```
 
 2763
@@ -181,7 +189,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "^$" -c
 #### b)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "^\s{19}" -c
+
 ```
 
 1015
@@ -189,7 +199,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "^\s{19}" -c
 #### c)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -Eo "((XP-)[0-9]+|R2(-D2)?|C-3PO?)" -c
+
 ```
 
 15
