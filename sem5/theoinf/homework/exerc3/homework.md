@@ -137,7 +137,7 @@ cat StarWars_EpisodeIV_script.txt | grep -E "(\.\.\.)" -c
 #### b)
 
 ```bash
-cat StarWars_EpisodeIV_script.txt | grep -Eo "[Ss][Tt][Aa][Rr][Ss]?(\.|\s|$)" -c
+    cat StarWars_EpisodeIV_script.txt | grep -Eo "[Ss][Tt][Aa][Rr][Ss]?(\.|\s|$)" -c
 ```
 
 **237**
@@ -145,7 +145,9 @@ cat StarWars_EpisodeIV_script.txt | grep -Eo "[Ss][Tt][Aa][Rr][Ss]?(\.|\s|$)" -c
 #### c)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "(Luke|Leia|Vader)*" -c
+
 ```
 
 **7518**
@@ -153,7 +155,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "(Luke|Leia|Vader)*" -c
 #### d)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "[Ee][Nn][Dd]*" -c
+
 ```
 
 **924**
@@ -165,7 +169,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "[Ee][Nn][Dd]*" -c
 _Wie viel Zeilen besitzt der Text?_
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | wc -l
+
 ```
 
 7518
@@ -173,7 +179,9 @@ cat StarWars_EpisodeIV_script.txt | wc -l
 _Wie viele Zeilen sind leere Zeilen?_
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "^$" -c
+
 ```
 
 2763
@@ -181,7 +189,9 @@ cat StarWars_EpisodeIV_script.txt | grep -E "^$" -c
 #### b)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -E "^\s{19}" -c
+
 ```
 
 1015
@@ -189,10 +199,40 @@ cat StarWars_EpisodeIV_script.txt | grep -E "^\s{19}" -c
 #### c)
 
 ```bash
+
 cat StarWars_EpisodeIV_script.txt | grep -Eo "((XP-)[0-9]+|R2(-D2)?|C-3PO?)" -c
+
 ```
 
 15
+
+## Aufgabe 3.5
+
+### Teilaufgabe 3.5.1
+
+- A2: DEA => Ein Folgezustand und kein ε-Übergang.
+- A3: NEA => ε-Übergang.
+- A4: NEA => Mehr als ein Folgezustand von q0 aus.
+
+### Teilaufgabe 3.5.2
+
+#### ω := bbb
+
+- A2: q0 =b> q1 =b> q1 =b> q1; Durchlaufen: q0,q1,q1,q1; Akzeptiert mit Endzustand q1
+- A3: (wegen ε-Hülle(q0) = {q0,q1}) -> {q0,q1} =b> {q1} =b> {q1} =b> {q1}; Durchlaufen: {q0,q1},q1,q1,q1; Akzeptiert mit Endzustand q1
+- A4: {q0} =b> {q0,q1} =b> {q0,q1} =b> {q0,q1}; Durchlaufen: q0,{q0,q1},{q0,q1},{q0,q1}; Akzeptiert mit Endzustand {q0,q1}
+
+#### ω := aab
+
+- A2: q0 =a> q0 =a> q0 =b> q1; Durchlaufen: q0,q0,q0,q1; Akzeptiert mit Endzustand q1
+- A3: {q0,q1} =a> {q2} =a> {q2} =b> {}; Durchlaufen: {q0,q1},q2,q2; Nicht Akzeptiert, da **b** nicht verarbeitet werden kann
+- A4: {q0} =a> {q0,q2} =a> {q0,q2} =b> {q0,q1}; Durchlaufen: q0,{q0,q2},{q0,q2},{q0,q1}; Akzeptiert mit Endzustand {q0,q1}
+
+### Teilaufgabe 3.5.3
+
+- L(A2) = {a^nb^m | n,m ∈ N0} ∪ {b^na^m | n,m ∈ N0}
+- L(A3) = {c^na^m | n,m ∈ N0} ∪ {b^na^m | n,m ∈ N0}
+- L(A4) = {a^nb^m | n,m ∈ N0} ∪ {b^na^m | n,m ∈ N0}
 
 ## Aufgabe 3.8
 
