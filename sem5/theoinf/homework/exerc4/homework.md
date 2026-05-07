@@ -19,3 +19,21 @@ N3(w2) => start q0 ->(x) {q0,q1} ->(y) {q0,q2} ->(x) {q0,q1} ->(y) {q0,q2} ->(z)
 L(A1) := {(X+Y+Z+)+}
 L(A2) := {(x+y+z+)+x\*}
 L(N3) := {x\*y+z\*}
+
+### Aufgabe 3.7
+
+#### Teilaufgabe 3.7.1
+
+Ap = (Q,Σ,δ,qs,F), Σ = {0,1}, Q = {qs,q0,q1}, F = {q0}
+
+## Übungsblatt 30
+
+### Aufgabe 30.1
+
+#### Teilaufgabe 30.1.1
+
+##### a)
+
+L(N1) := {(a^n b^m c^k)a | n,m,k ∈ N0}
+
+##### b)
