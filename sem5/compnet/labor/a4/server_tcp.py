@@ -47,7 +47,8 @@ def receive(conn):
         conn.close()
 
 for i in range(5):
-    My_PORT = My_PORT + i
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     listen(sock)
+    My_PORT = My_PORT + 1
+
 

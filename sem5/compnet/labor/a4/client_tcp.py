@@ -10,6 +10,7 @@ calc_serv = CalculateServer(1, "MAX", 2, [5, 10])
 ans = CalculateServer.build_req(calc_serv)
 
 unpack_res = unpack(f"<I3sB{calc_serv.n}i", ans)
+print(unpack_res)
 id, op, n, z1, z2 = unpack_res
 op = op.decode("utf-8")
 response = f"<{id}><{op}><{n}><{z1}><{z2}>"
@@ -22,7 +23,6 @@ response = f"<{id}><{op}><{n}><{z1}><{z2}>"
 #response = f"<{id}><{result}>"
 
 for i in range(5):
-    Server_PORT = Server_PORT + i
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(10)
     print('Connecting to TCP server with IP ', Server_IP, ' on Port ', Server_PORT)
@@ -36,5 +36,7 @@ for i in range(5):
         print('Socket timed out at',time.asctime())
     
     sock.close()
+    Server_PORT = Server_PORT + 1
+
 
 
