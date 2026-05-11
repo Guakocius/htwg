@@ -16,7 +16,6 @@ def scan_protocol(target, port, p):
     result = s.connect_ex((target, port))
     print(result)
     if result == 0:
-        print("in result")
         open_ports.append(port)
     s.close()
 
