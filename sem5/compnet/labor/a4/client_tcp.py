@@ -21,17 +21,20 @@ response = f"<{id}><{op}><{n}><{z1}><{z2}>"
 #id, result = unpack_res
 #response = f"<{id}><{result}>"
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.settimeout(10)
-print('Connecting to TCP server with IP ', Server_IP, ' on Port ', Server_PORT)
-sock.connect((Server_IP, Server_PORT))
-print('Sending message', response)
-sock.send(response.encode('utf-8'))
-try:
-    msg=sock.recv(1024).decode('utf-8')
-    print('Message received; ', msg)
-except socket.timeout:
-    print('Socket timed out at',time.asctime())
-sock.close()
+for i in range(5):
+    Server_PORT = Server_PORT + i
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(10)
+    print('Connecting to TCP server with IP ', Server_IP, ' on Port ', Server_PORT)
+    sock.connect((Server_IP, Server_PORT))
+    print('Sending message', response)
+    sock.send(response.encode('utf-8'))
+    try:
+        msg=sock.recv(1024).decode('utf-8')
+        print('Message received; ', msg)
+    except socket.timeout:
+        print('Socket timed out at',time.asctime())
+    
+    sock.close()
 
 

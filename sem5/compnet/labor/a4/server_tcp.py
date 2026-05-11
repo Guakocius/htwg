@@ -21,7 +21,8 @@ def listen(sock):
             conn, addr = sock.accept()
             print('Incoming connection accepted: ', addr) 
             
-            threading.Thread(target=receive, args=(conn,)).start()
+            t = threading.Thread(target=receive, args=(conn,))
+            t.start()
             break
         except socket.timeout:
             print('Socket timed out listening', time.asctime())
@@ -38,12 +39,15 @@ def receive(conn):
                 break
             print('received message: ', data.decode('utf-8'), 'from ', threading.current_thread())
             conn.send(data[::-1])
+            threading.main_thread().join()
         except socket.timeout:
             print('Socket timed out at', time.asctime())
 
     if conn:
         conn.close()
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-listen(sock)
+for i in range(5):
+    My_PORT = My_PORT + i
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    listen(sock)
 
