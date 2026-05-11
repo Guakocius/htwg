@@ -1,0 +1,27 @@
+#player {
+  background-color: transparent;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+#pipe-container {
+  border: 2px solid black;
+  display: block;
+}
+
+#game-points {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+  margin-top: 5%;
+  font-size: 50px;
+  font-weight: 800;
+}
+
+@media (max-width: 786px) {
+  #player {
+    background-color: transparent;
+    max-width: 50px;
+    max-height: 50px;
+  }
+}
