@@ -1,8 +1,8 @@
 import socket
 import time
 
-My_IP = '127.0.0.1'
-My_PORT = 50000
+My_IP = '141.37.122.107'
+My_PORT = 7
 server_activity_period=30;
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

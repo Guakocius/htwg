@@ -1,7 +1,7 @@
 import socket
 
-Server_IP = '127.0.0.1'
-Server_PORT = 50000
+Server_IP = '141.37.122.107'
+Server_PORT = 7
 MESSAGE = 'Hello, World!'
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
