@@ -4,9 +4,9 @@ import threading
 
 My_IP = '127.0.0.1'
 My_PORT = 50000
-server_activity_period=30;
+user_timeout_period = 3600;
 
-t_end=time.time()+server_activity_period # Ende der Aktivitätsperiode
+timeout = time.time() + user_timeout_period # Ende der Aktivitätsperiode
 
 def listen(sock):
     sock.bind((My_IP, My_PORT))
