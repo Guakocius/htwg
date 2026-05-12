@@ -1,9 +1,7 @@
 import "../style/LoginForm.css";
 import React, { useState } from "react";
 
-type FormProps = {
-  form: string;
-};
+import type { FormProps } from "../types.ts";
 
 export default function LoginForm({ form }: FormProps) {
   const [values, setValues] = useState({

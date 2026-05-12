@@ -1,33 +1,56 @@
 import "../style/Navbar.css";
 
+import { Route, Routes, useNavigate } from "react-router";
+import { useEffect } from "react";
+
 function enableDarkmode() {
   document.body.classList.toggle("light-mode");
 }
 
-function generateButtons() {
+const NavbarRoutes = (f: string) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(`/${f}`);
+  });
+
+  return (
+    <Routes>
+      <Route path="/" />
+      <Route path={`/${f}`} />
+    </Routes>
+  );
+};
+
+function GenerateButtons() {
   const FILES = ["Index", "Register", "Login", "Game", "Leaderboard"];
 
   return (
-    <><nav id="top-navbar">
-      {FILES.map(file => {
-        //const fileLowerCase = file.toLowerCase();
+    <>
+      <nav id="top-navbar">
+        {FILES.map((file) => {
+          const fileLowerCase = file.toLowerCase();
 
-        // TODO: Change path in M3 with React Router DOM
-        const path = "";// fileLowerCase.includes("index") ? "/" : `/${fileLowerCase}.html`;
+          sessionStorage.setItem(fileLowerCase, JSON.stringify(fileLowerCase));
 
-        return (
-          <a key={file} href={path}>{file}</a>
-        )
-      })}
+          return (
+            <button
+              key={fileLowerCase}
+              onClick={() => NavbarRoutes(fileLowerCase)}
+            >
+              {file}
+            </button>
+          );
+        })}
 
-      <button id="darkmode" onClick={enableDarkmode}>Darkmode</button>
-    </nav>
-
+        <button id="darkmode" onClick={enableDarkmode}>
+          Darkmode
+        </button>
+      </nav>
     </>
-  )
+  );
 }
 export default function Navbar() {
-  return (
-    <>{generateButtons()}</>
-  );
+  const buttons = GenerateButtons();
+  return <>{buttons}</>;
 }
