@@ -1,23 +1,41 @@
 import struct
 
-class CalculateServer:
+class ChatServer:
 
-    def __init__(self, req_id, op, n, z):
-        self.req_id = req_id
-        self.op = op
-        self.n = n
-        self.z = z
-
-    def build_req(self):
-        calc_req = {
-                "id": self.req_id,
-                "operation": self.op,
-                "n": self.n,
-                "z": self.z,
+    def __init__(self):
+        self.users: dict[str, list[str | int]] = {
+                "username": [],
+                "ip": [],
+                "port": [],
                 }
 
+        def get_port(self, username: str) -> int:
+            return self.users["port"]
+
+    def handle_users(self):
+        calc_req = {
+                "username": self.users["username"],
+                "ip": self.users["ip"],
+                "port": self.users["port"],
+                }
+
+
+        def register(self) -> list[str]:
+
+            return []
+
+        def log_in(self) -> list[str]:
+            return []
+
+        def log_out(self) -> list[str]:
+            return []
+
+        def update_user_list(self) -> list[str]:
+            return []
+
+
         def build_msg(calc_req):
-            msg_id, op, n, z = calc_req.values()
+            us, op, n, z = calc_req.values()
             op_encod = op.encode(encoding="utf-8")
 
             return struct.pack(f"<I3sB{n}i", msg_id, op_encod, n, z[0], z[1])
