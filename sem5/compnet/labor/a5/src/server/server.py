@@ -51,7 +51,7 @@ class ChatServer:
         }
 
         def build_msg(calc_req):
-            res_id, op, n, z = calc_req.values()
+            res_id, op, _, z = calc_req.values()
             result = 1
 
             match op:
