@@ -1,4 +1,6 @@
 use std::net::{TcpListener, TcpStream};
+use std::thread;
+use std::time::Duration;
 
 use crate::client::client;
 
@@ -18,11 +20,26 @@ impl Server {
     fn listen(&self) -> std::io::Result<()> {
         let listener = TcpListener::bind(std::format!("{}:{}", self.ip, self.port))?;
 
+        println!(
+            "Listening on port {} for incoming TCP connections",
+            self.port
+        );
+
         for stream in listener.incoming() {
-            self.handle_client(stream?);
+            match stream {
+                Ok(stream) => {
+                    thread::spawn(|| Self::handle_client(stream));
+                }
+                Err(e) => {
+                    eprintln!("connection failed: {}", e);
+                }
+            }
         }
+
         Ok(())
     }
 
-    fn handle_client(&self, stream: TcpStream) {}
+    fn handle_client(mut stream: TcpStream) {
+        println!("Incoming conneciton accepted: {:?}", stream.peer_addr());
+    }
 }
