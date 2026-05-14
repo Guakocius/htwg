@@ -2,18 +2,20 @@ use std::net::{TcpListener, TcpStream};
 use std::thread;
 use std::time::Duration;
 
-use crate::client::client;
+use crate::client::client::{Client, ClientList};
 
-struct Server {
-    ip: String,
-    port: i32,
+pub struct Server {
+    pub ip: String,
+    pub port: i32,
+    pub client_list: ClientList,
 }
 
 impl Server {
-    fn new() -> Server {
+    pub fn new() -> Server {
         Server {
             ip: String::from("127.0.0.1"),
             port: 22,
+            client_list: ClientList::new(),
         }
     }
 

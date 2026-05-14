@@ -1,6 +1,21 @@
 use std::io::{Result, Error, ErrorKind, stdin};
+use std::process;
 
 use regex::Regex;
+
+#[derive(Debug, PartialEq)]
+pub struct ClientList {
+    pub client_list: Vec::<Client>
+}
+
+impl ClientList {
+    pub fn new() -> Self {
+        ClientList { client_list: Vec::<Client>::new() }
+    }
+    pub fn add_client(&mut self) {
+        self.client_list.push(Client::new());
+    }
+}
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Client {
@@ -10,8 +25,7 @@ pub struct Client {
 }
 
 impl Client {
-    pub fn new() -> Self {
-        //Client(name, ip, port)
+    fn new() -> Self {
         Option::expect(Self::register().0, "Registering failed. Please try again")
     }
 
@@ -27,10 +41,16 @@ impl Client {
             .into_iter()
             .zip([&mut username, &mut ip, &mut port])
             .fuse()
-            .for_each(|(k, mut v)| {
+            .for_each(|(k, v)| {
                 println!("Please enter your {}:", k);
-                user_input.read_line(&mut v).expect("failed to readline");
+                user_input.read_line(v).expect("failed to readline");
+                if v.chars().any(|c| c == '|') {
+                    println!("Closing register process");
+                    process::exit(0x0100);
+                }
+                *v = v.trim().to_string()
             });
+
         println!("{}", port);
         if !Regex::new(r"[a-zA-Z0-9_-]{3,20}")
             .unwrap()
