@@ -1,8 +1,12 @@
-use std::net::*;
-
 mod client;
 mod server;
 
+use client::client::Client;
+
 fn main() {
-    println!("Hello, world!");
+    let c = Client::new();
+    println!(
+        "New client registered: {} with IP address: {} and UDP port {}",
+        c.username, c.ip, c.port
+    );
 }
