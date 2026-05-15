@@ -10,7 +10,7 @@ const MIN_PORT_NUM: u32 = 1;
 const MAX_PORT_NUM: u32 = 65535;
 const LIN_EXIT_CODE: i32 = 0x0100;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone)]
 pub struct ClientList {
     pub client_list: Vec::<Client>
 }
@@ -24,12 +24,12 @@ impl ClientList {
     }
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub struct Client {
-    pub username: String,
-    pub ip: String,
-    pub server_port: String,
-    pub udp_port: String,
+    pub username:  String,
+    pub ip:  String,
+    pub server_port:  String,
+    pub udp_port:  String,
 }
 
 impl Client {
@@ -37,16 +37,18 @@ impl Client {
         Option::expect(Self::register().0, "Registering failed. Please try again")
     }
 
-    fn register() -> (Option<Self>, Result<()>) {
+    fn register() ->  ( Option<Self>, Result<()>) {
         let user_input = stdin();
-        let mut username = String::new();
-        let mut ip = String::new();
-        let mut udp_port = String::new();
+        let mut username:  String = String::new();
+        let mut ip:  String = String::new();
+        let mut udp_port:  String = String::new();
 
         println!("Please register yourself. Type '|' to escape.");
+        
+        let titles:  Vec<String> = vec![String::from("username"), String::from("IP address"), String::from("UDP port")];
 
-        ["username", "IP address", "UDP port"]
-            .into_iter()
+            titles
+            .iter()
             .zip([&mut username, &mut ip, &mut udp_port])
             .fuse()
             .for_each(|(k, v)| {
@@ -56,7 +58,7 @@ impl Client {
                     println!("Closing register process");
                     process::exit(LIN_EXIT_CODE);
                 }
-                *v = v.trim().to_string()
+                *v = v.trim().to_string();
             });
 
         if !Regex::new(r"[a-zA-Z0-9_-]{3,20}")
@@ -89,19 +91,22 @@ impl Client {
                 Err(Error::new(ErrorKind::InvalidInput, "-3")) 
             )
         } else {
-            (
-                Some(Client {
+            let client = Some(Client {
                 username: username,
                 ip: ip,
                 server_port: String::from("5000"),
                 udp_port: udp_port
-            }),
+
+            });
+            (
+                client,
                 Ok(())
             )
         }
     }
 
     fn send_udp(&self, port: String, stream: &mut TcpStream) -> Result<()> {
+        println!("send udp");
         let mut pos = 0;
         let port_bytes = port.as_bytes();
         while pos <  port_bytes.len() {
@@ -114,6 +119,7 @@ impl Client {
 
 
     pub fn connect_to_server(&self, server: &Server) -> Result<TcpStream> {
+        println!("connect to server");
         let ip = &server.ip;
         let port = &server.port;
         let mut msg = String::new();
