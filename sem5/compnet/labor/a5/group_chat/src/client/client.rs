@@ -15,6 +15,12 @@ pub struct ClientList {
     pub client_list: Vec::<Client>
 }
 
+impl PartialEq for ClientList {
+    fn eq(&self, other: &Self) -> bool {  
+        self.client_list == other.client_list
+    }
+}
+
 impl ClientList {
     pub fn new() -> Self {
         ClientList { client_list: Vec::<Client>::new() }
@@ -32,6 +38,17 @@ pub struct Client {
     pub udp_port:  String,
 }
 
+impl PartialEq for Client {
+    fn eq(&self, other: &Self) -> bool {
+        
+            self.username == other.username &&
+            self.ip == other.ip &&
+            self.server_port == other.server_port &&
+            self.udp_port == other.udp_port
+        
+    }
+}
+
 impl Client {
     fn new() -> Self {
         Option::expect(Self::register().0, "Registering failed. Please try again")
@@ -39,11 +56,11 @@ impl Client {
 
     fn register() ->  ( Option<Self>, Result<()>) {
         let user_input = stdin();
-        let mut username:  String = String::new();
-        let mut ip:  String = String::new();
-        let mut udp_port:  String = String::new();
+        let mut username = String::new();
+        let mut ip = String::new();
+        let mut udp_port = String::new();
 
-        println!("Please register yourself. Type '|' to escape.");
+        println!("Client: Please register yourself. Type '|' to escape.");
         
         let titles:  Vec<String> = vec![String::from("username"), String::from("IP address"), String::from("UDP port")];
 
@@ -52,10 +69,10 @@ impl Client {
             .zip([&mut username, &mut ip, &mut udp_port])
             .fuse()
             .for_each(|(k, v)| {
-                println!("Please enter your {}:", k);
+                println!("Client: Please enter your {}:", k);
                 user_input.read_line(v).expect("failed to readline");
                 if v.chars().any(|c| c == '|') {
-                    println!("Closing register process");
+                    println!("Client: Closing register process");
                     process::exit(LIN_EXIT_CODE);
                 }
                 *v = v.trim().to_string();
@@ -66,7 +83,7 @@ impl Client {
             .is_match(&username)
         {
             println!(
-                "Username must follow this RegEx convention: [a-zA-Z0-9_-]{{3,20}}"
+                "Error: Username must follow this RegEx convention: [a-zA-Z0-9_-]{{3,20}}"
             );
             (
                 None,
@@ -76,14 +93,14 @@ impl Client {
             r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b")
             .unwrap()
             .is_match(&ip) {
-                println!("IP address must follow this RegEx convention:
+                println!("Error: IP address must follow this RegEx convention:
                     \\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){{3}}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
             (
                 None,
                 Err(Error::new(ErrorKind::InvalidInput, "-2")) 
             )
         } else if udp_port.trim().parse::<u32>().unwrap() < MIN_PORT_NUM && udp_port.trim().parse::<u32>().unwrap() > MAX_PORT_NUM {
-                println!("UDP port number must follow this RegEx convention:
+                println!("Error: UDP port number must follow this RegEx convention:
                     (6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{{2}}|6[0-4][0-9]{{3}}|[1-5][0-9]{{4}}|[0-9]{{1,4}})");
          
             (
@@ -105,12 +122,11 @@ impl Client {
         }
     }
 
-    fn send_udp(&self, port: String, stream: &mut TcpStream) -> Result<()> {
-        println!("send udp");
+    pub fn send(&self, msg: String, stream: &mut TcpStream) -> Result<()> {
         let mut pos = 0;
-        let port_bytes = port.as_bytes();
-        while pos <  port_bytes.len() {
-            let bytes_written = stream.write(&port_bytes[pos..]).unwrap();
+        let msg_bytes = msg.as_bytes();
+        while pos <  msg_bytes.len() {
+            let bytes_written = stream.write(&msg_bytes[pos..]).unwrap();
             pos += bytes_written;
         }
         Ok(())
@@ -119,18 +135,18 @@ impl Client {
 
 
     pub fn connect_to_server(&self, server: &Server) -> Result<TcpStream> {
-        println!("connect to server");
         let ip = &server.ip;
         let port = &server.port;
         let mut msg = String::new();
-        println!("Connecting to the server with {} on port {}", ip, port);
+        println!("Client: Connecting to the server with {} on port {}", ip, port);
         
         if let Ok(mut stream) = TcpStream::connect(std::format!("{}:{}", ip, port)) {
-            self.send_udp(self.udp_port.clone(), &mut stream).unwrap();
-            println!("Sending message {}", msg);
+            println!("Client: Connected sucessfully with IP {} and port {}", ip, port);
+            self.send(self.udp_port.clone(), &mut stream).unwrap();
+            //println!("Client: Sending message {}", msg);
             Ok(stream)
         } else {
-            Err(Error::new(ErrorKind::ConnectionRefused, "Connection to the server has been refused"))
+            Err(Error::new(ErrorKind::ConnectionRefused, "Error: Connection to the server has been refused"))
         }
     }
 }
