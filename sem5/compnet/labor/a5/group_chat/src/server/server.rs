@@ -1,5 +1,8 @@
 use std::io::{Read, Write};
 use std::net::{Shutdown, TcpListener, TcpStream};
+use std::process;
+use std::thread;
+use std::time::Duration;
 
 use crate::client::client::ClientList;
 
@@ -19,47 +22,70 @@ impl Server {
         }
     }
 
-    pub fn listen(&self) -> std::io::Result<()> {
+    pub fn listen(&self) {
         let listener = TcpListener::bind(std::format!("{}:{}", self.ip, self.port)).unwrap();
 
         println!(
-            "Listening on port {} for incoming TCP connections",
+            "Server: Listening on port {} for incoming TCP connections",
             self.port
         );
 
-        loop {
-            println!("inside loop");
-            for stream in listener.incoming() {
-                println!("{:?}", stream);
-                match stream {
-                    Ok(mut stream) => {
-                        Self::receive(&mut stream);
-                    }
-                    Err(e) => {
-                        eprintln!("connection failed: {}", e);
-                    }
+        for stream in listener.incoming() {
+            match stream {
+                Ok(mut stream) => {
+                    println!("Server: Incoming stream from client: {:?}", stream);
+                    Self::receive(&mut stream);
+                }
+                Err(e) => {
+                    eprintln!("connection failed: {}", e);
                 }
             }
-            match listener.accept() {
-                Ok((mut _socket, addr)) => {
-                    println!("Incoming connection accepted: {:?}", addr);
-                    Self::receive(&mut _socket);
-                }
-                Err(e) => eprintln!("couldn't get client: {:?}", e),
-            }
-            ()
         }
     }
-    pub fn receive(socket: &mut TcpStream) {
-        //let mut buf = [0; 68]; // NOTE: Change depending on size of client register packet
-        let mut buf = [0; 1024];
-        let data = socket.read(&mut buf[..]).expect("no data received");
-        if data == 0 {
-            println!("Connection closed from other side.\nClosing...");
-            socket
-                .shutdown(Shutdown::Both)
-                .expect("shutdown call failed");
-        } else {
+    fn receive(socket: &mut TcpStream) {
+        loop {
+            let mut buf = [0; 1024];
+            match socket.read(&mut buf) {
+                Ok(0) => {
+                    println!("Server: Connection closed from other side.\nClosing...");
+                    break;
+                }
+                Ok(b) => {
+                    let buf_str = std::str::from_utf8(&buf[..b]).expect("invalid utf-8 sequence");
+
+                    if !buf_str.chars().any(|c| c == '|') {
+                        println!(
+                            "Server: Received data length: {}\nReceived data: {:?}",
+                            b, buf_str
+                        );
+                    } else {
+                        println!("Closing connection");
+                        process::exit(0x0100);
+                    }
+                }
+                Err(e) => panic!("encountered IO error: {}", e),
+            }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{Client, ClientList};
+
+    #[test]
+    fn test_new() {
+        let server = Server::new();
+        let client_list = ClientList::new();
+
+        assert_eq!(server.ip, String::from("127.0.0.1"));
+        assert_eq!(server.port, String::from("5000"));
+        assert_eq!(
+            server.client_list,
+            ClientList {
+                client_list: client_list.client_list
+            }
+        );
     }
 }

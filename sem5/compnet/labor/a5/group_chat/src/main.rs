@@ -2,6 +2,7 @@ mod client;
 mod server;
 
 use std::net::{TcpListener, TcpStream};
+use std::process;
 use std::thread;
 
 use client::client::{Client, ClientList};
@@ -23,18 +24,28 @@ fn main() {
         client.username, client.ip, client.udp_port
     );
 
-    println!("\nUpdated client list {:?}\n", server.client_list);
     let server_clone = server.clone();
     let server_thread = thread::spawn(move || server_clone.listen());
     let server_clone = server.clone();
 
-    let client_thread_conn =
-        thread::spawn(move || client.connect_to_server(&server_clone).unwrap());
+    let client_clone = client.clone();
+
+    let client_thread = thread::spawn(move || {
+        let mut stream = client_clone.connect_to_server(&server_clone).unwrap();
+        let mut msg = String::new();
+        println!("Please enter something. Press '|' to exit");
+        loop {
+            let input = std::io::stdin();
+            msg.clear();
+            input.read_line(&mut msg).expect("failed to readline");
+
+            client
+                .send(msg.clone().trim().to_string(), &mut stream)
+                .unwrap();
+        }
+    });
+
+    let client_thread_resp = client_thread.join();
 
     let server_thread_resp = server_thread.join();
-    let client_thread_conn_resp = client_thread_conn.join();
-
-    //thread::spawn(move || &server.listen().unwrap());
-    //thread::spawn(move || client.connect_to_server(&server).unwrap());
-    //Server::receive(&mut stream);
 }
