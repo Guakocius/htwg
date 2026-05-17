@@ -35,9 +35,10 @@ fn main() {
         let mut msg = String::new();
         println!("Please enter something. Press '|' to exit");
         loop {
-            let input = std::io::stdin();
             msg.clear();
-            input.read_line(&mut msg).expect("failed to readline");
+            std::io::stdin()
+                .read_line(&mut msg)
+                .expect("failed to readline");
 
             client
                 .send(msg.clone().trim().to_string(), &mut stream)
@@ -45,7 +46,6 @@ fn main() {
         }
     });
 
-    let client_thread_resp = client_thread.join();
-
-    let server_thread_resp = server_thread.join();
+    server_thread.join().unwrap();
+    client_thread.join().unwrap();
 }
