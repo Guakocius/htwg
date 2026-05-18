@@ -1,10 +1,10 @@
-use std::io::{Result, Error, ErrorKind, stdin, Write, Read};
-use std::net::TcpStream;
-use std::process;
+use std::{io::{Result, Error, ErrorKind, stdin, Write, Read}, net::TcpStream, sync::LazyLock, process};
+
+use tokio::{io::{self, AsyncBufRead, AsyncBufReadExt, BufReader}, time::{timeout, Duration}};
 
 use regex::Regex;
 
-use crate::Server;
+use crate::server::server::Server;
 
 const MIN_PORT_NUM: u32 = 1;
 const MAX_PORT_NUM: u32 = 65535;
@@ -25,8 +25,8 @@ impl ClientList {
     pub fn new() -> Self {
         ClientList { client_list: Vec::<Client>::new() }
     }
-    pub fn add_client(&mut self) {
-        self.client_list.push(Client::new());
+    pub async fn add_client(&mut self) {
+        self.client_list.push(Client::new().await);
     }
 }
 
@@ -50,75 +50,70 @@ impl PartialEq for Client {
 }
 
 impl Client {
-    fn new() -> Self {
-        Option::expect(Self::register().0, "Registering failed. Please try again")
+    async fn new() -> Self {
+        Option::expect(Self::register().await.unwrap_or(Some(Client { 
+            username: String::from("default"), 
+                ip: String::from("127.0.0.1"), 
+                server_port: String::from("50000"), udp_port: String::from("123") })), 
+            "Registering failed. Please try again")
     }
 
-    fn register() ->  ( Option<Self>, Result<()>) {
-        let user_input = stdin();
+    async fn register() -> Result<Option<Self>> {
+        let user_input = io::stdin(); 
+        let mut reader = BufReader::new(user_input);
+
         let mut username = String::new();
         let mut ip = String::new();
         let mut udp_port = String::new();
 
-        println!("Client: Please register yourself. Type '|' to escape.");
+        println!("Client: Please register yourself. Type '|' to escape."); 
         
-        let titles:  Vec<String> = vec![String::from("username"), String::from("IP address"), String::from("UDP port")];
+        let titles = ["username", "IP address", "UDP port"];
 
-            titles
-            .iter()
-            .zip([&mut username, &mut ip, &mut udp_port])
-            .fuse()
-            .for_each(|(k, v)| {
-                println!("Client: Please enter your {}:", k);
-                user_input.read_line(v).expect("failed to readline");
-                if v.chars().any(|c| c == '|') {
-                    println!("Client: Closing register process");
-                    process::exit(LIN_EXIT_CODE);
+        for (title, target) in titles
+            .into_iter()
+            .zip([&mut username, &mut ip, &mut udp_port]) {
+
+                println!("Client: Please enter your {}:", title);
+
+                timeout(Duration::from_secs(30), reader.read_line(target)).await
+                    .map_err(|_| Error::new(ErrorKind::TimedOut, "registration timed out"))??;
+
+                if !Self::validate_registration(title, target) {
+                    println!("Error: Invalid {}", title);
+                    //Err(Error::new(ErrorKind::InvalidInput, "-1"))
                 }
-                *v = v.trim().to_string();
-            });
 
-        if !Regex::new(r"[a-zA-Z0-9_-]{3,20}")
-            .unwrap()
-            .is_match(&username)
-        {
-            println!(
-                "Error: Username must follow this RegEx convention: [a-zA-Z0-9_-]{{3,20}}"
-            );
-            (
-                None,
-                Err(Error::new(ErrorKind::InvalidInput, "-1"))
-            )
-        } else if !Regex::new(
-            r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b")
-            .unwrap()
-            .is_match(&ip) {
-                println!("Error: IP address must follow this RegEx convention:
-                    \\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){{3}}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
-            (
-                None,
-                Err(Error::new(ErrorKind::InvalidInput, "-2")) 
-            )
-        } else if udp_port.trim().parse::<u32>().unwrap() < MIN_PORT_NUM && udp_port.trim().parse::<u32>().unwrap() > MAX_PORT_NUM {
-                println!("Error: UDP port number must follow this RegEx convention:
-                    (6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{{2}}|6[0-4][0-9]{{3}}|[1-5][0-9]{{4}}|[0-9]{{1,4}})");
-         
-            (
-                None,
-                Err(Error::new(ErrorKind::InvalidInput, "-3")) 
-            )
-        } else {
-            let client = Some(Client {
-                username: username,
-                ip: ip,
-                server_port: String::from("5000"),
-                udp_port: udp_port
+                if target.contains('|') {
+                    println!("Closing register process");
+                    //process::exit(LIN_EXIT_CODE);
+                    return Ok(None)
+                }
+                *target = target.trim().to_string();
+            }
 
-            });
-            (
-                client,
-                Ok(())
-            )
+                Ok(Some(Client {
+                    username,
+                    ip,
+                    server_port: String::from("50000"),
+                    udp_port
+                }))
+            } 
+
+    fn validate_registration(step: &str, target: &String) -> bool {
+        match step {
+            "username" => Regex::new(r"[a-zA-Z0-9_-]{3,20}").unwrap().is_match(target),
+            "IP address" => Regex::new(
+            r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b").unwrap().is_match(target),
+            "UDP port" => {
+
+                let port = target.trim().parse::<u32>().unwrap();
+                port.gt(&MIN_PORT_NUM) && port.lt(&MAX_PORT_NUM)
+            } 
+            _ => {
+                println!("registration failed.");
+                false
+            }
         }
     }
 
@@ -148,5 +143,19 @@ impl Client {
         } else {
             Err(Error::new(ErrorKind::ConnectionRefused, "Error: Connection to the server has been refused"))
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn constructor_default_works() {
+        let default_client = Client::new();
+
+        assert_eq!(default_client, 
+            Client { username: String::from("default"), ip: String::from("127.0.0.1"), 
+                server_port: String::from("50000"), udp_port: String::from("123") });
     }
 }

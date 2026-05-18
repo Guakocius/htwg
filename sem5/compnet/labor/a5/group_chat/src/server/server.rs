@@ -72,7 +72,7 @@ impl Server {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{Client, ClientList};
+    use crate::client::client::{Client, ClientList};
 
     #[test]
     fn test_new() {
