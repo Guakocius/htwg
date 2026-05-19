@@ -22,7 +22,7 @@ impl Server {
         }
     }
 
-    pub fn listen(&self) {
+    pub async fn listen(&self) {
         let listener = TcpListener::bind(std::format!("{}:{}", self.ip, self.port)).unwrap();
 
         println!(
