@@ -1,5 +1,5 @@
 use std::io::{Read, Write};
-use std::net::{Shutdown, TcpListener, TcpStream};
+use std::net::{AddrParseError, Shutdown, SocketAddr, TcpListener, TcpStream};
 use std::process;
 use std::thread;
 use std::time::Duration;
@@ -66,6 +66,17 @@ impl Server {
                 Err(e) => panic!("encountered IO error: {}", e),
             }
         }
+    }
+
+    async fn send(
+        self,
+        addr: SocketAddr,
+        data: String,
+    ) -> Result<(String, String, TcpStream), AddrParseError> {
+        let mut stream = TcpStream::connect(addr).unwrap();
+
+        stream.write_all(data.as_bytes()).unwrap();
+        Ok((self.ip, self.port, stream))
     }
 }
 
