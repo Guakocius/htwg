@@ -171,6 +171,6 @@ mod tests {
 
         assert_eq!(default_client, 
             Client { username: String::from("default"), ip: String::from("127.0.0.1"), 
-                server_port: String::from("50000"), udp_port: String::from("123") });
+                server_port: String::from("5000"), udp_port: String::from("123") });
     }
 }
