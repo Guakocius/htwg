@@ -32,7 +32,7 @@ impl Udp {
             let socket = UdpSocket::bind("127.0.0.1:34254").expect("couldn't bind address");
 
             let mut buf = [0; 1024];
-            let (amt, _) = socket.recv_from(&mut buf).expect("couldn't receive data");
+            let (amt, src) = socket.recv_from(&mut buf).expect("couldn't receive data");
 
             let buf = &mut buf[..amt];
             buf.reverse();
