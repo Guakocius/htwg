@@ -1,13 +1,17 @@
-use std::io::{self, Read};
+use std::fs;
+use std::io::{self, stdin};
 
-use lexer_rs::{ExprLexer, Token};
+use antlr4rust::{char_stream, lexer};
 
 pub fn tokenizer() -> Result<(), Box<dyn std::error::Error>> {
     let mut input = String::new();
-    io::stdin().read_to_string(&mut input)?;
+    const FILE_PATH: &str = "./abfahrt-kn.txt";
+    let fs = fs::read_to_string(FILE_PATH).expect("couldn't read file");
+    let lexer = lexer::BaseLexer::new_base_lexer(char_stream::CharStream::get_text(fs), LexerRecog::);
 
-    let mut lexer = ExprLexer::new(&input);
-    let tokens = lexer.get_all_tokens();
+    //stdin().read_to_string(&mut input)?;
+
+    //let mut lexer = ExprLexer::new(&input);
 
     println!("# token stream without hidden channel tokens:");
     for t in &tokens {
@@ -31,7 +35,7 @@ pub fn tokenizer() -> Result<(), Box<dyn std::error::Error>> {
             .symbolic_name(t.token_type())
             .unwrap_or("UNKNOWN");
 
-        print!(r#"[]("{}") "#, name, replace_whitespace(t.text()));
+        print!(r#"{}("{}") "#, name, replace_whitespace(t.text()));
     }
     println!();
 
