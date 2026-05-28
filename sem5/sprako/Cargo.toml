@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-lexer-rs = "0.0.4"
+antlr4rust = "0.5.2"
