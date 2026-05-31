@@ -1,15 +1,12 @@
 use super::client::*;
 
-use std::{
-    io::{Error, ErrorKind, Result},
-    net::{SocketAddr, TcpStream},
-};
-
+use std::io::{Error, ErrorKind, Result};
 
 use regex::Regex;
 
 use tokio::{
-    io::{self, AsyncBufRead, AsyncBufReadExt, BufReader},
+    net::TcpStream,
+    io::{self, AsyncReadExt, AsyncBufRead, AsyncBufReadExt, BufReader},
     time::{Duration, timeout},
 };
 
@@ -27,7 +24,25 @@ impl Client {
         let client = Self::register_from(reader).await?.unwrap();
 
         let mut stream = Self::connect_to_server(&client, server).await?;
-        Self::send(std::format!("REGISTER|{}|{}|{}\\0", client.username, client.ip, client.udp_port), &mut stream).await.unwrap();
+        let msg = std::format!("REGISTER|{}|{}|{}\0", client.username, client.ip, client.udp_port);
+
+        Self::send(msg, &mut stream).await.unwrap();
+
+        let mut buf = [0; 1024];
+
+            match stream.read(&mut buf).await {
+                Ok(0) => {
+                    println!("Client: Server closed connection");
+                    return Ok(None);
+                }
+                Ok(b) => {
+                    let buf_str = std::str::from_utf8(&buf[..b]).expect("invalid utf-8 sequence");
+
+                    println!("Client: Received server response: {:?}", buf_str);
+                }
+                Err(e) => panic!("encountered IO error: {}", e),
+            }
+
         Ok(Some(client))
     }
 
@@ -65,7 +80,7 @@ impl Client {
                 let client = Client {
                     username,
                     ip,
-                    server_port: String::from("50000"),
+                    server_port: String::from("5000"),
                     udp_port
                 };
 

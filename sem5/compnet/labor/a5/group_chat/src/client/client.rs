@@ -1,29 +1,27 @@
-use std::{
-    io::{Result, Write},
-    net::TcpStream,
-};
+use std::io::Result;
+use tokio::{io::AsyncWriteExt, net::TcpStream};
 
 use crate::server::server::Server;
 
 #[derive(Debug, Clone)]
 pub struct ClientList {
-    pub client_list: Vec<Client>,
+    pub clients: Vec<Client>,
 }
 
 impl PartialEq for ClientList {
     fn eq(&self, other: &Self) -> bool {
-        self.client_list == other.client_list
+        self.clients == other.clients
     }
 }
 
 impl ClientList {
     pub fn new() -> Self {
         ClientList {
-            client_list: Vec::<Client>::new(),
+            clients: Vec::<Client>::new(),
         }
     }
     pub async fn add_client(&mut self, server: &Server) {
-        self.client_list.push(Client::new(server).await);
+        self.clients.push(Client::new(server).await);
     }
 }
 
@@ -50,7 +48,7 @@ impl Client {
             Self::register(server).await.unwrap_or(Some(Client {
                 username: String::from("default"),
                 ip: String::from("127.0.0.1"),
-                server_port: String::from("50000"),
+                server_port: String::from("5000"),
                 udp_port: String::from("123"),
             })),
             "Registering failed. Please try again",
@@ -61,7 +59,7 @@ impl Client {
         let mut pos = 0;
         let msg_bytes = msg.as_bytes();
         while pos < msg_bytes.len() {
-            let bytes_written = stream.write(&msg_bytes[pos..]).unwrap();
+            let bytes_written = stream.write(&msg_bytes[pos..]).await?;
             pos += bytes_written;
         }
         Ok(())
