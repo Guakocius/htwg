@@ -44,7 +44,7 @@ async fn setup_system() -> Result<(), std::io::Error> {
     };
 
     /*println!(
-        "\nNew client registered: {} with IP address: {} and UDP port {}\n",
+        "New client registered: {} with IP address: {} and UDP port {}\n",
         client.username, client.ip, client.udp_port
     );*/
 
