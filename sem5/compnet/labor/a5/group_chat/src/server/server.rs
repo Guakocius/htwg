@@ -1,10 +1,13 @@
 use crate::client::client::ClientList;
 
+use std::sync::Arc;
+use tokio::sync::Mutex;
+
 #[derive(Debug, Clone)]
 pub struct Server {
     pub ip: String,
     pub port: String,
-    pub client_list: ClientList,
+    pub client_list: Arc<Mutex<ClientList>>,
 }
 
 impl Server {
@@ -12,7 +15,7 @@ impl Server {
         Server {
             ip: String::from("127.0.0.1"),
             port: String::from("5000"),
-            client_list: ClientList::new(),
+            client_list: Arc::new(Mutex::new(ClientList::new())),
         }
     }
 }
@@ -20,19 +23,19 @@ impl Server {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::client::client::{Client, ClientList};
+    use crate::client::client::ClientList;
 
-    #[test]
-    fn test_new() {
+    #[tokio::test]
+    async fn test_new() {
         let server = Server::new();
-        let client_list = ClientList::new();
+        let clients = server.client_list.lock().await;
 
         assert_eq!(server.ip, String::from("127.0.0.1"));
         assert_eq!(server.port, String::from("5000"));
         assert_eq!(
-            server.client_list,
+            *clients,
             ClientList {
-                client_list: client_list.client_list
+                clients: Vec::new()
             }
         );
     }
