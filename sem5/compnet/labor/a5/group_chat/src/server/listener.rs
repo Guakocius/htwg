@@ -18,7 +18,7 @@ impl Server {
 
         loop {
             match listener.accept().await {
-                Ok((mut stream, addr)) => self.receive(&mut stream).await,
+                Ok((mut stream, _addr)) => self.receive(&mut stream).await,
                 Err(e) => println!("connection failed: {}", e),
             }
         }
@@ -33,7 +33,7 @@ impl Server {
                     let buf_str = std::str::from_utf8(&buf[..b]).expect("invalid utf-8 sequence");
 
                     println!("Server: Received data: {:?}", buf_str);
-                    self.handle_reception(buf_str.split_terminator('|').nth(0).unwrap())
+                    self.handle_reception(buf_str.trim_matches('\0'), socket)
                         .await;
                 }
                 Err(e) => panic!("encountered IO error: {}", e),
@@ -48,30 +48,33 @@ impl Server {
         Ok(())
     }
 
-    async fn handle_reception(&self, msg: &str) {
+    async fn handle_reception(&self, msg: &str, socket: &mut TcpStream) {
         let parts: Vec<&str> = msg.split('|').collect();
         match parts[0] {
             "REGISTER" => {
-                let client_list = self.client_list.lock().await;
-                let registered_client = client_list.clients.last().unwrap();
+                //
+                //let registered_client = client_list.clients.last().unwrap();
                 let mut msg = String::from("USERLIST|");
-                client_list.clone().clients.into_iter().for_each(|c| {
-                    msg.push_str(format!("{},{},{},", c.username, c.ip, c.udp_port).as_str())
-                });
+                {
+                    let client_list = self.client_list.lock().await;
+                    client_list.clients.iter().for_each(|c| {
+                        msg.push_str(&format!("{},{},{},", c.username, c.ip, c.udp_port))
+                    });
+                }
+                if msg.ends_with(',') {
+                    msg.pop();
+                }
+                msg.push('\0');
+                println!("sending userlist back to client");
 
-                msg.char_indices().next_back();
-                msg.push_str("\0");
+                if let Err(e) = socket.write_all(msg.as_bytes()).await {
+                    eprintln!("ERROR: unable to send userlist: {}", e);
+                }
 
-                self.clone()
-                    .send(
-                        format!("{}:{}", registered_client.ip, registered_client.udp_port),
-                        msg,
-                    )
-                    .await
-                    .unwrap();
+                //self.clone().send(target_addr, msg).await.unwrap();
             }
 
-            _ => {}
+            _ => println!("unknown message type: {}", parts[0]),
         }
     }
 }
