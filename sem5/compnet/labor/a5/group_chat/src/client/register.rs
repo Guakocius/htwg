@@ -80,7 +80,7 @@ impl Client {
                 let client = Client {
                     username,
                     ip,
-                    server_port: String::from("5000"),
+                    server_port: String::from("5001"),
                     udp_port
                 };
 

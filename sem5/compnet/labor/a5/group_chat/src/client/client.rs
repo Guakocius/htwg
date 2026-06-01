@@ -2,6 +2,7 @@ use std::io::Result;
 use tokio::{io::AsyncWriteExt, net::TcpStream};
 
 use crate::server::server::Server;
+use crate::utils::enums::SendKind;
 
 #[derive(Debug, Clone)]
 pub struct ClientList {
@@ -48,7 +49,7 @@ impl Client {
             Self::register(server).await.unwrap_or(Some(Client {
                 username: String::from("default"),
                 ip: String::from("127.0.0.1"),
-                server_port: String::from("5000"),
+                server_port: String::from("5001"),
                 udp_port: String::from("123"),
             })),
             "Registering failed. Please try again",
@@ -58,6 +59,16 @@ impl Client {
     pub async fn send(msg: String, stream: &mut TcpStream) -> Result<()> {
         let mut pos = 0;
         let msg_bytes = msg.as_bytes();
+
+        /*match send_kind {
+            SendKind::Udp => {}
+            SendKind::Tcp => {
+                if let Ok()
+            }
+            SendKind::Server => {}
+            _ => {}
+        }*/
+
         while pos < msg_bytes.len() {
             let bytes_written = stream.write(&msg_bytes[pos..]).await?;
             pos += bytes_written;
@@ -81,7 +92,7 @@ mod tests {
             Client {
                 username: String::from("default"),
                 ip: String::from("127.0.0.1"),
-                server_port: String::from("5000"),
+                server_port: String::from("5001"),
                 udp_port: String::from("123")
             }
         );

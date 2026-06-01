@@ -14,7 +14,7 @@ impl Server {
     pub fn new() -> Self {
         Server {
             ip: String::from("127.0.0.1"),
-            port: String::from("5000"),
+            port: String::from("5001"),
             client_list: Arc::new(Mutex::new(ClientList::new())),
         }
     }
@@ -31,7 +31,7 @@ mod tests {
         let clients = server.client_list.lock().await;
 
         assert_eq!(server.ip, String::from("127.0.0.1"));
-        assert_eq!(server.port, String::from("5000"));
+        assert_eq!(server.port, String::from("5001"));
         assert_eq!(
             *clients,
             ClientList {

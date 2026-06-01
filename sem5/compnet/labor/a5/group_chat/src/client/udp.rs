@@ -27,7 +27,7 @@ impl Udp {
     }
     async fn send_port_to_client() {}
     **/
-    async fn send(addr: SocketAddr) -> std::io::Result<()> {
+    async fn send(socket: TcpStream, addr: SocketAddr, msg: &str) -> std::io::Result<()> {
         {
             let socket = UdpSocket::bind("127.0.0.1:34254").expect("couldn't bind address");
 
