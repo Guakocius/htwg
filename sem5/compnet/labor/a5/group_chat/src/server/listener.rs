@@ -35,6 +35,7 @@ impl Server {
                     println!("Server: Received data: {:?}", buf_str);
                     self.handle_reception(buf_str.trim_matches('\0'), socket)
                         .await;
+                    break;
                 }
                 Err(e) => panic!("encountered IO error: {}", e),
             }
@@ -52,7 +53,6 @@ impl Server {
         let parts: Vec<&str> = msg.split('|').collect();
         match parts[0] {
             "REGISTER" => {
-                //
                 //let registered_client = client_list.clients.last().unwrap();
                 let mut msg = String::from("USERLIST|");
                 {
