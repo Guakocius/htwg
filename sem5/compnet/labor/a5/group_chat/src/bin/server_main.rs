@@ -12,10 +12,5 @@ async fn main() -> Result<()> {
 
     server.listen().await;
 
-    println!(
-        "Server with IP address {} on port {} initialized with client list {:?} and listening\n",
-        server.ip, server.port, server.client_list
-    );
-
     Ok(())
 }
