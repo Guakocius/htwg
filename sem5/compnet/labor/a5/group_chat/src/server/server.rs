@@ -1,7 +1,7 @@
 use crate::client::client::{Client, ClientList};
 
 use std::sync::Arc;
-use tokio::sync::Mutex;
+use tokio::{net::TcpStream, sync::Mutex};
 
 #[derive(Debug, Clone)]
 pub struct Server {
@@ -20,18 +20,60 @@ impl Server {
     }
     pub async fn remove_user(&mut self, username: &str) -> Option<Client> {
         let mut users_lock = self.client_list.lock().await;
-        let user = users_lock
+        if let Some(pos) = users_lock
             .clients
             .iter()
             .position(|u| u.username == username)
-            .unwrap();
+        {
+            let user = users_lock.clients.remove(pos);
+            let msg = format!(
+                "UPDATE|REMOVE|{}|{}|{}",
+                user.username, user.ip, user.udp_port
+            );
 
-        let user = users_lock.clients.remove(user);
-        self.clone().broadcast(&format!(
-            "UPDATE|REMOVE|{}|{}|{}",
-            user.username, user.ip, user.udp_port
-        ));
-        Some(user)
+            drop(users_lock);
+
+            if let Err(e) = self.clone().broadcast(&msg).await {
+                eprintln!("ERROR: unable to send removal update: {:?}", e);
+            }
+            return Some(user);
+        }
+        None
+    }
+
+    pub async fn add_user(&mut self, client: Client) {
+        let mut users_lock = self.client_list.lock().await;
+
+        let msg = format!(
+            "UPDATE|ADD|{}|{}|{}",
+            client.username, client.ip, client.udp_port
+        );
+
+        users_lock.clients.push(client);
+        drop(users_lock);
+
+        if let Err(e) = self.clone().broadcast(&msg).await {
+            eprintln!("ERROR: unable to send add user update: {:?}", e);
+        }
+    }
+
+    pub async fn get_userlist(&self) -> String {
+        let client_list = self.client_list.lock().await;
+        let mut msg = String::from("USERLIST|");
+
+        for (i, c) in client_list.clients.iter().enumerate() {
+            if i > 0 {
+                msg.push(';');
+            }
+            msg.push_str(&format!("{},{},{}", c.username, c.ip, c.udp_port))
+        }
+        msg.push('\0');
+        msg
+    }
+
+    pub async fn client_exists(&self, username: &str) -> bool {
+        let client_list = self.client_list.lock().await;
+        client_list.clients.iter().any(|c| c.username == username)
     }
 }
 
