@@ -13,7 +13,6 @@ use tokio::{
 };
 
 use crate::server::server::Server;
-use crate::utils::enums::SendKind;
 
 const MIN_PORT_NUM: u32 = 1;
 const MAX_PORT_NUM: u32 = 65535;
@@ -36,11 +35,6 @@ impl Client {
         let (mut read, mut write) = stream.into_split();
 
         let listen_thread = task::spawn(async move { Self::recv(&mut read).await });
-
-        /*let server_thread = task::spawn(async move { Self::recv(SendKind::Server, &mut stream).await });
-        let udp_thread = task::spawn(async move { Self::recv(SendKind::Udp, &mut stream).await });
-        let chat_thread = task::spawn(async move { Self::recv(SendKind::Tcp, &mut stream).await });*/
-
             
         Ok(Some(client))
     }

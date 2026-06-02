@@ -4,7 +4,7 @@ use tokio::{io::AsyncWriteExt, net::TcpStream};
 use crate::server::server::Server;
 use crate::utils::enums::SendKind;
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct ClientList {
     pub clients: Vec<Client>,
 }
@@ -26,12 +26,13 @@ impl ClientList {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct Client {
     pub username: String,
     pub ip: String,
     pub server_port: String,
     pub udp_port: String,
+    pub stream: TcpStream
 }
 
 impl PartialEq for Client {
@@ -50,7 +51,7 @@ impl Client {
                 username: String::from("default"),
                 ip: String::from("127.0.0.1"),
                 server_port: String::from("5001"),
-                udp_port: String::from("123"),
+                udp_port: String::from("1024"),
             })),
             "Registering failed. Please try again",
         )
@@ -93,7 +94,7 @@ mod tests {
                 username: String::from("default"),
                 ip: String::from("127.0.0.1"),
                 server_port: String::from("5001"),
-                udp_port: String::from("123")
+                udp_port: String::from("1024")
             }
         );
     }

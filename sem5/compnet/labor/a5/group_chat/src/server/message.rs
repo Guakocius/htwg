@@ -3,9 +3,15 @@ use super::server::*;
 use tokio::{io::AsyncWriteExt, net::TcpStream};
 
 impl Server {
-    pub async fn send(addr: String, msg: &str) -> Result<(), ()> {
-        if let Ok(mut stream) = TcpStream::connect(addr).await {
-            stream.write_all(msg.as_bytes()).await.unwrap();
+    pub async fn send(stream: &mut TcpStream, msg: &str) -> Result<(), String> {
+        match stream.write_all(msg.as_bytes()).await {
+            Ok(_) => {
+                println!("Server: Message sent successfully");
+                Ok(())
+            }
+            Err(e) => {
+                eprintln!("error sending message: {}", e);
+            }
         }
         Ok(())
     }
@@ -18,7 +24,6 @@ impl Server {
                 eprintln!("error in sending broadcast to {}: {:?}", user.username, e);
             }
         }
-
         Ok(())
     }
 }
