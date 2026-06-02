@@ -56,18 +56,18 @@ impl Client {
         )
     }
 
-    pub async fn send(msg: String, stream: &mut TcpStream) -> Result<()> {
+    pub async fn send(send_kind: SendKind, msg: String, stream: &mut TcpStream) -> Result<()> {
         let mut pos = 0;
         let msg_bytes = msg.as_bytes();
 
-        /*match send_kind {
+        match send_kind {
             SendKind::Udp => {}
             SendKind::Tcp => {
                 if let Ok()
             }
             SendKind::Server => {}
             _ => {}
-        }*/
+        }
 
         while pos < msg_bytes.len() {
             let bytes_written = stream.write(&msg_bytes[pos..]).await?;

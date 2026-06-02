@@ -1,4 +1,4 @@
-use crate::client::client::ClientList;
+use crate::client::client::{Client, ClientList};
 
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -17,6 +17,21 @@ impl Server {
             port: String::from("5001"),
             client_list: Arc::new(Mutex::new(ClientList::new())),
         }
+    }
+    pub async fn remove_user(&mut self, username: &str) -> Option<Client> {
+        let mut users_lock = self.client_list.lock().await;
+        let user = users_lock
+            .clients
+            .iter()
+            .position(|u| u.username == username)
+            .unwrap();
+
+        let user = users_lock.clients.remove(user);
+        self.clone().broadcast(&format!(
+            "UPDATE|REMOVE|{}|{}|{}",
+            user.username, user.ip, user.udp_port
+        ));
+        Some(user)
     }
 }
 

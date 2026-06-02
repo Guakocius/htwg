@@ -1,4 +1,5 @@
 use super::client::*;
+use crate::utils::enums::SendKind;
 
 use std::io::{Error, ErrorKind, Result};
 
@@ -8,12 +9,16 @@ use tokio::{
     net::TcpStream,
     io::{self, AsyncReadExt, AsyncBufRead, AsyncBufReadExt, BufReader},
     time::{Duration, timeout},
+    task
 };
 
 use crate::server::server::Server;
+use crate::utils::enums::SendKind;
 
 const MIN_PORT_NUM: u32 = 1;
 const MAX_PORT_NUM: u32 = 65535;
+const SERVER_IP: &str = "127.0.0.1";
+const SERVER_PORT: &str = "5001";
 
 impl Client {
 
@@ -21,32 +26,26 @@ impl Client {
         
         let user_input = io::stdin(); 
         let reader = BufReader::new(user_input);
-        let client = Self::register_from(reader).await?.unwrap();
+        let client = Self::register_from(server, reader).await?.unwrap();
 
         let mut stream = Self::connect_to_server(&client, server).await?;
         let msg = std::format!("REGISTER|{}|{}|{}\0", client.username, client.ip, client.udp_port);
 
-        Self::send(msg, &mut stream).await.unwrap();
+        Self::send(SendKind::Server, msg, &mut stream).await.unwrap();
 
-        let mut buf = [0; 1024];
+        let (mut read, mut write) = stream.into_split();
 
-            match stream.read(&mut buf).await {
-                Ok(0) => {
-                    println!("Client: Server closed connection");
-                    return Ok(None);
-                }
-                Ok(b) => {
-                    let buf_str = std::str::from_utf8(&buf[..b]).expect("invalid utf-8 sequence");
+        let listen_thread = task::spawn(async move { Self::recv(&mut read).await });
 
-                    println!("Client: Received server response: {:?}", buf_str);
-                }
-                Err(e) => panic!("encountered IO error: {}", e),
-            }
+        /*let server_thread = task::spawn(async move { Self::recv(SendKind::Server, &mut stream).await });
+        let udp_thread = task::spawn(async move { Self::recv(SendKind::Udp, &mut stream).await });
+        let chat_thread = task::spawn(async move { Self::recv(SendKind::Tcp, &mut stream).await });*/
 
+            
         Ok(Some(client))
     }
 
-    async fn register_from<R>(mut reader: R) -> Result<Option<Self>>
+    async fn register_from<R>(server: &Server, mut reader: R) -> Result<Option<Self>>
         where R: AsyncBufRead + Unpin  {
         
         let mut username = String::new();
@@ -56,6 +55,8 @@ impl Client {
         println!("Client: Please register yourself. Type '|' to escape."); 
         
         let titles = ["username", "IP address", "UDP port"];
+
+        let addr = format!("{}:{}", SERVER_IP, SERVER_PORT);
 
         for (title, target) in titles
             .into_iter()
@@ -68,19 +69,34 @@ impl Client {
 
                 
                 if target.contains('|') {
+                    println!("Closing connection");
                     return Ok(None)
                 }
                 *target = target.trim().to_string();
 
+                
+
+                if target.is_empty() {
+                    Server::send(addr, &format!("ERROR|REGISTER expects {}", title));
+                    return Ok(None)
+                }
                 if !Self::validate_registration(title, target) {
-                    return Err(Error::new(ErrorKind::InvalidInput, "-1"));
+                    Server::send(addr, &format!("ERROR|Invalid {}", title));
+                    return Ok(None)
+                }
+            }
+            {
+                let client_list = server.client_list.lock().await;
+                if client_list.clients.iter().any(|c| c.username == username) {
+                    Server::send(addr, &format!("ERROR|Nickname already registered"));
+                    return Ok(None)
                 }
             }
 
                 let client = Client {
                     username,
                     ip,
-                    server_port: String::from("5001"),
+                    server_port: String::from(SERVER_PORT),
                     udp_port
                 };
 
