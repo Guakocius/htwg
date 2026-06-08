@@ -1,15 +1,12 @@
 use super::client::*;
-use crate::utils::enums::SendKind;
 
 use std::io::{Error, ErrorKind, Result};
-
 use regex::Regex;
 
 use tokio::{
     net::TcpStream,
-    io::{self, AsyncReadExt, AsyncBufRead, AsyncBufReadExt, BufReader},
+    io::{stdin, AsyncReadExt, AsyncBufRead, AsyncBufReadExt, BufReader},
     time::{Duration, timeout},
-    task
 };
 
 use crate::server::server::Server;
@@ -23,21 +20,34 @@ impl Client {
 
         pub async fn register(server: &Server) -> Result<Option<Self>> {
         
-        let user_input = io::stdin(); 
+        let user_input = stdin(); 
         let reader = BufReader::new(user_input);
-        let client = Self::register_from(server, reader).await?.unwrap();
 
-        let mut stream = Self::connect_to_server(&client, server).await?;
-        let msg = std::format!("REGISTER|{}|{}|{}\0", client.username, client.ip, client.udp_port);
+        match Self::register_from(server, reader).await? {
+            Some(mut client) => match Self::connect_to_server(&client, server).await {
+                Ok(mut stream) => {
+                    let msg = format!("REGISTER|{}|{}|{}\0", client.username, client.ip, client.udp_port);
 
-        Self::send(SendKind::Server, msg, &mut stream).await.unwrap();
-
-        let (mut read, mut write) = stream.into_split();
-
-        let listen_thread = task::spawn(async move { Self::recv(&mut read).await });
-            
-        Ok(Some(client))
-    }
+                    match stream.write_all(msg.as_bytes()).await {
+                        Ok(_) => {
+                            println!("Client: registration message sent to server");
+                            client.stream = Some(stream);
+                            Ok(Some(client))
+                        }
+                        Err(e) => {
+                            eprintln!("failed to send registration: {}", e);
+                            Err(Error::new(ErrorKind::Other, format!("failed to send registration: {:?}", e)))
+                        }
+                    }
+                }
+                Err(e) => {
+                    eprintln!("failed to connect to server: {}", e);
+                    Err(e)
+                }
+            }
+        None => Ok(None)
+        }
+        }
 
     async fn register_from<R>(server: &Server, mut reader: R) -> Result<Option<Self>>
         where R: AsyncBufRead + Unpin  {
@@ -50,52 +60,54 @@ impl Client {
         
         let titles = ["username", "IP address", "UDP port"];
 
-        let addr = format!("{}:{}", SERVER_IP, SERVER_PORT);
-
         for (title, target) in titles
             .into_iter()
             .zip([&mut username, &mut ip, &mut udp_port]) {
 
                 println!("Client: Please enter your {}:", title);
 
-                timeout(Duration::from_secs(30), reader.read_line(target)).await
-                    .map_err(|_| Error::new(ErrorKind::TimedOut, "registration timed out"))??;
+                match timeout(Duration::from_secs(30), reader.read_line(target)).await {
+                    Ok(Ok(_)) => {
+                        if target.contains('|') {
+                            println!("Registration cancelled");
+                            return Ok(None);
+                        }
+                        *target = target.trim().to_string();
 
-                
-                if target.contains('|') {
-                    println!("Closing connection");
-                    return Ok(None)
-                }
-                *target = target.trim().to_string();
+                        if target.is_empty() {
+                            println!("Error: {} cannot be empty", title);
+                            return Ok(None)
+                        }
 
-                
-
-                if target.is_empty() {
-                    Server::send(addr, &format!("ERROR|REGISTER expects {}", title));
-                    return Ok(None)
-                }
-                if !Self::validate_registration(title, target) {
-                    Server::send(addr, &format!("ERROR|Invalid {}", title));
-                    return Ok(None)
-                }
-            }
-            {
-                let client_list = server.client_list.lock().await;
-                if client_list.clients.iter().any(|c| c.username == username) {
-                    Server::send(addr, &format!("ERROR|Nickname already registered"));
-                    return Ok(None)
+                        if !Self::validate_registration(title, target) {
+                            println!("Error: invalid {}", title);
+                            return Ok(None)
+                        }
+                    }
+                    Ok(Err(e)) => {
+                        return Err(Error::new(ErrorKind::Other, format!("Read error: {:?}", e)));
+                    }
+                    Err(_) => {
+                        return Err(Error::new(ErrorKind::TimedOut, "Registration timed out"));
+                    }
                 }
             }
+                
+        if server.client_exists(&username).await {
+            println!("Error: Nickname already registered");
+            return Ok(None);
+        }
 
-                let client = Client {
-                    username,
-                    ip,
-                    server_port: String::from(SERVER_PORT),
-                    udp_port
-                };
+        let client = Client {
+            username,
+            ip,
+            server_port: String::from(SERVER_PORT),
+            udp_port,
+            stream: None
+        };
 
-                Ok(Some(client))
-            } 
+        Ok(Some(client))
+    } 
 
     fn validate_registration(step: &str, target: &str) -> bool {
         match step {
