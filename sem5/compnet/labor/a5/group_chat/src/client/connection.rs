@@ -2,7 +2,7 @@ use super::client::*;
 
 use std::io::{Error, ErrorKind, Result};
 use tokio::{
-    io::{AsyncReadExt, AsyncWriteExt},
+    io::AsyncReadExt,
     net::{TcpStream, tcp::OwnedReadHalf},
 };
 

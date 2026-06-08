@@ -1,4 +1,4 @@
-use std::io::{Error, ErrorKind, Result};
+use std::io::Result;
 use tokio::io::{self, AsyncBufReadExt, BufReader};
 
 pub async fn main_menu() -> Result<MenuChoice> {

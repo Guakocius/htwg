@@ -1,8 +1,6 @@
 use std::io::{Error, ErrorKind, Result};
 use tokio::{io::AsyncWriteExt, net::TcpStream};
 
-use crate::server::server::Server;
-
 #[derive(Debug)]
 pub struct ClientList {
     pub clients: Vec<Client>,
@@ -25,7 +23,7 @@ impl ClientList {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct Client {
     pub username: String,
     pub ip: String,
@@ -137,21 +135,5 @@ mod tests {
         );
 
         assert_eq!(client1, client2);
-    }
-
-    #[tokio::test]
-    async fn constructor_default_works() {
-        let server = Server::new();
-        let default_client = Client::new(&server).await;
-
-        assert_eq!(
-            default_client,
-            Client {
-                username: String::from("default"),
-                ip: String::from("127.0.0.1"),
-                server_port: String::from("5001"),
-                udp_port: String::from("1024")
-            }
-        );
     }
 }

@@ -23,7 +23,7 @@ impl Server {
             match listener.accept().await {
                 Ok((mut stream, addr)) => {
                     println!("new connection from {}", addr);
-                    let server_clone = self.clone();
+                    let mut server_clone = self.clone();
 
                     task::spawn(async move {
                         if let Err(e) = server_clone.handle_client(&mut stream).await {
