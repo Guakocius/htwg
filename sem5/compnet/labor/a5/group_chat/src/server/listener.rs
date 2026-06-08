@@ -82,7 +82,7 @@ impl Server {
         &mut self,
         msg: &str,
         stream: &mut TcpStream,
-        client: Option<Client>,
+        client: &mut Option<Client>,
     ) -> Result<(), String> {
         let parts: Vec<&str> = msg.split('|').collect();
 
@@ -100,7 +100,7 @@ impl Server {
                 let ip = parts[2];
                 let udp_port = parts[3];
 
-                if udp_port.parse::<u32>.is_err() {
+                if udp_port.parse::<u32>().is_err() {
                     return Err("INVALID_PORT".to_string());
                 }
 
@@ -120,17 +120,21 @@ impl Server {
                 self.add_user(new_client).await;
 
                 let userlist = self.get_userlist().await;
-                stream.write_all(userlist.as_bytes()).await
+                stream
+                    .write_all(userlist.as_bytes())
+                    .await
                     .map_err(|e| format!("failed to send userlist: {}", e))?;
 
-                println!("Server: User {} registered successfully", username); 
+                println!("Server: User {} registered successfully", username);
             }
 
             "LOGOUT" => {
                 if let Some(ref c) = client {
                     self.remove_user(&c.username).await.unwrap();
 
-                    stream.write_all("LOGOUT_SUCCESS\0".as_bytes()).await
+                    stream
+                        .write_all("LOGOUT_SUCCESS\0".as_bytes())
+                        .await
                         .map_err(|e| format!("failed to successfully logout: {}", e))?;
 
                     println!("Server: User {} successfully logged out", c.username);
@@ -139,7 +143,7 @@ impl Server {
                 } else {
                     return Err("LOGOUT_FAILED".to_string());
                 }
-            },
+            }
 
             "BROADCAST" => {
                 if parts.len() < 2 {
@@ -150,10 +154,12 @@ impl Server {
                     let msg = format!("BROADCAST|{}|{}\0", c.username, msg);
 
                     if let Err(e) = self.clone().broadcast(&msg).await {
-                        eprintln!("broadcast error: {}", e);
+                        eprintln!("broadcast error: {:?}", e);
                     }
 
-                    stream.write_all("SUCCESS|MESSAGE_SENT\0".as_bytes()).await
+                    stream
+                        .write_all("SUCCESS|MESSAGE_SENT\0".as_bytes())
+                        .await
                         .map_err(|e| format!("failed to send success: {}", e))?;
                 } else {
                     return Err("LOGOUT_FAILED".to_string());
@@ -166,25 +172,4 @@ impl Server {
         }
         Ok(())
     }
-
-    /*async fn recv(&mut self, stream: &mut TcpStream, client: Client) {
-        let mut buf = [0; 1024];
-        loop {
-            match stream.read(&mut buf).await {
-                Ok(0) => {
-                    self.remove_user(&client.username);
-                    break;
-                }
-                Ok(b) => {
-                    let buf_str = std::str::from_utf8(&buf[..b]).expect("invalid utf-8 sequence");
-
-                    println!("Server: Received data: {:?}", buf_str);
-                    self.handle_reception(buf_str.trim_matches('\0'), client)
-                        .await;
-                    break;
-                }
-                Err(e) => panic!("encountered IO error: {}", e),
-            }
-        }
-    }*/
 }

@@ -1,8 +1,7 @@
-use std::io::Result;
+use std::io::{Error, ErrorKind, Result};
 use tokio::{io::AsyncWriteExt, net::TcpStream};
 
 use crate::server::server::Server;
-use crate::utils::enums::SendKind;
 
 #[derive(Debug)]
 pub struct ClientList {
@@ -21,18 +20,18 @@ impl ClientList {
             clients: Vec::<Client>::new(),
         }
     }
-    pub async fn add_client(&mut self, server: &Server) {
-        self.clients.push(Client::new(server).await);
+    pub async fn add_client(&mut self, client: Client) {
+        self.clients.push(client);
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Client {
     pub username: String,
     pub ip: String,
     pub server_port: String,
     pub udp_port: String,
-    pub stream: TcpStream
+    pub stream: Option<TcpStream>,
 }
 
 impl PartialEq for Client {
@@ -45,33 +44,50 @@ impl PartialEq for Client {
 }
 
 impl Client {
-    async fn new(server: &Server) -> Self {
-        Option::expect(
-            Self::register(server).await.unwrap_or(Some(Client {
-                username: String::from("default"),
-                ip: String::from("127.0.0.1"),
-                server_port: String::from("5001"),
-                udp_port: String::from("1024"),
-            })),
-            "Registering failed. Please try again",
-        )
+    pub fn new(username: String, ip: String, server_port: String, udp_port: String) -> Self {
+        Client {
+            username,
+            ip,
+            server_port,
+            udp_port,
+            stream: None,
+        }
     }
 
-    pub async fn send(send_kind: SendKind, msg: String, stream: &mut TcpStream) -> Result<()> {
+    pub async fn send(&mut self, msg: String) -> Result<()> {
+        if let Some(ref mut stream) = self.stream {
+            let mut pos = 0;
+            let msg_bytes = msg.as_bytes();
+
+            while pos < msg_bytes.len() {
+                let bytes_written = stream.write(&msg_bytes[pos..]).await?;
+                if bytes_written == 0 {
+                    return Err(Error::new(
+                        ErrorKind::WriteZero,
+                        "failed to write to socket",
+                    ));
+                }
+                pos += bytes_written;
+            }
+            Ok(())
+        } else {
+            Err(Error::new(ErrorKind::NotConnected, "no active stream"))
+        }
+    }
+
+    pub async fn send_to_stream(stream: &mut TcpStream, msg: String) -> Result<()> {
         let mut pos = 0;
         let msg_bytes = msg.as_bytes();
 
-        match send_kind {
-            SendKind::Udp => {}
-            SendKind::Tcp => {
-                if let Ok()
-            }
-            SendKind::Server => {}
-            _ => {}
-        }
-
         while pos < msg_bytes.len() {
             let bytes_written = stream.write(&msg_bytes[pos..]).await?;
+
+            if bytes_written == 0 {
+                return Err(Error::new(
+                    ErrorKind::WriteZero,
+                    "failed to write to socket",
+                ));
+            }
             pos += bytes_written;
         }
         Ok(())
@@ -81,7 +97,47 @@ impl Client {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::server::server::Server;
+
+    #[test]
+    fn test_clientlist_new() {
+        let client_list = ClientList::new();
+        assert_eq!(client_list.clients.len(), 0);
+    }
+
+    #[test]
+    fn test_client_new() {
+        let client = Client::new(
+            String::from("test"),
+            String::from("127.0.0.1"),
+            String::from("5001"),
+            String::from("5002"),
+        );
+
+        assert_eq!(client.username, "test");
+        assert_eq!(client.ip, "127.0.0.1");
+        assert_eq!(client.server_port, "5001");
+        assert_eq!(client.udp_port, "5002");
+        assert_eq!(client.stream, None);
+    }
+
+    #[test]
+    fn test_client_equality() {
+        let client1 = Client::new(
+            String::from("user1"),
+            String::from("192.168.1.1"),
+            String::from("5001"),
+            String::from("5002"),
+        );
+
+        let client2 = Client::new(
+            String::from("user1"),
+            String::from("192.168.1.1"),
+            String::from("5001"),
+            String::from("5002"),
+        );
+
+        assert_eq!(client1, client2);
+    }
 
     #[tokio::test]
     async fn constructor_default_works() {
