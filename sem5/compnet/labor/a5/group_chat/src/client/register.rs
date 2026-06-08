@@ -4,8 +4,7 @@ use std::io::{Error, ErrorKind, Result};
 use regex::Regex;
 
 use tokio::{
-    net::TcpStream,
-    io::{stdin, AsyncReadExt, AsyncBufRead, AsyncBufReadExt, BufReader},
+    io::{stdin, AsyncBufRead, AsyncBufReadExt, BufReader, AsyncWriteExt},
     time::{Duration, timeout},
 };
 
@@ -47,7 +46,7 @@ impl Client {
             }
         None => Ok(None)
         }
-        }
+    }
 
     async fn register_from<R>(server: &Server, mut reader: R) -> Result<Option<Self>>
         where R: AsyncBufRead + Unpin  {
