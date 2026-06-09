@@ -6,9 +6,12 @@ use group_chat::server::server::Server;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    println!("starting server...");
+    println!("Starting server...");
 
-    let server = Server::new();
+    let mut server = Server::new();
+
+    println!("Starting server on {}:{}", server.ip, server.port);
+    println!("Waiting for incoming TCP connections...");
 
     server.listen().await;
 

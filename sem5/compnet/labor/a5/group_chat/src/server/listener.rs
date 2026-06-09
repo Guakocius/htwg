@@ -10,7 +10,7 @@ use tokio::{
 
 impl Server {
     pub async fn listen(&mut self) {
-        let listener = TcpListener::bind(std::format!("{}:{}", self.ip, self.port))
+        let listener = TcpListener::bind(format!("{}:{}", self.ip, self.port))
             .await
             .unwrap();
 
@@ -60,7 +60,7 @@ impl Server {
                         .handle_reception(buf_str.trim_matches('\0'), stream, &mut client)
                         .await
                     {
-                        Ok(_) => {}
+                        Ok(_) => { /*continue*/ }
                         Err(e) => {
                             eprintln!("error handling messsage: {}", e);
                             let msg = format!("ERROR|{}\0", e);
@@ -116,8 +116,8 @@ impl Server {
                     stream: None,
                 };
 
-                *client = Some(new_client.clone());
-                self.add_user(new_client).await;
+                *client = Some(new_client);
+                self.add_user(client).await;
 
                 let userlist = self.get_userlist().await;
                 stream
