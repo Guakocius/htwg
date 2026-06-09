@@ -10,6 +10,12 @@ pub struct Server {
     pub client_list: Arc<Mutex<ClientList>>,
 }
 
+impl Default for Server {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Server {
     pub fn new() -> Self {
         Server {

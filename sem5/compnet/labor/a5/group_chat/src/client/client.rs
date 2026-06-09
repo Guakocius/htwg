@@ -8,7 +8,13 @@ pub struct ClientList {
 
 impl PartialEq for ClientList {
     fn eq(&self, other: &Self) -> bool {
-        self.clients == other.clients
+        if self.clients.len() != other.clients.len() {
+            return false;
+        }
+        self.clients
+            .iter()
+            .zip(other.clients.iter())
+            .all(|(c1, c2)| c1 == c2)
     }
 }
 
@@ -115,7 +121,7 @@ mod tests {
         assert_eq!(client.ip, "127.0.0.1");
         assert_eq!(client.server_port, "5001");
         assert_eq!(client.udp_port, "5002");
-        assert_eq!(client.stream, None);
+        assert!(client.stream.is_none());
     }
 
     #[test]
