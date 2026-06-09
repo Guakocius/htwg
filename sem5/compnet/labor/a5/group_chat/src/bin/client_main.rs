@@ -12,44 +12,78 @@ async fn main() -> Result<()> {
 
     let client = match Client::register(&server).await {
         Ok(Some(c)) => c,
-        _ => {
+        Ok(None) => {
             eprintln!("registering failed...");
             return Ok(());
+        }
+        Err(e) => {
+            println!("registering failed: {}", e);
+            return Err(e);
         }
     };
 
     println!(
-        "New client registered: {} with IP address: {} and UDP port {}\n",
-        client.username, client.ip, client.udp_port
+        "New client registered: {} with IP address: {} and UDP port {} connected to server port {}\n",
+        client.username, client.ip, client.udp_port, client.server_port
     );
 
-    let mut stream = client
-        .connect_to_server(&server)
-        .await
-        .expect("connection failed");
+    match client.connect_to_server(&server).await {
+        Ok(mut stream) => {
+            println!("connected to server on {}:{}", server.ip, server.port);
 
-    let mut buf_reader = BufReader::new(stdin());
-    let mut msg = String::new();
+            let msg = format!(
+                "REGISTER|{}|{}|{}\0",
+                client.username, client.ip, client.udp_port
+            );
 
-    println!("Please enter something. Press '|' to exit");
+            if let Err(e) = stream.write_all(msg.as_bytes()).await {
+                eprintln!("failed sending registration: {:?}", e);
+                return Err(e);
+            }
 
-    loop {
-        msg.clear();
-        buf_reader
-            .read_line(&mut msg)
-            .await
-            .expect("failed to readline");
+            println!("REGISTER message sent.");
+            println("Please enter something. Press'|' to exit.");
 
-        msg = msg.trim().to_string();
-        msg.push('\0');
+            let mut reader = BufReader::new(stdin());
+            let mut msg = String::new();
 
-        println!("msg: {msg}");
+            loop {
+                msg.clear();
+                match reader.read_line(&mut msg).await {
+                    Ok(_) => {
+                        msg = msg.trim().to_string();
 
-        if !msg.contains('|') {
-            Client::send(msg.clone(), &mut stream).await.unwrap();
-        } else {
-            println!("Closing connection");
-            process::exit(0x0100);
+                        if msg.is_empty() {
+                            continue;
+                        }
+
+                        if msg.contains('|') {
+                            println!("Closing connection");
+                            stream.write_all("LOGOUT\0".as_bytes()).await.unwrap();
+                            process::exit(0x0100);
+                        }
+
+                        msg.push('\0');
+                        match stream.write_all(msg.as_bytes()).await {
+                            Ok(_) => println!("msg: {}", msg),
+                            Err(e) => eprintln!("failed sending message: {:?}", e),
+                        }
+                    }
+                    Err(e) => {
+                        eprintln!("read error: {:?}", e);
+                        break;
+                    }
+                }
+            }
+        }
+        Err(e) => {
+            eprintln!("failed connecting to server: {:?}", e);
+            eprintln!(
+                "Make sure the server is running on {}:{}",
+                server.ip, server.port
+            );
+            return Err(e);
         }
     }
+    Ok(())
 }
