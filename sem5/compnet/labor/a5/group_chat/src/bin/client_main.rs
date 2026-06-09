@@ -1,5 +1,5 @@
 use std::{io::Result, process};
-use tokio::io::{AsyncBufReadExt, BufReader, stdin};
+use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader, stdin};
 
 use group_chat::client::client::Client;
 use group_chat::server::server::Server;
@@ -42,7 +42,7 @@ async fn main() -> Result<()> {
             }
 
             println!("REGISTER message sent.");
-            println("Please enter something. Press'|' to exit.");
+            println!("Please enter something. Press'|' to exit.");
 
             let mut reader = BufReader::new(stdin());
             let mut msg = String::new();
