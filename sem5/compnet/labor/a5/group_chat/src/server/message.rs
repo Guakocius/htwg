@@ -5,10 +5,7 @@ use tokio::{io::AsyncWriteExt, net::TcpStream};
 impl Server {
     pub async fn send(stream: &mut TcpStream, msg: &str) -> Result<(), String> {
         match stream.write_all(msg.as_bytes()).await {
-            Ok(_) => {
-                println!("Server: Message sent successfully");
-                Ok(())
-            }
+            Ok(_) => Ok(()),
             Err(e) => {
                 eprintln!("error sending message: {}", e);
                 Err(format!("Failed to send message: {}", e))
@@ -19,6 +16,7 @@ impl Server {
     pub async fn broadcast(self, msg: &str) -> Result<(), String> {
         let users_lock = self.client_list.lock().await;
         let mut errors = Vec::new();
+        println!("client list: {:?}", users_lock.clients);
 
         for user in &users_lock.clients {
             let addr = format!("{}:{}", user.ip, user.server_port);

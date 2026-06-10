@@ -13,10 +13,7 @@ impl Client {
         let addr = format!("{}:{}", server.ip, server.port);
 
         match TcpStream::connect(&addr).await {
-            Ok(stream) => {
-                println!("connected to server at {} successfully", addr);
-                Ok(stream)
-            }
+            Ok(stream) => Ok(stream),
             Err(e) => {
                 eprintln!("failed to connect to server at {}: {:?}", addr, e);
                 Err(Error::new(
@@ -40,7 +37,6 @@ impl Client {
                     .map_err(|_| Error::new(ErrorKind::InvalidData, "Invalid UTF-8"))?;
 
                 let msg = buf_str.trim_matches('\0').to_string();
-                println!("received from server: {}", msg);
                 Ok(msg)
             }
             Err(e) => {
@@ -52,12 +48,13 @@ impl Client {
 
     pub async fn handle_message(msg: &str) -> Result<()> {
         let parts: Vec<&str> = msg.split('|').collect();
+        println!("msg: {:?}", msg);
 
         if parts.is_empty() {
             return Err(Error::new(ErrorKind::InvalidData, "Empty message"));
         }
 
-        match parts[0] {
+        match msg {
             "USERLIST" => {
                 if parts.len() > 1 {
                     let users = &parts[1..];

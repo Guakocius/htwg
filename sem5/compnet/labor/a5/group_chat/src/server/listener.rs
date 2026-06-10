@@ -13,15 +13,9 @@ impl Server {
             .await
             .unwrap();
 
-        println!(
-            "Server: Listening on {}:{} for incoming TCP connections",
-            self.ip, self.port
-        );
-
         loop {
             match listener.accept().await {
                 Ok((stream, addr)) => {
-                    println!("new connection from {}", addr);
                     let server_clone = self.clone();
 
                     task::spawn(async move {
@@ -44,8 +38,6 @@ impl Server {
             match stream.read(&mut buf).await {
                 Ok(0) => {
                     if let Some(ref c) = client {
-                        println!("Server: Client {} has disconnected", c.username);
-
                         server.remove_user(&c.username).await.unwrap();
                     }
                     break;
@@ -53,8 +45,6 @@ impl Server {
                 Ok(b) => {
                     let buf_str = std::str::from_utf8(&buf[..b])
                         .map_err(|_| "invalid utf-8 sequence".to_string())?;
-
-                    println!("Server: Received data: {:?}", buf_str);
 
                     let msg = buf_str.trim_matches('\0').trim();
 
@@ -187,10 +177,7 @@ impl Server {
                     Err("LOGOUT_FAILED".to_string())
                 }
             }
-            _ => {
-                eprintln!("unknown message type: {}", parts[0]);
-                Err("INVALID_FORMAT".to_string())
-            }
+            _ => Err("INVALID_FORMAT".to_string()),
         }
     }
 }
