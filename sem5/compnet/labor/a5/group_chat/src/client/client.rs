@@ -18,6 +18,12 @@ impl PartialEq for ClientList {
     }
 }
 
+impl Default for ClientList {
+    fn default() -> Self {
+        ClientList::new()
+    }
+}
+
 impl ClientList {
     pub fn new() -> Self {
         ClientList {

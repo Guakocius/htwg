@@ -116,9 +116,7 @@ async fn handle_udp_message(msg: &str, src: SocketAddr) -> Result<()> {
             Ok(())
         }
 
-        None => {
-            return Err(Error::new(ErrorKind::InvalidData, "Empty message received"));
-        }
+        None => Err(Error::new(ErrorKind::InvalidData, "Empty message received")),
     }
 }
 

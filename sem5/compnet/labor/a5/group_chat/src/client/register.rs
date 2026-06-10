@@ -12,7 +12,6 @@ use crate::server::server::Server;
 
 const MIN_PORT_NUM: u32 = 1;
 const MAX_PORT_NUM: u32 = 65535;
-const SERVER_IP: &str = "127.0.0.1";
 const SERVER_PORT: &str = "5001";
 
 impl Client {
@@ -29,13 +28,12 @@ impl Client {
 
                     match stream.write_all(msg.as_bytes()).await {
                         Ok(_) => {
-                            println!("Client: registration message sent to server");
                             client.stream = Some(stream);
                             Ok(Some(client))
                         }
                         Err(e) => {
                             eprintln!("failed to send registration: {}", e);
-                            Err(Error::new(ErrorKind::Other, format!("failed to send registration: {:?}", e)))
+                            Err(Error::other(format!("failed to send registration: {:?}", e)))
                         }
                     }
                 }
@@ -54,9 +52,7 @@ impl Client {
         let mut username = String::new();
         let mut ip = String::new();
         let mut udp_port = String::new();
-
-        println!("Client: Please register yourself. Type '|' to escape."); 
-        
+ 
         let titles = ["username", "IP address", "UDP port"];
 
         for (title, target) in titles
@@ -79,12 +75,12 @@ impl Client {
                         }
 
                         if !Self::validate_registration(title, target) {
-                            println!("Error: invalid {}", title);
+                            eprintln!("Error: invalid {}", title);
                             return Ok(None)
                         }
                     }
                     Ok(Err(e)) => {
-                        return Err(Error::new(ErrorKind::Other, format!("Read error: {:?}", e)));
+                        return Err(Error::other(format!("Read error: {:?}", e)));
                     }
                     Err(_) => {
                         return Err(Error::new(ErrorKind::TimedOut, "Registration timed out"));
@@ -93,7 +89,7 @@ impl Client {
             }
                 
         if server.client_exists(&username).await {
-            println!("Error: Nickname already registered");
+            eprintln!("Error: Nickname already registered");
             return Ok(None);
         }
 
@@ -119,7 +115,7 @@ impl Client {
                 port.gt(&MIN_PORT_NUM) && port.lt(&MAX_PORT_NUM)
             } 
             _ => {
-                println!("registration failed.");
+                eprintln!("registration failed.");
                 false
             }
         }
