@@ -7,10 +7,10 @@
 a) w1 = abc
 (q0,abc,\#)
 (q0,bc,A\#), a,\#;A\#
-(q0,c,ϵ), b,A;ϵ
-(q1,c,ϵ), Zustandswechsel ϵ,ϵ;ϵ
+(q0,c,\#), b,A;ϵ
+(q1,c,ϵ), ϵ,ϵ;ϵ
 
-Nicht akzeptiert, da keine passende Transition für c zu q1
+Nicht akzeptiert.
 
 b) w2 = aab
 (q0,aab,\#)
@@ -20,7 +20,7 @@ b) w2 = aab
 (q1,ϵ,A\#), ϵ,ϵ;ϵ
 (q1,ϵ,\#), ϵ,A;ϵ
 
-Nicht akzeptiert, da ϵ als Eingabe, braucht aber c für q2
+Nicht akzeptiert.
 
 c) w3 = bbbaac
 (q0,bbbaac,\#)
@@ -29,17 +29,14 @@ c) w3 = bbbaac
 (q0,aac,BBB\#), b,B;BB
 (q0,ac,BB\#), a,B;ϵ
 (q0,c,B\#), a,B;ϵ
-(q1,c,B\#), ϵ,ϵ;ϵ
 (q1,c,\#), ϵ,B;ϵ
 (q2,ϵ,ϵ), c,\#;ϵ
 
-Wird akzeptiert, weil es in den Endzustand kommt
+Wird akzeptiert.
 
 ### Teilaufgabe 4.6.2
 
-L(Pabc) = {wc | w ∈ {a,b}\*}
-
-## Aufgabe 4.7
+L(Pabc) = {a^nb^mc | n,m ∈ N ∧ n > m}
 
 ## Aufgabe 4.8
 
