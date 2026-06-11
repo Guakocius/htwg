@@ -52,17 +52,17 @@ q1,y,X => q1,ϵ
 q1,ϵ,X )> q2,X
 q1,ϵ,\# => q2,\#
 
-Deterministisch
+Nichtdeterministisch
 
 #### L2
 
 q0,x,\# => q0,X\#
 q0,x,X => q0,XX
-q0,y,X => q1,ϵ
+q0,ϵ,\# => q2,\#
 q1,y,X => q1,ϵ
 q1,ϵ,X => q2,ϵ
 
-Deterministisch
+Nichtdeterministisch
 
 ### Teilaufgabe 4.8.2
 

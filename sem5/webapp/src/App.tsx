@@ -1,4 +1,3 @@
-//import { useState } from "react";
 import flappyImg from "./assets/flappybird.png";
 import "./style/App.css";
 import Navbar from "./components/Navbar.tsx";
