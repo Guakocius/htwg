@@ -18,10 +18,12 @@ oder einfach
 
 ## Kriterien-Zuordnung M1
 
-| Kriterium                         | Datei                                                           | Zeile / Hinweis                                                  |
-| --------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------- |
-| npm + Vite                        | package.json, vite.config.ts                                    | Projekt-Root                                                     |
-| TypeScript aktiv genutzt          | register.html, login.html                                       | Z. 14-26                                                         |
-| Responsives Layout (Flexbox/Grid) | style.css                                                       | Z. 8,40,46,69-70,128,141-142,163                                 |
-| Media Query                       | styles.css                                                      | Z. 139-157                                                       |
-| URL-Struktur                      | index.html, register.html login.html game.html leaderboard.html | Pfade: /, /src/register, /src/login, /src/game, /src/leaderboard |
+| Kriterium                 | Datei                                      | Zeile / Hinweis                                    |
+| ------------------------- | ------------------------------------------ | -------------------------------------------------- |
+| npm + Vite                | package.json, vite.config.ts               | Projekt-Root                                       |
+| TypeScript aktiv genutzt  | src/types.ts, src/components/LoginForm.tsx | Z. 1-3 (eigene Typen), Z. 25-41 (Funktionen)       |
+| Komponentenzerlegung      | src/components/                            | LeaderboardTable, LoginForm, Navbar                |
+| Props-Übergabe            | src/components/LoginForm.tsx               | Z. 35-37                                           |
+| useState                  | src/components/LoginForm.tsx               | Z. 7-10, Z. 22,23 (LoginForm-States)               |
+| useEffect                 | src/components/Navbar.tsx                  | Z. 13-15 (zu anderer Seite navigieren)             |
+| Durchgängige Nutzeraktion | src/components/LoginForm.tsx               | Formular zur Registrierung und Login, je nach Prop |
