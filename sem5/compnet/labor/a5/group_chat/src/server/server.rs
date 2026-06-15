@@ -1,5 +1,4 @@
 use crate::client::client::{Client, ClientList};
-
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
@@ -33,19 +32,12 @@ impl Server {
         {
             let user = users_lock.clients.remove(pos);
             let msg = format!(
-                "UPDATE|REMOVE|{}|{}|{}",
+                "UPDATE|REMOVE|{}|{}|{}\0",
                 user.username, user.ip, user.udp_port
             );
 
             drop(users_lock);
-
-            if let Err(e) = self.clone().broadcast(&msg).await {
-                eprintln!("ERROR: unable to send removal update: {:?}", e);
-            }
-            let msg = self.get_userlist().await;
-            if let Err(e) = self.clone().broadcast(&msg).await {
-                eprintln!("ERROR: unable to send userlist: {:?}", e);
-            }
+            self.clone().broadcast(&msg).await;
             return Some(user);
         }
         None
@@ -55,16 +47,13 @@ impl Server {
         let mut users_lock = self.client_list.lock().await;
 
         let msg = format!(
-            "UPDATE|ADD|{}|{}|{}",
+            "UPDATE|ADD|{}|{}|{}\0",
             client.username, client.ip, client.udp_port
         );
 
         users_lock.clients.push(client);
         drop(users_lock);
-
-        if let Err(e) = self.clone().broadcast(&msg).await {
-            eprintln!("ERROR: unable to send add user update: {:?}", e);
-        }
+        self.clone().broadcast(&msg).await;
     }
 
     pub async fn get_userlist(&self) -> String {

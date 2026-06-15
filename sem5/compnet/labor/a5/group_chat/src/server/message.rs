@@ -1,39 +1,30 @@
 use super::server::*;
 
-use tokio::{io::AsyncWriteExt, net::TcpStream};
+use tokio::io::AsyncWriteExt;
 
 impl Server {
-    pub async fn send(stream: &mut TcpStream, msg: &str) -> Result<(), String> {
-        match stream.write_all(msg.as_bytes()).await {
-            Ok(_) => Ok(()),
-            Err(e) => {
-                eprintln!("error sending message: {}", e);
-                Err(format!("Failed to send message: {}", e))
-            }
-        }
+    pub async fn send(msg: &str) -> Result<(), String> {
+        Ok(())
     }
 
     pub async fn broadcast(self, msg: &str) -> Result<(), String> {
         let users_lock = self.client_list.lock().await;
         let mut errors = Vec::new();
-        println!("client list: {:?}", users_lock.clients);
 
         for user in &users_lock.clients {
-            let addr = format!("{}:{}", user.ip, user.server_port);
-
-            match TcpStream::connect(&addr).await {
-                Ok(mut stream) => {
-                    if let Err(e) = stream.write_all(msg.as_bytes()).await {
-                        errors.push(format!("Failed to send to {}: {}", user.username, e));
-                        eprintln!("error sending broadcast to {}: {}", user.username, e);
-                    }
+            if let Some(ref shared_stream) = user.stream {
+                let mut stream = shared_stream.lock().await;
+                if let Err(e) = stream.write_all(msg.as_bytes()).await {
+                    errors.push(format!("Failed broadcasting to {}: {:?}", user.username, e));
                 }
-                Err(e) => {
-                    errors.push(format!("Failed to connect to {}: {}", user.username, e));
-                    eprintln!("error connecting to {}: {}", user.username, e);
-                }
+            } else {
+                errors.push(format!(
+                    "No active connection handle found for client {}",
+                    user.username
+                ));
             }
         }
+
         if errors.is_empty() {
             Ok(())
         } else {

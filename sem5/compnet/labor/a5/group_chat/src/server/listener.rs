@@ -1,9 +1,11 @@
 use super::server::*;
 use crate::client::client::Client;
+use std::sync::Arc;
 
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},
     net::{TcpListener, TcpStream},
+    sync::Mutex,
     task,
 };
 
@@ -24,52 +26,104 @@ impl Server {
                         }
                     });
                 }
-                Err(e) => println!("connection failed: {}", e),
+                Err(e) => eprintln!("connection failed: {}", e),
             }
         }
     }
 
-    async fn handle_client(self, mut stream: TcpStream) -> Result<(), String> {
+    async fn handle_client(self, stream: TcpStream) -> Result<(), String> {
         let mut buf = [0; 1024];
-        let mut client: Option<Client> = None;
+        let shared_stream = Arc::new(Mutex::new(stream));
+        let mut client_name: Option<String> = None;
         let mut server = self;
 
         loop {
-            match stream.read(&mut buf).await {
-                Ok(0) => {
-                    if let Some(ref c) = client {
-                        server.remove_user(&c.username).await.unwrap();
-                    }
-                    break;
+            let bytes_read = {
+                let mut locked_stream = shared_stream.lock().await;
+                match locked_stream.read(&mut buf).await {
+                    Ok(0) => break,
+                    Ok(b) => b,
+                    Err(e) => return Err(format!("Socket read error: {:?}", e)),
                 }
-                Ok(b) => {
-                    let buf_str = std::str::from_utf8(&buf[..b])
-                        .map_err(|_| "invalid utf-8 sequence".to_string())?;
+            };
 
-                    let msg = buf_str.trim_matches('\0').trim();
+            let data = String::from_utf8_lossy(&buf[..bytes_read]);
+            let packets: Vec<&str> = data.split('\0').filter(|s| !s.is_empty()).collect();
 
-                    if msg.is_empty() {
-                        continue;
+            for packet in packets {
+                let parts: Vec<&str> = packet.split('|').map(|s| s.trim()).collect();
+                if parts.is_empty() {
+                    continue;
+                }
+
+                match parts[0] {
+                    "REGISTER" => {
+                        if parts.len() < 4 {
+                            let mut s = shared_stream.lock().await;
+                            let _ = s.write_all("ERROR|INVALID_FORMAT\0".as_bytes()).await;
+                            continue;
+                        }
+                        let username = parts[1].to_string();
+                        let ip = parts[2].to_string();
+                        let udp_port = parts[3].to_string();
+
+                        if server.client_exists(&username).await {
+                            let mut s = shared_stream.lock().await;
+                            s.write_all("ERROR|NAME_ALREADY_USED\0".as_bytes())
+                                .await
+                                .unwrap();
+                            continue;
+                        }
+
+                        let new_client = Client {
+                            username: username.clone(),
+                            ip,
+                            server_port: server.port.clone(),
+                            udp_port,
+                            stream: Some(Arc::clone(&shared_stream)),
+                        };
+
+                        client_name = Some(username.clone());
+                        server.add_user(new_client).await;
+
+                        // Respond immediately with userlist state confirmation
+                        let userlist = server.get_userlist().await;
+                        let mut s = shared_stream.lock().await;
+                        s.write_all(userlist.as_bytes()).await.unwrap();
                     }
-
-                    match server.handle_reception(msg, &mut stream, &mut client).await {
-                        Ok(_) => { /*continue*/ }
-                        Err(e) => {
-                            eprintln!("error handling messsage: {}", e);
-                            let msg = format!("ERROR|{}\0", e);
-
-                            stream.write_all(msg.as_bytes()).await.unwrap();
+                    "LOGOUT" => {
+                        if let Some(ref name) = client_name {
+                            server.remove_user(name).await;
+                            let mut s = shared_stream.lock().await;
+                            s.write_all("LOGOUT_SUCCESS\0".as_bytes()).await.unwrap();
+                        }
+                        return Ok(());
+                    }
+                    "BROADCAST" => {
+                        if parts.len() < 2 {
+                            let mut s = shared_stream.lock().await;
+                            s.write_all("ERROR|INVALID_BROADCAST_FORMAT\0".as_bytes())
+                                .await
+                                .unwrap();
+                            continue;
+                        }
+                        if let Some(ref name) = client_name {
+                            let payload = parts[1..].join("|");
+                            let msg = format!("BROADCAST|{}|{}\0", name, payload);
+                            server.clone().broadcast(&msg).await.unwrap();
                         }
                     }
-                }
-                Err(e) => {
-                    eprintln!("IO error: {}", e);
-                    if let Some(ref c) = client {
-                        server.remove_user(&c.username).await.unwrap();
+                    _ => {
+                        let mut s = shared_stream.lock().await;
+                        s.write_all("ERROR|INVALID_FORMAT\0".as_bytes())
+                            .await
+                            .unwrap();
                     }
-                    return Err(format!("IO error: {}", e));
                 }
             }
+        }
+        if let Some(ref name) = client_name {
+            server.remove_user(name).await;
         }
         Ok(())
     }
