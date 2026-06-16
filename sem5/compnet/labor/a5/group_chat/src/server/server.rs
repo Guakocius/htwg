@@ -18,7 +18,7 @@ impl Default for Server {
 impl Server {
     pub fn new() -> Self {
         Server {
-            ip: String::from("127.0.0.1"),
+            ip: String::from("100.86.213.141"),
             port: String::from("5001"),
             client_list: Arc::new(Mutex::new(ClientList::new())),
         }

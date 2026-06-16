@@ -11,7 +11,8 @@ pub mod client {
     pub mod udp;
 }
 
-//pub mod input;
+pub mod input;
 
 pub use client::client::Client;
+pub use input::*;
 pub use server::server::Server;

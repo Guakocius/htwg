@@ -3,17 +3,17 @@ use std::{
     net::UdpSocket,
     process,
     sync::Arc,
+    time::Duration,
 };
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},
     sync::Mutex,
+    time::sleep,
 };
 
 use group_chat::{
-    client::{
-        client::Client,
-        udp::{listen_udp, send_handshake},
-    },
+    client::{client::Client, udp::send_handshake},
+    input::{ClientCommand, connected_menu},
     server::server::Server,
 };
 
@@ -27,6 +27,8 @@ async fn main() -> Result<()> {
 
     let shared_stream = Arc::new(Mutex::new(stream));
     let reader_stream = Arc::clone(&shared_stream);
+
+    // Asynchronous Reader Task
     tokio::spawn(async move {
         let mut buf = [0; 1024];
         loop {
@@ -34,7 +36,7 @@ async fn main() -> Result<()> {
                 let mut stream = reader_stream.lock().await;
                 match stream.read(&mut buf).await {
                     Ok(0) => {
-                        println!("Server closed connection.");
+                        println!("\n[System]: Server closed connection.");
                         process::exit(0x0100);
                     }
                     Ok(b) => b,
@@ -43,44 +45,57 @@ async fn main() -> Result<()> {
             };
             let incoming = String::from_utf8_lossy(&buf[..bytes_read]);
             for chunk in incoming.split('\0').filter(|s| !s.is_empty()) {
-                println!("[Server Message: ]{}", chunk);
+                // If it's a userlist payload, format it clearly so it doesn't drown in the menu text
+                if chunk.starts_with("USERLIST|") {
+                    println!("\n=== ACTIVE ONLINE USERS ===");
+                    let users = chunk.trim_start_matches("USERLIST|").replace(';', "\n* ");
+                    if users.is_empty() {
+                        println!("No other users registered.");
+                    } else {
+                        println!("* {}", users);
+                    }
+                    println!("===========================\n");
+                } else {
+                    println!("\n[Server Message]: {}", chunk);
+                }
             }
         }
     });
 
     let udp_addr = format!("{}:{}", client.ip, client.udp_port);
-    let socket = UdpSocket::bind(&udp_addr).expect("unable to bind UDP");
-    let socket_clone = socket.try_clone().expect("clone failed");
-
-    std::thread::spawn(move || {
-        listen_udp(socket_clone).unwrap();
-    });
+    let socket = UdpSocket::bind(&udp_addr).expect("Unable to bind local UDP socket");
 
     loop {
-        println!("Main Menu");
-        println!("1. Send Broadcast Message");
-        println!("2. Initiate UDP Peer Handshake");
-        println!("3. Logout and Exit");
-        print!("Please select an action (1-3)");
+        match connected_menu().await {
+            Ok(ClientCommand::ListUsers) => {
+                let payload = "USERLIST\0";
+                let mut stream = shared_stream.lock().await;
+                let _ = stream.write_all(payload.as_bytes()).await;
 
-        Write::flush(&mut stdout())?;
-
-        let mut choice = String::new();
-        stdin().lock().read_line(&mut choice)?;
-
-        match choice.trim() {
-            "1" => {
-                print!("Enter text to broadcast: ");
+                // Give the background async reader task a split second to fetch and print
+                // the payload before the next iteration reprints the main menu prompt.
+                drop(stream);
+                sleep(Duration::from_millis(150)).await;
+            }
+            Ok(ClientCommand::BroadcastMessage) => {
+                print!("Enter text to broadcast (Enter '|' to return to options): ");
                 Write::flush(&mut stdout())?;
                 let mut msg = String::new();
                 stdin().lock().read_line(&mut msg)?;
-                let msg = msg.trim();
+                let trimmed_msg = msg.trim();
 
-                let payload = format!("BROADCAST|{}\0", msg);
-                let mut stream = shared_stream.lock().await;
-                stream.write_all(payload.as_bytes()).await.unwrap();
+                if trimmed_msg == "|" {
+                    println!("Returning to options menu...");
+                    continue;
+                }
+
+                if !trimmed_msg.is_empty() {
+                    let payload = format!("BROADCAST|{}\0", trimmed_msg);
+                    let mut stream = shared_stream.lock().await;
+                    let _ = stream.write_all(payload.as_bytes()).await;
+                }
             }
-            "2" => {
+            Ok(ClientCommand::InitiateChat) => {
                 print!("Enter Target Peer Destination IP: ");
                 Write::flush(&mut stdout())?;
                 let mut target_ip = String::new();
@@ -92,15 +107,18 @@ async fn main() -> Result<()> {
                 stdin().lock().read_line(&mut target_port)?;
 
                 let dst_addr = format!("{}:{}", target_ip.trim(), target_port.trim());
-                send_handshake(&socket, &dst_addr, &client.username, "5002").await;
+                send_handshake(&socket, &dst_addr, &client.username, "5002").await?;
             }
-            "3" => {
+            Ok(ClientCommand::Logout) => {
                 let mut stream = shared_stream.lock().await;
-                stream.write_all("LOGOUT\0".as_bytes()).await.unwrap();
+                let _ = stream.write_all("LOGOUT\0".as_bytes()).await;
                 println!("Session terminated.");
                 break;
             }
-            _ => println!("Invalid choice"),
+            Err(e) => {
+                eprintln!("Menu read failure encounter: {:?}", e);
+                break;
+            }
         }
     }
     Ok(())
