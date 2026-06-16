@@ -1,13 +1,30 @@
+import { BrowserRouter, Routes, Route } from "react-router";
 import flappyImg from "./assets/flappybird.png";
 import "./style/App.css";
-import Navbar from "./components/Navbar.tsx";
+import Navbar from "./components/Navbar";
+import Index from "./pages/Index";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Game from "./pages/Game";
+import Leaderboard from "./pages/Leaderboard";
 
 export default function App() {
   return (
     <>
-      <div>
+      <BrowserRouter>
         <Navbar />
-      </div>
+
+        <div className="page-content">
+          <Routes>
+            <Route path="/index" element={<Index />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/game" element={<Game />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+
       <header>
         <h1>
           Welcome to Flappy Bird

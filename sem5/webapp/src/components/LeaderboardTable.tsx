@@ -2,7 +2,6 @@ import "./LoginForm";
 
 export default function LeaderboardTable() {
   return (
-
     <>
       <div>
         <table id="leaderboard">
