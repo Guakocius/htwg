@@ -5,7 +5,7 @@ use std::{
     sync::Arc,
 };
 use tokio::{
-    io::{AsyncBufReadExt, AsyncWriteExt},
+    io::{AsyncReadExt, AsyncWriteExt},
     sync::Mutex,
 };
 
