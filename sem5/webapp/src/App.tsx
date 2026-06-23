@@ -8,6 +8,11 @@ import Login from "./pages/Login";
 import Game from "./pages/Game";
 import Leaderboard from "./pages/Leaderboard";
 
+/**
+ * Main application component for the landing page.
+ * Displays the Flappy Bird title with its iconic image
+ * and the Navbar.
+ */
 export default function App() {
   return (
     <>
