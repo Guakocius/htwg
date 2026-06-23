@@ -61,7 +61,12 @@ export default function LoginForm({ form }: FormProps) {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
-    const hasErrors = Object.values(validationErrors).some((e) => e !== "");
+    const fields =
+      form === "Register"
+        ? Object.keys(validationErrors)
+        : ["userName", "password"];
+
+    const hasErrors = fields.some((k) => validationErrors[k] !== "");
 
     if (hasErrors) {
       console.log(
@@ -69,6 +74,7 @@ export default function LoginForm({ form }: FormProps) {
       );
       return;
     }
+
     try {
       const payload = {
         username: values.userName,
@@ -80,15 +86,24 @@ export default function LoginForm({ form }: FormProps) {
           "http://localhost:5000/api/users/register",
           payload,
         );
-
         if (resp.status === 201) {
           alert("Registration successful!");
         }
+      } else {
+        const resp = await axios.post(
+          "http://localhost:5000/api/users/login",
+          payload,
+        );
+        if (resp.status === 200) {
+          sessionStorage.setItem("token", resp.data.token);
+          alert(`Welcome back, ${resp.data.user.username}.`);
+        }
       }
     } catch (e: any) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form:", e);
       alert(
-        e.resp?.data?.message || "Something went wrong during registration.",
+        e.response?.data?.message ||
+          "Something went wrong during registration.",
       );
     }
   };
