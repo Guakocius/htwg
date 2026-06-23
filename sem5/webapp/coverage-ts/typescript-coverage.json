@@ -1,0 +1,61 @@
+{
+  "fileCounts": {
+    "src/App.tsx": {
+      "correctCount": 91,
+      "totalCount": 91
+    },
+    "src/main.tsx": {
+      "correctCount": 10,
+      "totalCount": 10
+    },
+    "src/types.ts": {
+      "correctCount": 2,
+      "totalCount": 2
+    },
+    "src/components/LeaderboardTable.tsx": {
+      "correctCount": 36,
+      "totalCount": 36
+    },
+    "src/components/LoginForm.tsx": {
+      "correctCount": 121,
+      "totalCount": 121
+    },
+    "src/components/Navbar.tsx": {
+      "correctCount": 44,
+      "totalCount": 44
+    },
+    "src/pages/Game.tsx": {
+      "correctCount": 24,
+      "totalCount": 25
+    },
+    "src/pages/Index.tsx": {
+      "correctCount": 1,
+      "totalCount": 1
+    },
+    "src/pages/Leaderboard.tsx": {
+      "correctCount": 3,
+      "totalCount": 3
+    },
+    "src/pages/Login.tsx": {
+      "correctCount": 13,
+      "totalCount": 13
+    },
+    "src/pages/Register.tsx": {
+      "correctCount": 13,
+      "totalCount": 13
+    }
+  },
+  "anys": [
+    {
+      "file": "src/pages/Game.tsx",
+      "line": 9,
+      "character": 30,
+      "text": "_",
+      "kind": 1
+    }
+  ],
+  "percentage": 99.72144846796657,
+  "total": 359,
+  "covered": 358,
+  "uncovered": 1
+}

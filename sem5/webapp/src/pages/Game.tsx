@@ -1,3 +1,6 @@
+/**
+ * Page for displaying the game and handling the game's logic.
+ */
 export default function Game() {
   return (
     <>

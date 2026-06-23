@@ -37,6 +37,11 @@ function GenerateButtons() {
   );
 }
 
+/**
+ * This component contains the Navbar with the links to the
+ * Index, Register, Login, Game and Leaderboard pages as well
+ * as a button toggling the light mode / dark mode.
+ */
 export default function Navbar() {
   return <GenerateButtons />;
 }
