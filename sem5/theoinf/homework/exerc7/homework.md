@@ -1,12 +1,18 @@
-
 # Übungsblatt 5
 
 ## Aufgabe 5.2
 
-w0 = cc => (q1,cc) => nicht akzeptiert
+w0 = cc => Akzeptiert.
 
-w1 = aca:
-(q1,aca□) ->  => (q2,xca□)
+w1 = aca => Nicht akzeptiert.
+
+w2 = acca => Akzeptiert.
+
+w3 = bb => Nicht akzeptiert.
+
+w4 = bacc => Nicht akzeptiert.
+
+w5 = baccba => Akzeptiert.
 
 L(TM) => {w ∈ \[abc\] | w ist ein Palindrom}
 
