@@ -2,7 +2,7 @@ import "../style/LoginForm.css";
 import React, { useState } from "react";
 import axios from "axios";
 
-import type { FormProps } from "../types.ts";
+import type { FormProps } from "../../types.ts";
 
 /**
  * @param form - The kind of form (Register, Login) being used

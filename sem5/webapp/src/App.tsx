@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import flappyImg from "./assets/flappybird.png";
 import "./style/App.css";
-import Navbar from "./components/Navbar";
-import Index from "./pages/Index";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Game from "./pages/Game";
-import Leaderboard from "./pages/Leaderboard";
+import Navbar from "./frontend/components/Navbar";
+import Index from "./frontend/pages/Index";
+import Register from "./frontend/pages/Register";
+import Login from "./frontend/pages/Login";
+import Game from "./frontend/pages/Game";
+import Leaderboard from "./frontend/pages/Leaderboard";
 
 /**
  * Main application component for the landing page.

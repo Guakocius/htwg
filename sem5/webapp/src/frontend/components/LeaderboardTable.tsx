@@ -1,5 +1,3 @@
-import "./LoginForm";
-
 /**
  * The leaderboard table displaying the names and scores of all
  * users.
