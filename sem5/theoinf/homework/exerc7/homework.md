@@ -32,15 +32,42 @@ Akzeptiert nicht, Pumping-Lemma: keine reguläre Sprache.
 
 ## Aufgabe 5.4
 
+### a)
+
+w5 = 11
+(q0, 11\[\_\])
+
+### b)
+
+siehe PDF.
+
+### c)
+
+f5(w) = NOT(w) => w wird invertiert. Führende Nullen werden entfernt.
+
 ## Aufgabe 5.6
 
 ### a)
 
-siehe .kra-Datei.
+Diagramm: siehe .kra-Datei.
+
+Konfiguration:
+
+w1 = 1
+(q0, \[1\]_)
+-> (q1, 1\[_\]) \[q0; 1,1,R\]
+-> (q2, 1\[_\]) \[q1: _,_,R\]
+-> q1->q3; _,_,R, q3 bei _: \_,x,L ...
+
+w3 = 10
+(q0, \[1\]0*)
+-> (q1, 1\[0\]*) \[1,1,R\]
+-> (q1, 10\[\_\]) \[0,0,R\]
+-> ... q2 aktiviert
 
 ### b)
 
-siehe PDF
+siehe PDF.
 
 ### c)
 
