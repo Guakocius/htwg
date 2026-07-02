@@ -1,6 +1,6 @@
 # Flappy Bird
 
-**Team:** Guakocius
+**Team:** Guakocius<br>
 **Repository:** [https://github.com/Guakocius/htwg/tree/main/sem5/webapp](https://github.com/Guakocius/htwg/tree/main/sem5/webapp)
 
 ## Setup
