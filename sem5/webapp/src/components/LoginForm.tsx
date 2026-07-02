@@ -69,9 +69,7 @@ export default function LoginForm({ form }: FormProps) {
     const hasErrors = fields.some((k) => validationErrors[k] !== "");
 
     if (hasErrors) {
-      console.log(
-        "Validation failed. Please fix the errors before submitting.",
-      );
+      alert("Validation failed. Please fix the errors before submitting.");
       return;
     }
 
