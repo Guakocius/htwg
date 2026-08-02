@@ -1,0 +1,52 @@
+Def. FFT: Aus einem schwingenden Signal ein Amplitudenspektrum machen.
+Nutzen: Filterung von Tönen (Hoch- Band- und Tiefpass (Spiegelung in der Hälfte))
+Def. Amplitude: Abstand zwischen Maximum -> Zentrum und Zentrum -> Minimum
+
+Fensterfunktionen (Windowing): Nur verschiedene Bereiche durchlassen: Linearkombination zweier Arrays.
+Rechteckfenster: Sprung von 0 auf 1 und dann auf 1 auf 0 => sprungartig
+Nachteil: Sehr große Nebenmaxima (Signal stärker verrauscht)
+Andere Fenster: Abrundung der Ränder
+Idee: Überlappen der Fenster, um Rauschen zu vermeiden (ca. bei der Mitte)
+Summe aller überlappenden Fenster: Konstante (am besten 1)
+Blackman-, Gauß-, Dreiecksfenster
+
+Bode-Diagramm: Amplitude (dB) oben, Phase (deg) unten (y) (Grad), Frequenz (rad/s) (x) (Bogenmaß)
+
+Lineare Systeme: Eingangssignal + Störsignal => Ausgangssignal (IN => OUT)
+Linearität: 2 Bedingungen: 
+1. Additivitätsprinzip: f(a+b) = f(a) + f(b)
+2. Komorbiditätsprinzip: f(a*x) = f(x*a)
+Signal zeitdiskret: Abhängig von Zeit
+Antwort eines Systems: Zeitvariant: Abhängig von Zeit (Verhalten)
+Aktiver Sensor: Benötigt Stromzufuhr
+Passiver Sensor: Benötigt keine Stromzufuhr (Erzeugt genügend Strom, um sich selbst zu unterhalten)
+Extrinsischer Sensor: Misst außerhalb des Systems
+Intrinsischer Sensor: Misst innerhalb des Systems
+Fehlerfortpflanzung: Addition zweier Werte => auch Addition der Fehler
+
+Analog => Digital: 
+Abzählen: Addieren, bis man nah genug am analogen Wert dran ist
+Parallel: Alle Referenzspannungen mit Analogspannung vergleichen und wählen nähste aus.
+Wegeverfahren: Vergleichen in Binärsuche (> 1/2, 1/4, ...?)
+
+Regler (Regelungstechnik) (IN => OUT): 
+P-Regler (Proportional): Konstante auf IN multipliziert
+PD-Regler (P + Differenzial)
+Einschwingen => (PT1): geht in Viertelkreis nach oben; (PT2): Geht auch nach oben aber pendelt sich ein
+I-Regler (Integral): Signal wird integriert
+D-Regler (Differenzial): Kaum Veränderung => Sieht nur kurzfristige, keine langfristige Veränderung
+PI-Regler
+PID-Regler: Vorteile von allen
+Man wählt nach Augenmaß
+Zweipunktregler: Vergleicht => e <= ed + x (max) | e > ed - x
+=> Anschalten, wenn zu niedrig, ausschalten, wenn zu hoch
+
+Neuronen:
+IN (x1..xn).iter().for_each(|i| w(i) * x(i)).sum() => sum(i=1,N, (w(i) * x(i)))
+
+Quadratfehler (MSE): 1/N * sum(i=1,N, (y(i) - ŷ(i))²)
+
+Totzeitglied: Antwort vom System kommt zeitversetzt
+
+Spektrogramm: Veränderung über Zeit
+
