@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: .
+    container_name: flappy_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - JWT_SECRET=secret-key
+    volumes:
+      - sqlite_data:/app/data
+
+volumes:
+  sqlite_data:

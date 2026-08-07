@@ -1,4 +1,4 @@
-import "../style/LoginForm.css";
+import "../../style/LoginForm.css";
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -9,7 +9,7 @@ import type { FormProps } from "../../types.ts";
  */
 export default function LoginForm({ form }: FormProps) {
   const [values, setValues] = useState({
-    userName: "",
+    username: "",
     password: "",
     confirmPassword: "",
     terms: false,
@@ -36,8 +36,8 @@ export default function LoginForm({ form }: FormProps) {
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!values.userName.trim()) {
-      newErrors.userName = "Name is required";
+    if (!values.username.trim()) {
+      newErrors.username = "Username is required";
     }
 
     if (!values.password) {
@@ -46,12 +46,16 @@ export default function LoginForm({ form }: FormProps) {
       newErrors.password = "Password must be at least 8 characters";
     }
 
-    if (values.password !== values.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-
-    if (!values.terms) {
-      newErrors.terms = "You must accept the terms and conditions";
+    if (form === "Register") {
+      if (values.password && values.password.length < 8) {
+        newErrors.password = "Password must be at least 8 characters";
+      }
+      if (values.password !== values.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
+      if (!values.terms) {
+        newErrors.terms = "You must accept the terms and conditions";
+      }
     }
 
     setValid(newErrors);
@@ -61,23 +65,19 @@ export default function LoginForm({ form }: FormProps) {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
-    const fields =
-      form === "Register"
-        ? Object.keys(validationErrors)
-        : ["userName", "password"];
-
-    const hasErrors = fields.some((k) => validationErrors[k] !== "");
+    const hasErrors = Object.keys(validationErrors).length > 0;
 
     if (hasErrors) {
       console.log(
-        "Validation failed. Please fix the errors before submitting.",
+        "Validation failed. Please fix the errors before submitting:",
+        validationErrors,
       );
       return;
     }
 
     try {
       const payload = {
-        username: values.userName,
+        username: values.username,
         password: values.password,
       };
 
@@ -118,13 +118,13 @@ export default function LoginForm({ form }: FormProps) {
             <input
               type="text"
               className="username"
-              name="userName"
+              name="username"
               placeholder="Username"
-              value={values.userName}
+              value={values.username}
               onChange={handleInputChange}
             />
             {valid.userName && (
-              <span style={{ color: "red" }}>{valid.userName}</span>
+              <span style={{ color: "red" }}>{valid.username}</span>
             )}
           </div>
 
