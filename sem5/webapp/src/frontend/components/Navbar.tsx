@@ -18,13 +18,10 @@ function GenerateButtons() {
   return (
     <nav id="top-navbar">
       {FILES.map((file) => {
-        const fileLowerCase = file.toLowerCase();
+        const fileLowerCase = file === "Index" ? "" : file.toLowerCase();
 
         return (
-          <button
-            key={fileLowerCase}
-            onClick={() => handleNavigation(fileLowerCase)}
-          >
+          <button key={file} onClick={() => handleNavigation(fileLowerCase)}>
             {file}
           </button>
         );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import flappyImg from "../../assets/flappybird.png";
 
 interface Pipe {
   x: number;
@@ -170,7 +171,7 @@ export default function Game() {
           }}
         >
           <img
-            src="assets/img/flappybird.png"
+            src={flappyImg}
             alt="Flappy Bird"
             style={{ width: "100%", height: "100%" }}
           />
