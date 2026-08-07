@@ -31,7 +31,6 @@
     "express": "^5.2.1",
     "jest-dom": "^4.0.0",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.7.2",
     "node-gyp-build": "^4.8.4",
     "nodemon": "^3.1.14",
     "react": "^19.2.4",

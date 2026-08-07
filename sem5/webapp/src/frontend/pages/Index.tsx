@@ -8,7 +8,7 @@ export default function Index() {
     <>
       <header>
         <h1>
-          Welcome to Flappy Bird
+          Welcome to Flappy Bird --
           <span className="special-text">Reimagined!</span>
         </h1>
       </header>

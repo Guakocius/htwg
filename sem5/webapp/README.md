@@ -1,73 +1,110 @@
-# Flappy Bird
+# Flappy Bird -- Reimagined
 
 **Team:** Guakocius
+
 **Repository:** [https://github.com/Guakocius/htwg/tree/main/sem5/webapp](https://github.com/Guakocius/htwg/tree/main/sem5/webapp)
 
-## 1. Architekturskizze & Technologie-Entscheidung
+---
 
-| Stack              | Komponente                                                                              |
-| ------------------ | --------------------------------------------------------------------------------------- |
-| Frontend           | Single Page Application (React + TS), Routing via React Router, HTTP Requests via Axios |
-| HTTP REST-Anfragen | POST/GET                                                                                |
-| Backend            | REST API (Express + TS), CORS & JSON Middleware, JWT-Authentifizierung & Bcrypt-Hashing |
-| Mongoose           | ODM Connection                                                                          |
-| MongoDB            | Datenbank, persistente Speicherung von Usern                                            |
+## Projektbeschreibung
 
-### Begründung zur Systemarchitektur (SPA vs. SSR)
+**Flappy Bird -- Reimagined** ist eine moderne, typsichere Full-Stack-Webapplikation, die das ikonische Spielprinzip des Ur-Spiels aufgreift und um moderne Server-Komponenten erweitert. Die Anwendung kombiniert eine performante Client-seitige Game-Engine mit einer sicheren REST-API und persistenten HIghscore-Speicherung.
 
-Für dieses Projekt wurde bewusst eine klassische Client-Side-Rendered Single Page Application
-gewählt und auf Server-Side Rendering (SSR wie z.B. Next.js) oder Static Site Generation verzichtet.
-Da es sich hierbei um ein interaktives Arcade-Spiel, namentlich Flappy Bird, mit hochdynamischen
-Zuständen, Benutzer-Authentifizierung und Echtzeit-Leaderboards handelt, bringt SSR keinen
-signifikanten Mehrwert. SEO-Optimierung ist für eine passwortgeschützte Spieleanwendung nicht
-relevant. Eine SPA bietet zudem durch das asynchrone Nachladen von Daten via REST-API eine
-flüssigere Benutzererfahrung ohne störende Seiten-Reloads.
+### Key Features
+
+- **Classic Arcade Gameplay:** Reaktionsbasiertes Handling über die Leertaste oder Mausklicks mit kollisionsgenauer Physik.
+- **Nutzerverwaltung & Authentifizierung:** Registrierung und Anmeldung mit JWT-basierten Sessions und Bcrypt-Passwort-Hashing.
+- **Persistentes Leaderboard:** Serverseitig validierte Bestenliste (Top 10) zur Speicherung und Visualisierung von Rekorden.
+- **Modernes UI/UX & Dynamic Theme:** Nahtloser Wechsel zwischen Light- und Darkmode für optimale Lese- und Spielbarkeit.
+- **End-to-End Typsicherheit:** Durchgängiger Einsatz von TypeScript vom React-Frontend bis zum Express-Backend.
 
 ---
 
-## 2. Testuser-Credentials
+## Architekturübersicht
 
-Für die Bewertung und das Testing können folgende fiktive Zugangsdaten verwendet werden:
+Die Anwendung basiert auf einer entkoppelten **Drei-Schichten-Architektur**:
 
-- **Username:** `TestUser`
-- **Password:** `testpassword123!`
+```text
+[ React 19 Client (Port 5173) ] -> HTTP / JSON (Axios + JWT) -> [ Express.js Backend (Port 5000) ] -> SQLite Database (better-sqlite3)
+```
 
----
-
-## 3. Kriterien-Zuordnung
-
-| Kriterium                   | Beschreibung                                       | Datei / Code-Stelle                                                           |
-| :-------------------------- | :------------------------------------------------- | :---------------------------------------------------------------------------- |
-| **React-Router**            | 5 Routen definiert und `<Routes>` genutzt          | `src/App.tsx`                                                                 |
-| **Navigation**              | Programmatische Navigation via `useNavigate`       | `src/componnents/Navbar.tsx`, `src/pages/Login.tsx`, `src/pages/Register.tsx` |
-| **Datenfetching und REST**  | `POST`-Methode via Axios realisiert                | `src/components/LoginForm.tsx` (in `handleSubmit`)                            |
-| **Fehler- und Ladezustand** | Clientseitige Validierung und API-Catch-Blöcke     | `src/components/LoginForm.tsx` (`validate()`, `catch ()`)                     |
-| **Geteilter State**         | Mode-Toggling (Light/Dark Theme) via DOM / Session | `src/components/Navbar.tsx`                                                   |
-| **Tests**                   | 3 funktionale Kernlogik-Tests geschrieben          | `tests/LoginForm.test.tsx`                                                    |
-| **Backend-Server**          | Node.js-Server mit TypeScript und Express-API      | `src/backend/server/server.ts`                                                |
-| **Datenbank**               | Persistente Datenhaltung via MongoDB und Mongoose  | `src/backend/server/server.ts`                                                |
-| **Authentifizierung**       | Passwort-Hashing, Registrierung, JWT-Login         | `src/backend/server/server.ts` (`/register`, `/login`)                        |
+- **Frontend:** React 19 (SPA) gebündelt mit Vite, clientseitiges Routing via React Router v7.
+- **Backend:** Node.js mit Express.js als RESTful API. Absicherung der Endpunkte über Auth-Middleware (JWT).
+- **Datenbank:** SQLite (_better-sqlite3_) zur relationalen Speicherung von Benutzerdaten (_users_ Table)
 
 ---
 
-## 4. Projekt starten
+## Setup-Anleitung (Inbetriebnahme in unter 10 Minuten)
 
-### Backend starten:
+Die Applikation lässt sich reproduzierbar mittels Docker-Compose oder manuell im Entwicklungsmodus ausführen.
+
+### Option A: Start via Docker-Compose
+
+**Voraussetzung:** Docker Container Runtime und Docker-Compose müssen installiert sein.
+
+1. Repository klonen:
+
+```bash
+git clone https://github.com/Guakocius/htwg.git
+cd htwg/sem5/webapp
+```
+
+2. Multi-Container-Environment starten:
+
+```bash
+docker-compose up --build -d
+```
+
+3. Applikation im Browser öffnen:
+
+- **Frontend:** http://localhost:5173
+- **Backend API:** http://localhost:5000
+
+### Option B: Manuelle lokale Installation (Entwicklungsmodus)
+
+**Voraussetzung:** Node.js (v18+) und npm.
+
+1. Backend starten:
 
 ```bash
 npm install --legacy-peer-deps
-npm run start
+npx tsx src/backend/server/server.ts
 ```
 
-### Frontend starten:
+(Backend läuft auf http://localhost:5000)
+
+2. Frontend starten (in neuem Terminal):
 
 ```bash
 npm install --legacy-peer-deps
 npm run dev
 ```
 
-### Tests ausführen:
+(Frontend läuft auf http://localhost:5173)
 
-```bash
-npm test
-```
+---
+
+## Testuser / Zugangsdaten für die Bewertung
+
+Für den sofortigen Test der Anwendung stehen folgende vordefinierte Accounts zur Verfügung:
+
+| Rolle         | Benutzername | Passwort      | Beschreibung                                         |
+| ------------- | ------------ | ------------- | ---------------------------------------------------- |
+| Standard-User | testuser     | Password123!  | Für reguläre Login-Tests und neue Highscore-Versuche |
+| Top-Player    | player1      | SecurePass123 | Existierender Account im globalen Leaderboard        |
+
+Hinweis: Neue Accounts können jederzeit direkt über die _/register_-Seite in der Anwendung angelegt werden.
+
+---
+
+## Demo-Video
+
+Ein 3- bis 5-minütiges Demonstrations-Video (Screencast) zeigt die Registrierung, den Login, die Game-Mechanik sowie die Aktualisierung des Leaderboards.
+
+---
+
+## Bekannte Einschränkungen & Offene Punkte
+
+1. **Client-side Physics:** Die Kollisionserkennung läuft aktuell clientseitig im Browser. Bei extrem hoher Auslastung des Client-Systems kann es vereinzelt zu Schwankungen in den Frameraten kommen.
+2. **Audio-Effekte:** Sounds für Sprünge und Kollisionen sind in der aktuellen Version noch nicht implementiert.
+3. **Session Expiry Handling:** Läuft das JWT-Token ab, muss sich der Nutzer manuell neu einloggen; ein automatischer Refresh-Token-Handshake ist als zukünftige Ausbaustufe geplant.
