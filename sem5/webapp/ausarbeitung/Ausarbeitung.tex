@@ -479,8 +479,14 @@ Für die Inbetriebnahme der Gesamtapplikation auf einem Zielsystem müssen ledig
 git clone https://github.com/Guakocius/htwg.git
 cd htwg/sem5/webapp
 
-# 2. Multi-Container-Environment bauen und im Hintergrund ausfuehren
+# 2. Backend containerisiert starten und im Hintergrund ausfuehren
 docker-compose up --build -d
+
+# 3. Dependencies fuer Frontend installieren
+npm install --legacy-peer-deps
+
+# 4. Frontend starten
+npm run dev
 \end{lstlisting}
 
 Nach dem erfolgreichen Build-Prozess stehen die Dienste wie folgt bereit:

@@ -36,11 +36,9 @@ Die Anwendung basiert auf einer entkoppelten **Drei-Schichten-Architektur**:
 
 ## Setup-Anleitung (Inbetriebnahme in unter 10 Minuten)
 
-Die Applikation lässt sich reproduzierbar mittels Docker-Compose oder manuell im Entwicklungsmodus ausführen.
+Die Applikation lässt sich reproduzierbar mittels Docker-Compose und starten des Frontends mittels npm ausführen.
 
-### Option A: Start via Docker-Compose
-
-**Voraussetzung:** Docker Container Runtime und Docker-Compose müssen installiert sein.
+**Voraussetzung:** Docker Container Runtime und Docker-Compose sowie Node.js und npm müssen installiert sein.
 
 1. Repository klonen:
 
@@ -49,44 +47,29 @@ git clone https://github.com/Guakocius/htwg.git
 cd htwg/sem5/webapp
 ```
 
-2. Multi-Container-Environment starten:
+2. Backend starten:
 
 ```bash
 docker-compose up --build -d
 ```
 
-3. Applikation im Browser öffnen:
-
-- **Frontend:** http://localhost:5173
-- **Backend API:** http://localhost:5000
-
-### Option B: Manuelle lokale Installation (Entwicklungsmodus)
-
-**Voraussetzung:** Node.js (v18+) und npm.
-
-1. Backend starten:
-
-```bash
-npm install --legacy-peer-deps
-npx tsx src/backend/server/server.ts
-```
-
-(Backend läuft auf http://localhost:5000)
-
-2. Frontend starten (in neuem Terminal):
+3. Frontend starten:
 
 ```bash
 npm install --legacy-peer-deps
 npm run dev
 ```
 
-(Frontend läuft auf http://localhost:5173)
+4. Applikation im Browser öffnen:
+
+- **Frontend:** http://localhost:5173
+- **Backend API:** http://localhost:5000
 
 ---
 
 ## Testuser / Zugangsdaten für die Bewertung
 
-Für den sofortigen Test der Anwendung stehen folgende vordefinierte Accounts zur Verfügung:
+Für den sofortigen Test der Anwendung können folgende Credentials verwendet werden:
 
 | Rolle         | Benutzername | Passwort      | Beschreibung                                         |
 | ------------- | ------------ | ------------- | ---------------------------------------------------- |
